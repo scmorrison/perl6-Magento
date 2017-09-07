@@ -77,5 +77,5 @@ multi sub search-criteria-to-query-string(
 ) {
     (map -> $k, $v {
         search-criteria-to-query-string($v, $k, :$filtergroup_i, :$filters_i);
-    }, kv $data).head.trans: /'['/ => '\\[', /']'/ => '\\]';
+    }, kv $data).head;
 }

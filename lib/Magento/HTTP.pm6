@@ -22,7 +22,7 @@ our sub request(
         $headers ?? |$headers !! %()
     );
 
-    my $url = "{$host}/$uri";
+    my $url = "{$host}/{$uri.trans: /'['/ => '\\[', /']'/ => '\\]'}";
 
     my %res = do given $method {
         when 'POST' {
