@@ -47,7 +47,7 @@ Module Usage
 
 Using long-use Integration Access Token from `~/.6mag/config.yml`:
 
-```perl
+```perl6
 use Magento::Config;
 use Magento::Customers;
 
@@ -59,7 +59,7 @@ my %config = Magento::Config::from-file;
 
 Using pre-generated Access Token without `~/.6mag/config.yml`:
 
-```perl
+```perl6
 use Magento::Customers;
 
 my $host   = 'http://localhost';
@@ -75,7 +75,7 @@ my %config = %(
 
 Using password authentication as Admin:
 
-```perl
+```perl6
 use Magento::Auth;
 use Magento::Customers;
 
@@ -92,7 +92,7 @@ my %config = %(
 
 Using password authentication as Customer:
 
-```perl
+```perl6
 use Magento::Auth;
 use Magento::Customers;
 
@@ -114,7 +114,7 @@ my %config = %(:$host, :$access_key, store => 'default');
 
 Use a `Perl 6` Hash to define search criteria:
 
-```perl
+```perl6
 use Magento::Config;
 use Magento::Customers;
 
