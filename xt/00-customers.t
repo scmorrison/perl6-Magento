@@ -15,7 +15,7 @@ plan 1;
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
 subtest {
-    plan 10;
+    plan 11;
 
     my %t1_data = group => %{ 
         code          => 'TestCustomerGroup',
@@ -25,7 +25,6 @@ subtest {
   
     # Customer Groups New
     %config ==> customer-groups-new(data => %t1_data) ==> my %t1_results;
-
     is %t1_results<code>, 'TestCustomerGroup', 'customer groups new [code]';
     is %t1_results<tax_class_id>, 3, 'customer groups new [tax_class_id]';
     is %t1_results<tax_class_name>, 'Retail Customer', 'customer groups new [tax_class_name]';
@@ -43,8 +42,18 @@ subtest {
     is %t3_results<tax_class_id>, 3, 'customer groups store default [tax_class_id]';
     is %t3_results<tax_class_name>, 'Retail Customer', 'customer groups store default [tax_class_name]';
 
+    my %t4_data = group => %{ 
+        code => 'TestCustomerGroupModded',
+        taxClassId    => 3,
+        taxClassName  => 'Retail Customer'
+    }
+
+    # Customer Groups update 
+    %config ==> customer-groups(id => $t1_customer_group_id, data => %t4_data) ==> my %t4_results;
+    is %t4_results<code>, 'TestCustomerGroupModded', 'customer groups update [code]';
+
     # Customer Group Delete
-    %config ==> customer-groups-delete(id => $t1_customer_group_id) ==> my $t4_results;
-    is $t4_results, True, 'customer groups delete';
+    %config ==> customer-groups-delete(id => $t1_customer_group_id) ==> my $fin_results;
+    is $fin_results, True, 'customer groups delete';
 
 }, 'Customer groups';

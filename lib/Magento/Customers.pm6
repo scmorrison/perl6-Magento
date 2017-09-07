@@ -55,6 +55,21 @@ our multi customer-groups(
         access_token => $config<access_token>;
 }
 
+#PUT    /V1/customerGroups/:id
+our multi customer-groups(
+    Hash $config,
+    Int  :$id,
+    Hash :$data
+) {
+    Magento::HTTP::request
+        method       => 'PUT',
+        host         => $config<host>,
+        uri          => "rest/V1/customerGroups/$id",
+        access_token => $config<access_token>,
+        content      => to-json $data;
+}
+
+
 proto sub customer-groups-default(|) is export {*}
 #GET    /V1/customerGroups/default/:storeId
 our multi customer-groups-default(
