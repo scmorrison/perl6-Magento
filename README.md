@@ -120,7 +120,7 @@ use Magento::Customers;
 
 my %config = Magento::Config::from-file;
 
-my %customer_search_criteria = %(
+my %customer_search_criteria = %{
     searchCriteria => %( 
         filterGroups => [
             {
@@ -136,7 +136,7 @@ my %customer_search_criteria = %(
         current_page => 1,
         page_size    => 10
     )
-)
+}
 
 # Do a customer search using the search criteria hash
 %config
