@@ -63,11 +63,11 @@ Using pre-generated Access Token without `~/.6mag/config.yml`:
 use Magento::Customers;
 
 my $host   = 'http://localhost';
-my %config = %(
+my %config = %{
     host         => $host,
     access_token => '********************************',
     store        => 'default'
-);
+}
 
 #GET    /V1/customers/:customerId
 %config ==> customers(id => 1) ==> say();
@@ -80,11 +80,11 @@ use Magento::Auth;
 use Magento::Customers;
 
 my $host   = 'http://localhost';
-my %config = %(
+my %config = %{
     host         => $host,
     access_token => request-access-token(username => 'admin', password => '****', :$host),
     store        => 'default'
-);
+}
 
 #GET    /V1/customers/:customerId
 %config ==> customers(id => 1) ==> say();
@@ -104,7 +104,7 @@ my $access_token =
         password  => '****',
         user_type => 'customer');
 
-my %config = %(:$host, :$access_key, store => 'default');
+my %config = %{:$host, :$access_key, store => 'default'};
 
 #GET    /V1/customers/me
 %config ==> customers-me() ==> say();
@@ -121,7 +121,7 @@ use Magento::Customers;
 my %config = Magento::Config::from-file;
 
 my %customer_search_criteria = %{
-    searchCriteria => %( 
+    searchCriteria => %{
         filterGroups => [
             {
                 filters => [
@@ -135,7 +135,7 @@ my %customer_search_criteria = %{
         ],
         current_page => 1,
         page_size    => 10
-    )
+    }
 }
 
 # Do a customer search using the search criteria hash

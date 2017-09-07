@@ -4,13 +4,13 @@ use v6;
 
 use Magento::HTTP;
 use Magento::Utils;
+use JSON::Fast;
 
 unit module Magento::Customers;
 
 #GET    /V1/customerGroups/search
 #POST   /V1/customerGroups
 #PUT    /V1/customerGroups/:id
-#DELETE /V1/customerGroups/:id
 #GET    /V1/attributeMetadata/customer/attribute/:attributeCode
 #GET    /V1/attributeMetadata/customer/form/:formCode
 #GET    /V1/attributeMetadata/customer
@@ -42,31 +42,20 @@ unit module Magento::Customers;
 #GET    /V1/customers/:customerId/shippingAddress
 #DELETE /V1/addresses/:addressId
 
-#GET    /V1/customerGroups/search
-proto sub customer-groups-search(|) is export {*}
-our multi customer-groups-search(
+proto sub customer-groups(|) is export {*}
+#GET    /V1/customerGroups/:id
+our multi customer-groups(
     Hash $config,
-    Hash :$search_criteria
+    Int  :$id
 ) {
-    my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
         method       => 'GET',
         host         => $config<host>,
-        uri          => "rest/V1/customerGroups/search?$query_string",
+        uri          => "rest/V1/customerGroups/$id",
         access_token => $config<access_token>;
 }
 
 proto sub customer-groups-default(|) is export {*}
-#GET    /V1/customerGroups/default
-our multi customer-groups-default(
-    Hash $config
-) {
-    Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups/default",
-        access_token => $config<access_token>;
-}
 #GET    /V1/customerGroups/default/:storeId
 our multi customer-groups-default(
     Hash $config,
@@ -76,6 +65,17 @@ our multi customer-groups-default(
         method       => 'GET',
         host         => $config<host>,
         uri          => "rest/V1/customerGroups/default/$store_id",
+        access_token => $config<access_token>;
+}
+
+#GET    /V1/customerGroups/default
+multi customer-groups-default(
+    Hash $config
+) {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/customerGroups/default",
         access_token => $config<access_token>;
 }
 
@@ -92,26 +92,44 @@ our multi customer-groups-permissions(
         access_token => $config<access_token>;
 }
 
-proto sub customer-groups(|) is export {*}
-#GET    /V1/customerGroups/:id
-our multi customer-groups(
+#GET    /V1/customerGroups/search
+proto sub customer-groups-search(|) is export {*}
+our multi customer-groups-search(
+    Hash $config,
+    Hash :$search_criteria
+) {
+    my $query_string = search-criteria-to-query-string $search_criteria;
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/customerGroups/search?$query_string",
+        access_token => $config<access_token>;
+}
+
+#POST    /V1/customerGroups
+proto sub customer-groups-new(|) is export {*}
+our multi customer-groups-new(
+    Hash $config,
+    Hash :$data
+) {
+    Magento::HTTP::request
+        method       => 'POST',
+        host         => $config<host>,
+        uri          => "rest/V1/customerGroups",
+        access_token => $config<access_token>,
+        content      => to-json $data;
+}
+
+#DELETE /V1/customerGroups/:id
+proto sub customer-groups-delete(|) is export {*}
+our multi customer-groups-delete(
     Hash $config,
     Int  :$id
 ) {
     Magento::HTTP::request
-        method       => 'GET',
+        method       => 'DELETE',
         host         => $config<host>,
         uri          => "rest/V1/customerGroups/$id",
-        access_token => $config<access_token>;
-}
-#PUT    /V1/customerGroups
-our multi customer-groups(
-    Hash $config
-) {
-    Magento::HTTP::request
-        method       => 'PUT',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups",
         access_token => $config<access_token>;
 }
 

@@ -25,13 +25,21 @@ our sub request(
     my $url = "{$host}/{$uri.trans: /'['/ => '\\[', /']'/ => '\\]'}";
 
     my %res = do given $method {
-        when 'POST' {
-            HTTP::Tinyish.new.post:
-                $url, headers => %request_headers, :$content;
+        when 'DELETE' {
+            HTTP::Tinyish.new.delete:
+                $url, headers => %request_headers;
         }
         when 'GET' {
             HTTP::Tinyish.new.get:
                 $url, headers => %request_headers;
+        }
+        when 'POST' {
+            HTTP::Tinyish.new.post:
+                $url, headers => %request_headers, :$content;
+        }
+        when 'PUT' {
+            HTTP::Tinyish.new.put:
+                $url, headers => %request_headers, :$content;
         }
     }
     return (%res<content> ?? from-json %res<content> !! False);
