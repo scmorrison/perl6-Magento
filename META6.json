@@ -1,0 +1,26 @@
+{
+    "perl" : "6.c",
+    "name" : "Magento",
+    "license" : "Artistic-2.0",
+    "version"  : "0.0.1",
+    "description" : "Magento 2 API client module for Perl 6",
+    "tags" : [ "web", "api", "magento", "ecommerce" ],
+    "provides" : {
+      "Magento"                 : "lib/Magento.pm6",
+      "Magento::Auth"           : "lib/Magento/Auth.pm6",
+      "Magento::CLI"            : "lib/Magento/CLI.pm6",
+      "Magento::Config"         : "lib/Magento/Config.pm6",
+      "Magento::Customers"      : "lib/Magento/Customers.pm6",
+      "Magento::HTTP"           : "lib/Magento/HTTP.pm6",
+      "Magento::Utils"          : "lib/Magento/Utils.pm6"
+    },
+    "authors" : [ "Sam Morrison" ],
+    "depends" : [
+        "File::Find",
+        "HTTP::Tinyish",
+        "JSON::Fast",
+        "YAMLish"
+    ],
+    "test-depends" : [ "File::Temp", "Test::Output" ],
+    "source-url" : "https://github.com/scmorrison/perl6-Magento.git"
+}
