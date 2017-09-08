@@ -119,23 +119,37 @@ subtest {
 }, 'Customer metadata';
 
 subtest {
-    plan 16;
+    plan 21;
 
     my %t1_data = %{
-        customer => %{
+        customer  => %{
             email      => 'camelia@p6magentofakemail.com',
             firstname  => 'Camelia',
             lastname   => 'Butterfly',
-            middlename => 'Perl 6'
-        }
+            middlename => 'Perl 6',
+            addresses => [
+                %{
+                    firstname       => 'Camelia',
+                    lastname        => 'Butterfly',
+                    postcode        => '90210',
+                    city            => 'Beverly Hills',
+                    street          => ['Zoe Ave'],
+                    regionId        => 12,
+                    countryId       => 'US',
+                    telephone       => '555-555-5555',
+                    defaultShipping => 'true',
+                    defaultBilling  => 'true'
+                },
+            ]
+        },
     }
-
     # Customer new
     %config ==> customers(data => %t1_data) ==> my %t1_results;
     is %t1_results<firstname>, 'Camelia', 'customer new [firstname]';
     is %t1_results<lastname>, 'Butterfly', 'customer new [lastname]';
     is %t1_results<created_in>, 'Default Store View', 'customer new [created_in]';
     my $t1_customer_id = %t1_results<id>;
+    my $t1_address_id  = %t1_results<addresses>.head<id>;
 
     my %t2_data = %{
         customer => %{
@@ -144,14 +158,14 @@ subtest {
             lastname   => 'Butterfly',
             middlename => 'Perl 6!!!!',
             websiteId  => 1 
-        }
+        },
     }
 
     # Customer update
     %config ==> customers(id => $t1_customer_id, data => %t2_data) ==> my %t2_results;
-    is %t2_results<firstname>, 'Camelia', 'customer new [firstname]';
-    is %t2_results<lastname>, 'Butterfly', 'customer new [lastname]';
-    is %t2_results<middlename>, 'Perl 6!!!!', 'customer new [middlename]';
+    is %t2_results<firstname>, 'Camelia', 'customer update [firstname]';
+    is %t2_results<lastname>, 'Butterfly', 'customer update [lastname]';
+    is %t2_results<middlename>, 'Perl 6!!!!', 'customer update [middlename]';
 
     my %t3_data = %{
         email      => 'camelia1@p6magentofakemail.com',
@@ -236,8 +250,32 @@ subtest {
     %config ==> customers-permissions(id => $t1_customer_id) ==> my $t10_results;
     is $t10_results, False, 'customer permissions read-only';
 
+    my %t11_data = %{
+        customerEmail => 'camelia1@p6magentofakemail.com',
+        websiteId     => 1
+    }
+    # Customer is email available
+    %config ==> customers-email-available(data => %t11_data) ==> my $t11_results;
+    is $t11_results, False, 'customer email available';
+
+    # Customer address by id
+    %config ==> customers-addresses(address_id => $t1_address_id) ==> my %t12_results;
+    is %t12_results<postcode>, '90210', 'customer address by id';
+
+    # Customer shipping address
+    %config ==> customers-addresses-shipping(id => $t1_customer_id) ==> my %t13_results;
+    is %t13_results<postcode>, '90210', 'customer shipping address';
+
+    # Customer billing address
+    %config ==> customers-addresses-billing(id => $t1_customer_id) ==> my %t14_results;
+    is %t14_results<postcode>, '90210', 'customer shipping address';
+
+    # Customer address delete
+    %config ==> customers-addresses-delete(address_id => $t1_address_id) ==> my $fin_address_results;
+    is $fin_address_results, True, 'customer address delete';
+
     # Customer delete
-    %config ==> customers-delete(id => $t1_customer_id) ==> my $fin_results;
-    is $fin_results, True, 'customer delete';
+    %config ==> customers-delete(id => $t1_customer_id) ==> my $fin_customer_results;
+    is $fin_customer_results, True, 'customer delete';
 
 }, 'Customers';

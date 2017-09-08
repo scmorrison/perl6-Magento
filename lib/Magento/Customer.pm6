@@ -384,8 +384,62 @@ our sub customers-permissions(
 }
 
 #POST   /V1/customers/isEmailAvailable
-#GET    /V1/customers/addresses/:addressId
-#GET    /V1/customers/:customerId/billingAddress
-#GET    /V1/customers/:customerId/shippingAddress
-#DELETE /V1/addresses/:addressId
+our sub customers-email-available(
+    Hash $config,
+    Hash :$data
+) is export {
+    Magento::HTTP::request
+        method       => 'POST',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/isEmailAvailable",
+        access_token => $config<access_token>,
+        content      => to-json $data;
+}
 
+#GET    /V1/customers/addresses/:addressId
+our sub customers-addresses(
+    Hash $config,
+    Int  :$address_id
+) is export {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/addresses/$address_id",
+        access_token => $config<access_token>
+}
+
+#GET    /V1/customers/:customerId/billingAddress
+our sub customers-addresses-billing(
+    Hash $config,
+    Int  :$id
+) is export {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/$id/billingAddress",
+        access_token => $config<access_token>
+}
+
+#GET    /V1/customers/:customerId/shippingAddress
+our sub customers-addresses-shipping(
+    Hash $config,
+    Int  :$id
+) is export {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/$id/shippingAddress",
+        access_token => $config<access_token>
+}
+
+#DELETE /V1/addresses/:addressId
+our sub customers-addresses-delete(
+    Hash $config,
+    Int  :$address_id
+) is export {
+    Magento::HTTP::request
+        method       => 'DELETE',
+        host         => $config<host>,
+        uri          => "rest/V1/addresses/$address_id",
+        access_token => $config<access_token>
+}
