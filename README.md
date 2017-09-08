@@ -49,7 +49,7 @@ Using long-use Integration Access Token from `~/.6mag/config.yml`:
 
 ```perl
 use Magento::Config;
-use Magento::Customers;
+use Magento::Customer;
 
 my %config = Magento::Config::from-file;
 
@@ -60,7 +60,7 @@ my %config = Magento::Config::from-file;
 Using pre-generated Access Token without `~/.6mag/config.yml`:
 
 ```perl
-use Magento::Customers;
+use Magento::Customer;
 
 my $host   = 'http://localhost';
 my %config = %{
@@ -77,7 +77,7 @@ Using password authentication as Admin:
 
 ```perl
 use Magento::Auth;
-use Magento::Customers;
+use Magento::Customer;
 
 my $host   = 'http://localhost';
 my %config = %{
@@ -94,7 +94,7 @@ Using password authentication as Customer:
 
 ```perl
 use Magento::Auth;
-use Magento::Customers;
+use Magento::Customer;
 
 my $host         = 'http://localhost';
 my $access_token = 
@@ -116,7 +116,7 @@ Use a `Perl 6` Hash to define search criteria:
 
 ```perl
 use Magento::Config;
-use Magento::Customers;
+use Magento::Customer;
 
 my %config = Magento::Config::from-file;
 

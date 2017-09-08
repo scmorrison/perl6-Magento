@@ -10,8 +10,9 @@
       "Magento::Auth"           : "lib/Magento/Auth.pm6",
       "Magento::CLI"            : "lib/Magento/CLI.pm6",
       "Magento::Config"         : "lib/Magento/Config.pm6",
-      "Magento::Customers"      : "lib/Magento/Customers.pm6",
+      "Magento::Customer"       : "lib/Magento/Customer.pm6",
       "Magento::HTTP"           : "lib/Magento/HTTP.pm6",
+      "Magento::Store"          : "lib/Magento/Store.pm6",
       "Magento::Utils"          : "lib/Magento/Utils.pm6"
     },
     "authors" : [ "Sam Morrison" ],
