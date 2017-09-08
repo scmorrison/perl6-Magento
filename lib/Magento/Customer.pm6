@@ -225,14 +225,6 @@ our sub customers-delete(
         access_token => $config<access_token>;
 }
 
-#POST   /V1/customers/isEmailAvailable
-#GET    /V1/customers/addresses/:addressId
-#GET    /V1/customers/me/billingAddress
-#GET    /V1/customers/:customerId/billingAddress
-#GET    /V1/customers/me/shippingAddress
-#GET    /V1/customers/:customerId/shippingAddress
-#DELETE /V1/addresses/:addressId
-
 #POST   /V1/customers
 proto sub customers(|) is export {*}
 our multi customers(
@@ -280,10 +272,13 @@ our multi customers(
         uri     => "rest/V1/customers/$id",
         access_token => $config<access_token>;
 }
-#PUT    /V1/customers/me/activate
 
-#GET    /V1/customers/me  - use customers
-#PUT    /V1/customers/me  - use customers
+#PUT    /V1/customers/me/activate
+#GET    /V1/customers/me          - use GET customers/:customerId
+#PUT    /V1/customers/me          - use PUT customers/:customerId
+#PUT    /V1/customers/me/password - use customers/password
+#GET    /V1/customers/me/billingAddress
+#GET    /V1/customers/me/shippingAddress
 
 #GET    /V1/customers/search
 our sub customers-search(
@@ -298,17 +293,63 @@ our sub customers-search(
         access_token => $config<access_token>;
 }
 
-#GET    /V1/customers/search
 #PUT    /V1/customers/:email/activate
-#PUT    /V1/customers/me/password
+our sub customers-email-activate(
+    Hash $config,
+    Str  :$email,
+    Hash :$data
+) is export {
+    Magento::HTTP::request
+        method       => 'PUT',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/$email/activate",
+        access_token => $config<access_token>,
+        content      => to-json $data;
+}
+
 #GET    /V1/customers/:customerId/password/resetLinkToken/:resetPasswordLinkToken
+our sub customers-reset-link-token(
+    Hash $config,
+    Int  :$id,
+    Str  :$link_token
+) is export {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/$id/password/resetLinkToken/$link_token",
+        access_token => $config<access_token>;
+}
+
 #PUT    /V1/customers/password
-#GET    /V1/customers/:customerId/confirm
-#POST   /V1/customers/confirm
-our sub customers-confirm(
+our sub customers-password(
     Hash $config,
     Hash :$data
 ) is export {
+    Magento::HTTP::request
+        method       => 'PUT',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/password",
+        access_token => $config<access_token>,
+        content      => to-json $data;
+}
+
+proto sub customers-confirm(|) is export {*}
+#GET    /V1/customers/:customerId/confirm
+our multi customers-confirm(
+    Hash $config,
+    Int  :$id
+) {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/$id/confirm",
+        access_token => $config<access_token>
+}
+#POST   /V1/customers/confirm
+our multi customers-confirm(
+    Hash $config,
+    Hash :$data
+) {
     Magento::HTTP::request
         method       => 'POST',
         host         => $config<host>,
@@ -316,6 +357,35 @@ our sub customers-confirm(
         access_token => $config<access_token>,
         content      => to-json $data;
 }
+
 #PUT    /V1/customers/validate
+our sub customers-validate(
+    Hash $config,
+    Hash :$data
+) is export {
+    Magento::HTTP::request
+        method       => 'PUT',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/validate",
+        access_token => $config<access_token>,
+        content      => to-json $data;
+}
+
 #GET    /V1/customers/:customerId/permissions/readonly
+our sub customers-permissions(
+    Hash $config,
+    Int  :$id
+) is export {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/customers/$id/permissions/readonly",
+        access_token => $config<access_token>
+}
+
+#POST   /V1/customers/isEmailAvailable
+#GET    /V1/customers/addresses/:addressId
+#GET    /V1/customers/:customerId/billingAddress
+#GET    /V1/customers/:customerId/shippingAddress
+#DELETE /V1/addresses/:addressId
 

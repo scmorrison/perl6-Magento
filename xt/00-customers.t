@@ -119,7 +119,7 @@ subtest {
 }, 'Customer metadata';
 
 subtest {
-    plan 10;
+    plan 16;
 
     my %t1_data = %{
         customer => %{
@@ -143,7 +143,7 @@ subtest {
             firstname  => 'Camelia',
             lastname   => 'Butterfly',
             middlename => 'Perl 6!!!!',
-            websiteId  => 0
+            websiteId  => 1 
         }
     }
 
@@ -155,12 +155,12 @@ subtest {
 
     my %t3_data = %{
         email      => 'camelia1@p6magentofakemail.com',
-        websiteId  => 0 
+        websiteId  => 1
     }
     # Customer send verification email
     #
     # This will only work if Stores > Configuration > Customer Configuration 
-    # > Create New Accoutn Options > Require Emails Confirmation = Yes
+    # > Create New Account Options > Require Emails Confirmation = Yes
     %config ==> customers-confirm(data => %t3_data) ==> my %t3_results;
     # This should return the following message:
     is %t3_results<message>, 'No confirmation needed.', 'customer confirm email';
@@ -187,6 +187,54 @@ subtest {
     %config ==> customers-search(search_criteria => %t4_search_criteria) ==> my %t4_results;
     is %t4_results<items>.head<firstname>, 'Camelia', 'customer search [firstname]';
     is %t4_results<items>.head<lastname>, 'Butterfly', 'customer search [lastname]';
+
+    my %t5_data = %{
+        confirmationKey => 'aklsjdkljasdjklasdjklasjkldlkajsdjklasdlkj' 
+    }
+    # Customer email activate
+    %config ==> customers-email-activate(email => 'camelia1@p6magentofakemail.com', data => %t5_data) ==> my %t5_results;
+    is %t5_results<message>, 'Account already active', 'customer email activate';
+
+    # Customer reset link token
+    %config ==> customers-reset-link-token(id => $t1_customer_id, link_token => 'asdasdasd') ==> my %t6_results;
+    is %t6_results<message>, 'Reset password token mismatch.', 'customer reset link token';
+
+    my %t7_data = %{
+        email      => 'camelia1@p6magentofakemail.com',
+        template   => 'email_reset',
+        websiteId  => 1
+    }
+    # Customer password
+    #
+    # This will only work if Stores > Configuration > Customer Configuration 
+    # > Password Options > Max Number of Password Reset Requests = 0
+    # and:
+    # Stores > Configuration > Customer Configuration > Password Options
+    # > Min Time Between Password Reset Requests = 0
+    %config ==> customers-password(data => %t7_data) ==> my $t7_results;
+    is $t7_results, True, 'customer password';
+
+    # Customer confirm by id
+    %config ==> customers-confirm(id => $t1_customer_id) ==> my $t8_results;
+    is $t8_results, 'account_confirmed', 'customer confirm by id';
+
+    my %t9_data = %{
+        customer => %{
+            email      => 'camelia1@p6magentofakemail.com',
+            firstname  => 'Camelia',
+            lastname   => 'Butterfly',
+            middlename => 'Perl 6!!!!',
+            websiteId  => 1,
+            groupId    => 2
+        }
+    }
+    # Customer validate
+    %config ==> customers-validate(data => %t9_data) ==> my %t9_results;
+    is %t9_results<valid>, True, 'customer validate';
+
+    # Customer permissions read-only (Check if customer can be deleted)
+    %config ==> customers-permissions(id => $t1_customer_id) ==> my $t10_results;
+    is $t10_results, False, 'customer permissions read-only';
 
     # Customer delete
     %config ==> customers-delete(id => $t1_customer_id) ==> my $fin_results;
