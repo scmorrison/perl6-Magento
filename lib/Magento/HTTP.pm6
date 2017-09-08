@@ -14,7 +14,7 @@ our sub request(
     Str  :$access_token,
     Str  :$content,
     Hash :$headers
-    --> Response
+    --> Any
 ) {
     my %request_headers = %(
         'Content-Type'  => 'application/json',
@@ -42,5 +42,13 @@ our sub request(
                 $url, headers => %request_headers, :$content;
         }
     }
-    return (%res<content> ?? from-json %res<content> !! False);
+
+    return do given %res<content> {
+        when *.defined {
+            from-json(%res<content>);
+        }
+        default {
+            False;
+        }
+    }
 }

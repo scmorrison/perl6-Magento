@@ -10,7 +10,7 @@ use lib 'lib';
 use Magento::Config;
 use Magento::Customers;
 
-plan 1;
+plan 2;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -57,3 +57,28 @@ subtest {
     is $fin_results, True, 'customer groups delete';
 
 }, 'Customer groups';
+
+subtest {
+    plan 5;
+
+    # Customer Metadata all
+    %config ==> customer-metadata() ==> my @t1_results;
+    is @t1_results.head<attribute_code>, 'website_id', 'customer metadata all';
+
+    # Customer Metadata attribute
+    %config ==> customer-metadata-attribute(attribute_code => 'website_id') ==> my %t2_results;
+    is %t2_results<frontend_label>, 'Associate to Website', 'customer metadata attribute';
+
+    # Customer Metadata form
+    %config ==> customer-metadata-form(form_code => 'adminhtml_customer') ==> my @t3_results;
+    is @t3_results.head<attribute_code>, 'created_at', 'customer metadata form';
+
+    # Customer Metadata custom
+    %config ==> customer-metadata-custom() ==> my @t4_results;
+    is @t4_results, (), 'customer metadata custom';
+
+    # Customer Metadata address attribute
+    %config ==> customer-address-attribute(attribute_code => 'postcode') ==> my %t5_results;
+    is %t5_results<store_label>, 'Zip/Postal Code', 'customer metadata address attribute';
+
+}, 'Customer metadata';

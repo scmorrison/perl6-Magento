@@ -8,40 +8,6 @@ use JSON::Fast;
 
 unit module Magento::Customers;
 
-#GET    /V1/customerGroups/search
-#POST   /V1/customerGroups
-#PUT    /V1/customerGroups/:id
-#GET    /V1/attributeMetadata/customer/attribute/:attributeCode
-#GET    /V1/attributeMetadata/customer/form/:formCode
-#GET    /V1/attributeMetadata/customer
-#GET    /V1/attributeMetadata/customer/custom
-#GET    /V1/attributeMetadata/customerAddress/attribute/:attributeCode
-#GET    /V1/attributeMetadata/customerAddress/form/:formCode
-#GET    /V1/attributeMetadata/customerAddress
-#GET    /V1/attributeMetadata/customerAddress/custom
-#POST   /V1/customers
-#PUT    /V1/customers/:id
-#PUT    /V1/customers/me
-#GET    /V1/customers/me
-#PUT    /V1/customers/me/activate
-#GET    /V1/customers/search
-#PUT    /V1/customers/:email/activate
-#PUT    /V1/customers/me/password
-#GET    /V1/customers/:customerId/password/resetLinkToken/:resetPasswordLinkToken
-#PUT    /V1/customers/password
-#GET    /V1/customers/:customerId/confirm
-#POST   /V1/customers/confirm
-#PUT    /V1/customers/validate
-#GET    /V1/customers/:customerId/permissions/readonly
-#DELETE /V1/customers/:customerId
-#POST   /V1/customers/isEmailAvailable
-#GET    /V1/customers/addresses/:addressId
-#GET    /V1/customers/me/billingAddress
-#GET    /V1/customers/:customerId/billingAddress
-#GET    /V1/customers/me/shippingAddress
-#GET    /V1/customers/:customerId/shippingAddress
-#DELETE /V1/addresses/:addressId
-
 proto sub customer-groups(|) is export {*}
 #GET    /V1/customerGroups/:id
 our multi customer-groups(
@@ -147,6 +113,97 @@ our multi customer-groups-delete(
         uri          => "rest/V1/customerGroups/$id",
         access_token => $config<access_token>;
 }
+
+#GET    /V1/attributeMetadata/customer/attribute/:attributeCode
+proto sub customer-metadata-attribute(|) is export {*}
+our multi customer-metadata-attribute(
+    Hash $config,
+    Str :$attribute_code
+) {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/attributeMetadata/customer/attribute/$attribute_code",
+        access_token => $config<access_token>;
+}
+
+#GET    /V1/attributeMetadata/customer/form/:formCode
+proto sub customer-metadata-form(|) is export {*}
+our multi customer-metadata-form(
+    Hash $config,
+    Str :$form_code
+) {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/attributeMetadata/customer/form/$form_code",
+        access_token => $config<access_token>;
+}
+
+#GET    /V1/attributeMetadata/customer
+proto sub customer-metadata(|) is export {*}
+our multi customer-metadata(
+    Hash $config
+    --> Array
+) {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/attributeMetadata/customer",
+        access_token => $config<access_token>;
+}
+
+#GET    /V1/attributeMetadata/customer/custom
+proto sub customer-metadata-custom(|) is export {*}
+our multi customer-metadata-custom(
+    Hash $config
+    --> Array
+) {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/attributeMetadata/customer/custom",
+        access_token => $config<access_token>;
+}
+
+#GET    /V1/attributeMetadata/customerAddress/attribute/:attributeCode
+proto sub customer-address-attribute(|) is export {*}
+our multi customer-address-attribute(
+    Hash $config,
+    Str :$attribute_code
+) {
+    Magento::HTTP::request
+        method       => 'GET',
+        host         => $config<host>,
+        uri          => "rest/V1/attributeMetadata/customerAddress/attribute/$attribute_code",
+        access_token => $config<access_token>;
+}
+
+#GET    /V1/attributeMetadata/customerAddress/form/:formCode
+#GET    /V1/attributeMetadata/customerAddress
+#GET    /V1/attributeMetadata/customerAddress/custom
+#POST   /V1/customers
+#PUT    /V1/customers/:id
+#PUT    /V1/customers/me
+#GET    /V1/customers/me
+#PUT    /V1/customers/me/activate
+#GET    /V1/customers/search
+#PUT    /V1/customers/:email/activate
+#PUT    /V1/customers/me/password
+#GET    /V1/customers/:customerId/password/resetLinkToken/:resetPasswordLinkToken
+#PUT    /V1/customers/password
+#GET    /V1/customers/:customerId/confirm
+#POST   /V1/customers/confirm
+#PUT    /V1/customers/validate
+#GET    /V1/customers/:customerId/permissions/readonly
+#DELETE /V1/customers/:customerId
+#POST   /V1/customers/isEmailAvailable
+#GET    /V1/customers/addresses/:addressId
+#GET    /V1/customers/me/billingAddress
+#GET    /V1/customers/:customerId/billingAddress
+#GET    /V1/customers/me/shippingAddress
+#GET    /V1/customers/:customerId/shippingAddress
+#DELETE /V1/addresses/:addressId
 
 proto sub customers(|) is export {*}
 #GET    /V1/customers
