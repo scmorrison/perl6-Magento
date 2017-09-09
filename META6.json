@@ -8,6 +8,7 @@
     "provides" : {
       "Magento"                 : "lib/Magento.pm6",
       "Magento::Auth"           : "lib/Magento/Auth.pm6",
+      "Magento::Catalog"        : "lib/Magento/Catalog.pm6",
       "Magento::CLI"            : "lib/Magento/CLI.pm6",
       "Magento::Config"         : "lib/Magento/Config.pm6",
       "Magento::Customer"       : "lib/Magento/Customer.pm6",
