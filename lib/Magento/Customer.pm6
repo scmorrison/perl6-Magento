@@ -13,10 +13,9 @@ our multi customer-groups(
     Int  :$id
 ) {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups/$id",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customerGroups/$id"
 }
 
 #POST    /V1/customerGroups
@@ -25,11 +24,10 @@ our multi customer-groups(
     Hash :$data
 ) {
     Magento::HTTP::request
-        method       => 'POST',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/customerGroups",
+        content => to-json $data;
 }
 
 #PUT    /V1/customerGroups/:id
@@ -39,11 +37,10 @@ our multi customer-groups(
     Hash :$data
 ) {
     Magento::HTTP::request
-        method       => 'PUT',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups/$id",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/customerGroups/$id",
+        content => to-json $data;
 }
 
 
@@ -54,163 +51,139 @@ our multi customer-groups-default(
     Int  :$store_id
 ) {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups/default/$store_id",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customerGroups/default/$store_id"
 }
 
 #GET    /V1/customerGroups/default
-multi customer-groups-default(
+our multi customer-groups-default(
     Hash $config
 ) {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups/default",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customerGroups/default"
 }
 
-proto sub customer-groups-permissions(|) is export {*}
 #GET    /V1/customerGroups/:id/permissions
-our multi customer-groups-permissions(
+our sub customer-groups-permissions(
     Hash $config,
     Int  :$id
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups/$id/permissions",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customerGroups/$id/permissions"
 }
 
 #GET    /V1/customerGroups/search
-proto sub customer-groups-search(|) is export {*}
-our multi customer-groups-search(
+our sub customer-groups-search(
     Hash $config,
     Hash :$search_criteria
-) {
+) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups/search?$query_string",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customerGroups/search?$query_string"
 }
 
 #DELETE /V1/customerGroups/:id
-proto sub customer-groups-delete(|) is export {*}
-our multi customer-groups-delete(
+our sub customer-groups-delete(
     Hash $config,
     Int  :$id
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'DELETE',
-        host         => $config<host>,
-        uri          => "rest/V1/customerGroups/$id",
-        access_token => $config<access_token>;
+        method  => 'DELETE',
+        config  => $config,
+        uri     => "rest/V1/customerGroups/$id"
 }
 
 #GET    /V1/attributeMetadata/customer/attribute/:attributeCode
-proto sub customer-metadata-attribute(|) is export {*}
-our multi customer-metadata-attribute(
+our sub customer-metadata-attribute(
     Hash $config,
     Str :$attribute_code
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/attributeMetadata/customer/attribute/$attribute_code",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/attributeMetadata/customer/attribute/$attribute_code"
 }
 
 #GET    /V1/attributeMetadata/customer/form/:formCode
-proto sub customer-metadata-form(|) is export {*}
-our multi customer-metadata-form(
+our sub customer-metadata-form(
     Hash $config,
     Str :$form_code
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/attributeMetadata/customer/form/$form_code",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/attributeMetadata/customer/form/$form_code"
 }
 
 #GET    /V1/attributeMetadata/customer
-proto sub customer-metadata(|) is export {*}
-our multi customer-metadata(
+our sub customer-metadata(
     Hash $config
     --> Array
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/attributeMetadata/customer",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/attributeMetadata/customer"
 }
 
 #GET    /V1/attributeMetadata/customer/custom
-proto sub customer-metadata-custom(|) is export {*}
-our multi customer-metadata-custom(
+our sub customer-metadata-custom(
     Hash $config
     --> Array
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/attributeMetadata/customer/custom",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/attributeMetadata/customer/custom"
 }
 
 #GET    /V1/attributeMetadata/customerAddress/attribute/:attributeCode
-proto sub customer-address-attribute(|) is export {*}
-our multi customer-address-attribute(
+our sub customer-address-attribute(
     Hash $config,
     Str :$attribute_code
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/attributeMetadata/customerAddress/attribute/$attribute_code",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/attributeMetadata/customerAddress/attribute/$attribute_code"
 }
 
 #GET    /V1/attributeMetadata/customerAddress/form/:formCode
-proto sub customer-address-form(|) is export {*}
-our multi customer-address-form(
+our sub customer-address-form(
     Hash $config,
     Str :$form_code
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/attributeMetadata/customerAddress/form/$form_code",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/attributeMetadata/customerAddress/form/$form_code"
 }
 
 #GET    /V1/attributeMetadata/customerAddress
-proto sub customer-address(|) is export {*}
-our multi customer-address(
+our sub customer-address(
     Hash $config
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/attributeMetadata/customerAddress",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/attributeMetadata/customerAddress"
 }
 
 #GET    /V1/attributeMetadata/customerAddress/custom
-proto sub customer-address-custom(|) is export {*}
-our multi customer-address-custom(
+our sub customer-address-custom(
     Hash $config
-) {
+) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/attributeMetadata/customerAddress/custom",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/attributeMetadata/customerAddress/custom"
 }
 
 #DELETE /V1/customers/:customerId
@@ -219,10 +192,9 @@ our sub customers-delete(
     Int  :$id
 ) is export {
     Magento::HTTP::request
-        method       => 'DELETE',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/$id",
-        access_token => $config<access_token>;
+        method  => 'DELETE',
+        config  => $config,
+        uri     => "rest/V1/customers/$id"
 }
 
 #POST   /V1/customers
@@ -232,11 +204,10 @@ our multi customers(
     Hash :$data
 ) {
     Magento::HTTP::request
-        method       => 'POST',
-        host         => $config<host>,
-        uri          => "rest/V1/customers",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/customers",
+        content => to-json $data;
 }
 #PUT    /V1/customers/:id
 our multi customers(
@@ -245,21 +216,19 @@ our multi customers(
     Hash :$data
 ) {
     Magento::HTTP::request
-        method       => 'PUT',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/$id",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/customers/$id",
+        content => to-json $data;
 }
 #GET    /V1/customers
 our multi customers(
     Hash $config
 ) {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customers",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers"
 }
 #GET    /V1/customers/:customerId
 our multi customers(
@@ -269,8 +238,7 @@ our multi customers(
     Magento::HTTP::request
         method  => 'GET',
         host    => $config<host>,
-        uri     => "rest/V1/customers/$id",
-        access_token => $config<access_token>;
+        uri=> "rest/V1/customers/$id"
 }
 
 #PUT    /V1/customers/me/activate
@@ -287,10 +255,9 @@ our sub customers-search(
 ) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/search?$query_string",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/search?$query_string"
 }
 
 #PUT    /V1/customers/:email/activate
@@ -300,11 +267,10 @@ our sub customers-email-activate(
     Hash :$data
 ) is export {
     Magento::HTTP::request
-        method       => 'PUT',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/$email/activate",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/customers/$email/activate",
+        content => to-json $data;
 }
 
 #GET    /V1/customers/:customerId/password/resetLinkToken/:resetPasswordLinkToken
@@ -314,10 +280,9 @@ our sub customers-reset-link-token(
     Str  :$link_token
 ) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/$id/password/resetLinkToken/$link_token",
-        access_token => $config<access_token>;
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/$id/password/resetLinkToken/$link_token"
 }
 
 #PUT    /V1/customers/password
@@ -326,11 +291,10 @@ our sub customers-password(
     Hash :$data
 ) is export {
     Magento::HTTP::request
-        method       => 'PUT',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/password",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/customers/password",
+        content => to-json $data;
 }
 
 proto sub customers-confirm(|) is export {*}
@@ -340,10 +304,9 @@ our multi customers-confirm(
     Int  :$id
 ) {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/$id/confirm",
-        access_token => $config<access_token>
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/$id/confirm"
 }
 #POST   /V1/customers/confirm
 our multi customers-confirm(
@@ -351,11 +314,10 @@ our multi customers-confirm(
     Hash :$data
 ) {
     Magento::HTTP::request
-        method       => 'POST',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/confirm",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/customers/confirm",
+        content => to-json $data;
 }
 
 #PUT    /V1/customers/validate
@@ -364,11 +326,10 @@ our sub customers-validate(
     Hash :$data
 ) is export {
     Magento::HTTP::request
-        method       => 'PUT',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/validate",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/customers/validate",
+        content => to-json $data;
 }
 
 #GET    /V1/customers/:customerId/permissions/readonly
@@ -377,10 +338,9 @@ our sub customers-permissions(
     Int  :$id
 ) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/$id/permissions/readonly",
-        access_token => $config<access_token>
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/$id/permissions/readonly"
 }
 
 #POST   /V1/customers/isEmailAvailable
@@ -389,11 +349,10 @@ our sub customers-email-available(
     Hash :$data
 ) is export {
     Magento::HTTP::request
-        method       => 'POST',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/isEmailAvailable",
-        access_token => $config<access_token>,
-        content      => to-json $data;
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/customers/isEmailAvailable",
+        content => to-json $data;
 }
 
 #GET    /V1/customers/addresses/:addressId
@@ -402,10 +361,9 @@ our sub customers-addresses(
     Int  :$address_id
 ) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/addresses/$address_id",
-        access_token => $config<access_token>
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/addresses/$address_id"
 }
 
 #GET    /V1/customers/:customerId/billingAddress
@@ -414,10 +372,9 @@ our sub customers-addresses-billing(
     Int  :$id
 ) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/$id/billingAddress",
-        access_token => $config<access_token>
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/$id/billingAddress"
 }
 
 #GET    /V1/customers/:customerId/shippingAddress
@@ -426,10 +383,9 @@ our sub customers-addresses-shipping(
     Int  :$id
 ) is export {
     Magento::HTTP::request
-        method       => 'GET',
-        host         => $config<host>,
-        uri          => "rest/V1/customers/$id/shippingAddress",
-        access_token => $config<access_token>
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/$id/shippingAddress"
 }
 
 #DELETE /V1/addresses/:addressId
@@ -438,8 +394,7 @@ our sub customers-addresses-delete(
     Int  :$address_id
 ) is export {
     Magento::HTTP::request
-        method       => 'DELETE',
-        host         => $config<host>,
-        uri          => "rest/V1/addresses/$address_id",
-        access_token => $config<access_token>
+        method  => 'DELETE',
+        config  => $config,
+        uri     => "rest/V1/addresses/$address_id"
 }

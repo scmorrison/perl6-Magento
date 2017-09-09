@@ -5,22 +5,27 @@ use JSON::Fast;
 
 unit module Magento::HTTP;
 
-subset Response of Any where Hash|Str|Bool;
-
 our sub request(
+    Hash :$config,
     Str  :$method = 'GET',
-    Str  :$host,
     Str  :$uri,
-    Str  :$access_token,
     Str  :$content,
     Hash :$headers
     --> Any
 ) {
-    my %request_headers = %(
-        'Content-Type'  => 'application/json',
-        $access_token ?? ('Authorization' => "Bearer $access_token") !! %(),
+    # Config variables
+    my $host         = $config<host>;
+    my $format       = $config<format>||'default';
+    my $access_token = $config<access_token>;
+
+    # Header
+    my $content_type = 'application/' ~ ($format ~~ 'default' ?? 'json' !! $format);
+    my %request_headers = %{
+        Content-Type => $content_type,
+        Accept       => $content_type,
+        $access_token ?? (Authorization => "Bearer $access_token") !! %(),
         $headers ?? |$headers !! %()
-    );
+    }
 
     my $url = "{$host}/{$uri.trans: /'['/ => '\\[', /']'/ => '\\]'}";
 
@@ -43,12 +48,12 @@ our sub request(
         }
     }
 
-    return do given %res<content> {
-        when *.defined {
-            from-json(%res<content>);
+    return do given $format {
+        when 'json'|'xml' {
+            %res<content>;
         }
         default {
-            False;
+            %res<content>.defined ?? from-json(%res<content>) !! False;
         }
     }
 }

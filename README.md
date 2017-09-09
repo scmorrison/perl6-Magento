@@ -5,6 +5,10 @@ Perl 6 Magento 2 API client module.
 
 - [Features](#features)
 - [Getting started](#getting-started)
+- [Module usage](#module-usage)
+  * [Response format](#response-format)
+  * [Search critera](#search-criteria)
+  * [Custom API endpoints](#custom-api-endpoints)
 - [CLI usage](#cli-usage)
 - [Config](#config)
   * [Config variables](#config-variables)
@@ -42,6 +46,7 @@ host: "https://my.magento"
 store: default
 access_token: ********************************
 ```
+
 Module Usage
 ============
 
@@ -62,7 +67,7 @@ Using pre-generated Access Token without `~/.6mag/config.yml`:
 ```perl
 use Magento::Customer;
 
-my $host   = 'http://localhost';
+my $host   = 'https://my.magento';
 my %config = %{
     host         => $host,
     access_token => '********************************',
@@ -79,7 +84,7 @@ Using password authentication as Admin:
 use Magento::Auth;
 use Magento::Customer;
 
-my $host   = 'http://localhost';
+my $host   = 'https://my.magento';
 my %config = %{
     host         => $host,
     access_token => request-access-token(username => 'admin', password => '****', :$host),
@@ -96,7 +101,7 @@ Using password authentication as Customer:
 use Magento::Auth;
 use Magento::Customer;
 
-my $host         = 'http://localhost';
+my $host         = 'https://my.magento';
 my $access_token = 
     request-access-token(
         :$host,
@@ -108,6 +113,21 @@ my %config = %{:$host, :$access_key, store => 'default'};
 
 #GET    /V1/customers/me
 %config ==> customers-me() ==> say();
+```
+
+### Response format
+
+By default, all responses are returned as `Perl 6` variables. To return the raw `json` or `xml` body add the following to your config Hash:
+
+```perl
+my %config = %{
+    host         => $host,
+    access_token => '********************************',
+    store        => 'default',
+    format       => 'json',
+    # or
+    format       => 'xml'
+}
 ```
 
 ### Search criteria
@@ -144,6 +164,16 @@ my %customer_search_criteria = %{
 ==> say();
 ```
 
+### Custom API endpoints
+
+You can use the `request` subroutine directly to make requests against custom API endpoints:
+
+```perl
+Magento::HTTP::request
+    method  => 'GET',
+    config  => %confg,
+    uri     => "rest/V1/myCustom/endpoint/123";
+```
 
 CLI Usage
 =====
@@ -181,6 +211,10 @@ Config variables are defined in `config.yml`:
 * `host`: Magento base URL
 * `store`: Store identifier (e.g. default)
 * `access_token`: Magento access token. For long-use configurations, integrations, use an Integration Access Token.
+
+Optional:
+
+* `format`: By default all results are returned as `Perl 6` variables. You can specify `json` or `xml` with this variable to return the raw response body in either format.
 
 Installation
 ============
