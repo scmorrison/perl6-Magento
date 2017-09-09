@@ -169,10 +169,21 @@ my %customer_search_criteria = %{
 You can use the `request` subroutine directly to make requests against custom API endpoints:
 
 ```perl
+use Magento::HTTP;
+use JSON::Fast;
+
+# GET
 Magento::HTTP::request
     method  => 'GET',
     config  => %confg,
     uri     => "rest/V1/myCustom/endpoint/123";
+
+# POST/PUT/DELETE
+Magento::HTTP::request
+    method  => 'POST', # or PUT / DELETE
+    config  => %confg,
+    uri     => "rest/V1/myCustom/endpoint",
+    content => to-json %content-hash;
 ```
 
 CLI Usage
