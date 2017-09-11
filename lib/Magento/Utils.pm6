@@ -79,3 +79,9 @@ multi sub search-criteria-to-query-string(
         search-criteria-to-query-string($v, $k, :$filtergroup_i, :$filters_i);
     }, kv $data).head;
 }
+
+multi sub search-criteria-to-query-string(
+    Hash $data where $data ~~ %()
+) {
+    'searchCriteria';
+}

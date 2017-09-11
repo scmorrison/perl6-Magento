@@ -1,22 +1,28 @@
 use v6;
 
+use Magento::HTTP;
+use Magento::Utils;
+use JSON::Fast;
+
 unit module Magento::Catalog;
 
 proto sub products(|) is export {*}
 #GET    /V1/products
 our multi products(
-    Hash $config
+    Hash $config,
+    Hash :$search_criteria = %()
 ) {
+    my $query_string = search-criteria-to-query-string $search_criteria;
+    note $query_string;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products"
+        uri     => "rest/V1/products?$query_string"
 }
-
 #POST   /V1/products
 our multi products(
     Hash $config,
-    Hash :$data
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -24,12 +30,11 @@ our multi products(
         uri     => "rest/V1/products",
         content => to-json $data;
 }
-
 #PUT    /V1/products/:sku
 our multi products(
     Hash $config,
-    Int  :$sku,
-    Hash :$data
+    Int  :$sku!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
@@ -40,7 +45,7 @@ our multi products(
 #GET    /V1/products/:sku
 our multi products(
     Hash $config,
-    Int  :$sku
+    Int  :$sku!
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
@@ -51,7 +56,7 @@ our multi products(
 #DELETE /V1/products/:sku
 our sub products-delete(
     Hash $config,
-    Int  :$sku
+    Int  :$sku!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',

@@ -23,6 +23,6 @@
         "JSON::Fast",
         "YAMLish"
     ],
-    "test-depends" : [ "File::Temp", "Test::Output" ],
+    "test-depends" : [ "Base64", "File::Temp", "Test::Output" ],
     "source-url" : "https://github.com/scmorrison/perl6-Magento.git"
 }
