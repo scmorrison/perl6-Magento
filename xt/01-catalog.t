@@ -164,13 +164,13 @@ subtest {
                 },
             },
         ],
-#        tierPrices => [
-#          %{
-#            customerGroupId => 1,
-#            qty             => 10,
-#            value           => 5.00
-#           }
-#        ]
+        tierPrices => [
+          %{
+            customerGroupId => 1,
+            qty             => 10,
+            value           => 5.00
+           }
+        ]
     }
 
     %config ==> products(data => %t1_data) ==> my %t1_results;
