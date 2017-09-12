@@ -11,7 +11,7 @@ plan 1;
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
 subtest {
-    plan 5;
+    plan 8;
 
     my %t1_data = Products::downloadable();
     %config ==> products(data => %t1_data) ==> my %t1_results;
@@ -37,7 +37,21 @@ subtest {
     my $t4_product_id  = %t4_results<id>;
     my $t4_product_sku = %t4_results<sku>;
 
-    %config ==> products() ==> my %t5_results;
-    is %t5_results<items>.elems > 0, True, 'products get all';
+    my %t5_data = Products::downloadable-modified();
+    %config ==> products(sku => 'P6-TEST-0001', data => %t5_data) ==> my %t5_results;
+    is %t5_results<name>, 'Downloadable Product Test [modified]', 'products update';
+
+    # Create short-lived product
+    my %delete_me = Products::delete-me();
+    %config ==> products(data => %delete_me);
+
+    %config ==> products(sku => 'P6-TEST-DELETE') ==> my %t6_results;
+    is %t6_results<name>, 'Deletable Product', 'products by sku';
+
+    %config ==> products-delete(sku => 'P6-TEST-DELETE') ==> my $t7_results;
+    is $t7_results, True, 'products delete';
+
+    %config ==> products() ==> my %t8_results;
+    is %t8_results<items>.elems > 0, True, 'products get all';
 
 }, 'Products';

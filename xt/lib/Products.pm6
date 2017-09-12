@@ -111,6 +111,13 @@ our sub downloadable() {
     }
 }
 
+our sub downloadable-modified() {
+    product => %{
+        sku            => 'P6-TEST-0001',
+        name           => 'Downloadable Product Test [modified]'
+    }
+}
+
 our sub simple() {
     product => %{
         sku            => 'P6-TEST-0002',
@@ -324,5 +331,18 @@ our sub configurable() {
                 ]
             ),
         ],
+    }
+}
+
+our sub delete-me() {
+    product => %{
+        sku            => 'P6-TEST-DELETE',
+        name           => 'Deletable Product',
+        typeId         => 'simple',
+        attributeSetId => 4,
+        price          => 19.95,
+        status         => 1,
+        visibility     => 1,
+        weight         => 1.5,
     }
 }

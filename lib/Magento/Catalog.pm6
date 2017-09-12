@@ -32,7 +32,7 @@ our multi products(
 #PUT    /V1/products/:sku
 our multi products(
     Hash $config,
-    Int  :$sku!,
+    Str  :$sku!,
     Hash :$data!
 ) {
     Magento::HTTP::request
@@ -44,7 +44,7 @@ our multi products(
 #GET    /V1/products/:sku
 our multi products(
     Hash $config,
-    Int  :$sku!
+    Str  :$sku!
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
@@ -55,7 +55,7 @@ our multi products(
 #DELETE /V1/products/:sku
 our sub products-delete(
     Hash $config,
-    Int  :$sku!
+    Str  :$sku!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
