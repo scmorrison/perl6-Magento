@@ -346,3 +346,59 @@ our sub delete-me() {
         weight         => 1.5,
     }
 }
+
+our sub product-attribute() {
+    attribute => %{
+        attributeCode        => 'deleteme',
+        frontendInput        => 'multiselect',
+        isRequired           => 'true',
+        defaultFrontendLabel => 'delete_me',
+        frontendLabels => [
+            %{
+                storeId => 0,
+                label   => 'delete_me'
+            },
+        ],
+        options => [
+            %{
+                label       => 'label opt1',
+                value       => 'value_opt1',
+                isDefault   => 'true',
+                storeLabels => [
+                    %{
+                        storeId => 0,
+                        label   => 'option_1_labl_en'
+                     },
+                ]   
+            },
+        ],  	
+    }
+}
+
+our sub product-attribute-modified() {
+    attribute => %{
+        attributeCode        => 'deleteme',
+        frontendInput        => 'multiselect',
+        isRequired           => 'true',
+        defaultFrontendLabel => 'delete_me',
+        frontendLabels => [
+            %{
+                storeId => 0,
+                label   => 'delete_me'
+            },
+        ],
+        options => [
+            %{
+                label       => 'label opt1',
+                value       => 'value_opt1',
+                isDefault   => 'true',
+                storeLabels => [
+                    %{
+                        storeId => 0,
+                        label   => 'option_1_labl_en'
+                     },
+                ]   
+            },
+        ],  	
+    }
+}

@@ -65,7 +65,7 @@ our sub products-delete(
 
 #GET    /V1/products/attributes/types
 our sub products-attributes-types(
-    Hash $config
+    Hash $config,
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
@@ -74,29 +74,31 @@ our sub products-attributes-types(
 }
 
 proto sub products-attributes(|) is export {*}
-#GET    /V1/products/attributes/:attributeCode
+#GET    /V1/products/attributes/:attribute_code
 our multi products-attributes(
     Hash $config,
-    Int  :$attributeCode
+    Str  :$attribute_code!
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attributeCode";
+        uri     => "rest/V1/products/attributes/$attribute_code";
 }
 #GET    /V1/products/attributes
 our multi products-attributes(
-    Hash $config
+    Hash $config,
+    Hash :$search_criteria = %()
 ) {
+    my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attributes";
+        uri     => "rest/V1/products/attributes?$query_string";
 }
 #POST   /V1/products/attributes
 our multi products-attributes(
     Hash $config,
-    Hash :$data
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -104,40 +106,40 @@ our multi products-attributes(
         uri     => "rest/V1/products/attributes",
         content => to-json $data;
 }
-#PUT    /V1/products/attributes/:attributeCode
+#PUT    /V1/products/attributes/:attribute_code
 our multi products-attributes(
     Hash $config,
-    Int  :$attributeCode,
-    Hash :$data
+    Str  :$attribute_code!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attributeCode",
+        uri     => "rest/V1/products/attributes/$attribute_code",
         content => to-json $data;
 }
 
-#DELETE /V1/products/attributes/:attributeCode
+#DELETE /V1/products/attributes/:attribute_code
 our sub products-attributes-delete(
     Hash $config,
-    Int  :$attributeCode
+    Str  :$attribute_code!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attributeCode";
+        uri     => "rest/V1/products/attributes/$attribute_code";
 }
 
 proto sub categories-attributes(|) is export {*}
-#GET    /V1/categories/attributes/:attributeCode
+#GET    /V1/categories/attributes/:attribute_code
 our multi categories-attributes(
     Hash $config,
-    Int  :$attributeCode
+    Int  :$attribute_code
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/attributes/$attributeCode";
+        uri     => "rest/V1/categories/attributes/$attribute_code";
 }
 #GET    /V1/categories/attributes
 our multi categories-attributes(
@@ -149,15 +151,15 @@ our multi categories-attributes(
         uri     => "rest/V1/categories/attributes";
 }
 
-#GET    /V1/categories/attributes/:attributeCode/options
+#GET    /V1/categories/attributes/:attribute_code/options
 our sub categories-attributes-options(
     Hash $config,
-    Int  :$attributeCode
+    Int  :$attribute_code
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/attributes/$attributeCode/options";
+        uri     => "rest/V1/categories/attributes/$attribute_code/options";
 }
 
 #GET    /V1/products/types
@@ -180,15 +182,15 @@ our multi products-attribute-sets(
         config  => $config,
         uri     => "rest/V1/products/attribute-sets/sets/list";
 }
-#GET    /V1/products/attribute-sets/:attributeSetId
+#GET    /V1/products/attribute-sets/:attribute_set_id
 our multi products-attribute-sets(
     Hash $config,
-    Int  :$attributeSetId
+    Int  :$attribute_set_id
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attributeSetId";
+        uri     => "rest/V1/products/attribute-sets/$attribute_set_id";
 }
 #POST   /V1/products/attribute-sets
 our multi products-attribute-sets(
@@ -201,40 +203,40 @@ our multi products-attribute-sets(
         uri     => "rest/V1/products/attribute-sets",
         content => to-json $data;
 }
-#PUT    /V1/products/attribute-sets/:attributeSetId
+#PUT    /V1/products/attribute-sets/:attribute_set_id
 our multi products-attribute-sets(
     Hash $config,
-    Int  :$attributeSetId,
+    Int  :$attribute_set_id,
     Hash :$data
 ) {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attributeSetId",
+        uri     => "rest/V1/products/attribute-sets/$attribute_set_id",
         content => to-json $data;
 }
 
-#DELETE /V1/products/attribute-sets/:attributeSetId
+#DELETE /V1/products/attribute-sets/:attribute_set_id
 our sub products-attribute-sets-delete(
     Hash $config,
-    Int  :$attributeSetId
+    Int  :$attribute_set_id
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attributeSetId";
+        uri     => "rest/V1/products/attribute-sets/$attribute_set_id";
 }
 
 proto sub products-attribute-sets-attributes(|) is export {*}
-#GET    /V1/products/attribute-sets/:attributeSetId/attributes
+#GET    /V1/products/attribute-sets/:attribute_set_id/attributes
 our multi products-attribute-sets-attributes(
     Hash $config,
-    Int  :$attributeSetId
+    Int  :$attribute_set_id
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attributeSetId/attributes";
+        uri     => "rest/V1/products/attribute-sets/$attribute_set_id/attributes";
 }
 #POST   /V1/products/attribute-sets/attributes
 our multi products-attribute-sets-attributes(
@@ -248,16 +250,16 @@ our multi products-attribute-sets-attributes(
         content => to-json $data;
 }
 
-#DELETE /V1/products/attribute-sets/:attributeSetId/attributes/:attributeCode
+#DELETE /V1/products/attribute-sets/:attribute_set_id/attributes/:attribute_code
 our sub products-attribute-sets-attributes-delete(
     Hash $config,
-    Int  :$attributeSetId,
-    Int  :$attributeCode
+    Int  :$attribute_set_id,
+    Int  :$attribute_code
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attributeSetId/attributes/attributeCode";
+        uri     => "rest/V1/products/attribute-sets/$attribute_set_id/attributes/attribute_code";
 }
 
 #GET    /V1/products/attribute-sets/groups/list
@@ -281,75 +283,75 @@ our multi products-attribute-groups(
         uri     => "rest/V1/products/attribute-sets/groups",
         content => to-json $data;
 }
-#PUT    /V1/products/attribute-sets/:attributeSetId/groups
+#PUT    /V1/products/attribute-sets/:attribute_set_id/groups
 our multi products-attribute-groups(
     Hash $config,
-    Int  :$attributeSetId,
+    Int  :$attribute_set_id,
     Hash :$data
 ) {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attributeSetId/groups",
+        uri     => "rest/V1/products/attribute-sets/$attribute_set_id/groups",
         content => to-json $data;
 }
 
-#DELETE /V1/products/attribute-sets/groups/:groupId
+#DELETE /V1/products/attribute-sets/groups/:group_id
 our sub products-attribute-sets-groups-delete(
     Hash $config,
-    Int  :$groupId
+    Int  :$group_id
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/groups/$groupId";
+        uri     => "rest/V1/products/attribute-sets/groups/$group_id";
 }
 
-#GET    /V1/products/attributes/:attributeCode/options
+#GET    /V1/products/attributes/:attribute_code/options
 proto sub products-attributes-options(|) is export {*}
 our multi products-attributes-options(
     Hash $config,
-    Int  :$attributeCode
+    Int  :$attribute_code
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attributeCode/options";
+        uri     => "rest/V1/products/attributes/$attribute_code/options";
 }
-#POST   /V1/products/attributes/:attributeCode/options
+#POST   /V1/products/attributes/:attribute_code/options
 our multi products-attributes-options(
     Hash $config,
-    Int  :$attributeCode,
+    Int  :$attribute_code,
     Hash :$data
 ) {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attributeCode/options",
+        uri     => "rest/V1/products/attributes/$attribute_code/options",
         content => to-json $data;
 }
 
-#DELETE /V1/products/attributes/:attributeCode/options/:optionId
+#DELETE /V1/products/attributes/:attribute_code/options/:option_id
 our sub products-attributes-options-delete(
     Hash $config,
-    Int  :$attributeCode,
-    Int  :$optionId
+    Int  :$attribute_code,
+    Int  :$option_id
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attributeCode/options/$optionId";
+        uri     => "rest/V1/products/attributes/$attribute_code/options/$option_id";
 }
 
-#GET    /V1/products/media/types/:attributeSetName
+#GET    /V1/products/media/types/:attribute_set_name
 our sub products-media-types(
     Hash $config,
-    Str  :$attributeSetName
+    Str  :$attribute_set_name
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/media/types/$attributeSetName";
+        uri     => "rest/V1/products/media/types/$attribute_set_name";
 }
 
 proto sub products-media(|) is export {*}
@@ -363,16 +365,16 @@ our multi products-media(
         config  => $config,
         uri     => "rest/V1/products/$sku/media";
 }
-#GET    /V1/products/:sku/media/:entryId
+#GET    /V1/products/:sku/media/:entry_id
 our multi products-media(
     Hash $config,
     Str  :$sku,
-    Int  :$entryId
+    Int  :$entry_id
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media/$entryId";
+        uri     => "rest/V1/products/$sku/media/$entry_id";
 }
 #POST   /V1/products/:sku/media
 our multi products-media(
@@ -386,49 +388,49 @@ our multi products-media(
         uri     => "rest/V1/products/$sku/media";
         content => to-json $data;
 }
-#PUT    /V1/products/:sku/media/:entryId
+#PUT    /V1/products/:sku/media/:entry_id
 our multi products-media(
     Hash $config,
     Str  :$sku,
-    Int  :$entryId,
+    Int  :$entry_id,
     Hash :$data
 ) {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media/$entryId",
+        uri     => "rest/V1/products/$sku/media/$entry_id",
         content => to-json $data;
 }
 
-#DELETE /V1/products/:sku/media/:entryId
+#DELETE /V1/products/:sku/media/:entry_id
 our sub products-media-delete(
     Hash $config,
     Str  :$sku,
-    Int  :$entryId
+    Int  :$entry_id
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media/$entryId";
+        uri     => "rest/V1/products/$sku/media/$entry_id";
 }
 
 proto sub products-group-prices(|) is export {*}
-#GET    /V1/products/:sku/group-prices/:customerGroupId/tiers
+#GET    /V1/products/:sku/group-prices/:customer_group_id/tiers
 our multi products-group-prices(
     Hash $config,
     Str  :$sku,
-    Int  :$customerGroupId
+    Int  :$customer_group_id
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/group-prices/$customerGroupId/tiers";
+        uri     => "rest/V1/products/$sku/group-prices/$customer_group_id/tiers";
 }
-#POST   /V1/products/:sku/group-prices/:customerGroupId/tiers/:qty/price/:price
+#POST   /V1/products/:sku/group-prices/:customer_group_id/tiers/:qty/price/:price
 our multi products-group-prices(
     Hash $config,
     Str  :$sku,
-    Int  :$customerGroupId,
+    Int  :$customer_group_id,
     Int  :$qty,
     Real :$price,
     Hash :$data
@@ -436,21 +438,21 @@ our multi products-group-prices(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/$sku/group-prices/$customerGroupId/tiers/$qty/price/$price",
+        uri     => "rest/V1/products/$sku/group-prices/$customer_group_id/tiers/$qty/price/$price",
         content => to-json $data;
 }
 
-#DELETE /V1/products/:sku/group-prices/:customerGroupId/tiers/:qty
+#DELETE /V1/products/:sku/group-prices/:customer_group_id/tiers/:qty
 our sub products-group-prices-delete(
     Hash $config,
     Str  :$sku,
-    Int  :$customerGroupId,
+    Int  :$customer_group_id,
     Int  :$qty
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/group-prices/$customerGroupId/tiers/$qty";
+        uri     => "rest/V1/products/$sku/group-prices/$customer_group_id/tiers/$qty";
 }
 
 proto sub categories(|) is export {*}
@@ -463,15 +465,15 @@ our multi categories(
         config  => $config,
         uri     => "rest/V1/categories";
 }
-#GET    /V1/categories/:categoryId
+#GET    /V1/categories/:category_id
 our multi categories(
     Hash $config,
-    Int  :$categoryId
+    Int  :$category_id
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/$categoryId";
+        uri     => "rest/V1/categories/$category_id";
 }
 #POST   /V1/categories
 our multi categories(
@@ -487,37 +489,37 @@ our multi categories(
 #PUT    /V1/categories/:id
 our multi categories(
     Hash $config,
-    Int  :$categoryId,
+    Int  :$category_id,
     Hash :$data
 ) {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/categories/$categoryId",
+        uri     => "rest/V1/categories/$category_id",
         content => to-json $data;
 }
 
-#DELETE /V1/categories/:categoryId
+#DELETE /V1/categories/:category_id
 our sub categories-delete(
     Hash $config,
-    Int  :$categoryId
+    Int  :$category_id
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/categories/$categoryId";
+        uri     => "rest/V1/categories/$category_id";
 }
 
-#PUT    /V1/categories/:categoryId/move
+#PUT    /V1/categories/:category_id/move
 our sub categories-move(
     Hash $config,
-    Int  :$categoryId,
+    Int  :$category_id,
     Hash :$data
 ) is export {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/categories/$categoryId/move",
+        uri     => "rest/V1/categories/$category_id/move",
         content => to-json $data;
 }
 
@@ -542,16 +544,16 @@ our multi products-options(
         config  => $config,
         uri     => "rest/V1/products/$sku/options";
 }
-#GET    /V1/products/:sku/options/:optionId
+#GET    /V1/products/:sku/options/:option_id
 our multi products-options(
     Hash $config,
     Str  :$sku,
-    Int  :$optionId
+    Int  :$option_id
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/options/$optionId";
+        uri     => "rest/V1/products/$sku/options/$option_id";
 }
 #POST   /V1/products/options
 our multi products-options(
@@ -564,29 +566,29 @@ our multi products-options(
         uri     => "rest/V1/products/options",
         content => to-json $data;
 }
-#PUT    /V1/products/options/:optionId
+#PUT    /V1/products/options/:option_id
 our multi products-options(
     Hash $config,
-    Int  :$optionId,
+    Int  :$option_id,
     Hash :$data
 ) {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/options/$optionId",
+        uri     => "rest/V1/products/options/$option_id",
         content => to-json $data;
 }
 
-#DELETE /V1/products/:sku/options/:optionId
+#DELETE /V1/products/:sku/options/:option_id
 our sub products-options-delete(
     Hash $config,
     Str  :$sku,
-    Int  :$optionId
+    Int  :$option_id
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/options/$optionId";
+        uri     => "rest/V1/products/$sku/options/$option_id";
 }
 
 #GET    /V1/products/links/types
@@ -662,51 +664,51 @@ our sub products-links-delete(
 
 
 proto sub categories-products(|) is export {*}
-#GET    /V1/categories/:categoryId/products
+#GET    /V1/categories/:category_id/products
 our multi categories-products(
     Hash $config,
-    Int  :$categoryId
+    Int  :$category_id
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/$categoryId/products";
+        uri     => "rest/V1/categories/$category_id/products";
 }
-#POST   /V1/categories/:categoryId/products
+#POST   /V1/categories/:category_id/products
 our multi categories-products(
     Hash $config,
-    Int  :$categoryId,
+    Int  :$category_id,
     Hash :$data
 ) {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/categories/$categoryId/products",
+        uri     => "rest/V1/categories/$category_id/products",
         content => to-json $data;
 }
-#PUT    /V1/categories/:categoryId/products
+#PUT    /V1/categories/:category_id/products
 our multi categories-products(
     Hash $config,
-    Int  :$categoryId,
+    Int  :$category_id,
     Hash :$data
 ) {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/categories/$categoryId/products",
+        uri     => "rest/V1/categories/$category_id/products",
         content => to-json $data;
 }
 
-#DELETE /V1/categories/:categoryId/products/:sku
+#DELETE /V1/categories/:category_id/products/:sku
 our sub categories-products-delete(
     Hash $config,
-    Int  :$categoryId,
+    Int  :$category_id,
     Str  :$sku
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/categories/$categoryId/products/$sku";
+        uri     => "rest/V1/categories/$category_id/products/$sku";
 }
 
 #* POST   /V1/products/:sku/websites
@@ -735,14 +737,14 @@ our sub products-websites-update(
         content => to-json $data;
 }
 
-#* DELETE /V1/products/:sku/websites/:websiteId
+#* DELETE /V1/products/:sku/websites/:website_id
 our sub products-websites-delete(
     Hash $config,
     Str  :$sku,
-    Int  :$websiteId
+    Int  :$website_id
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/websites/$websiteId";
+        uri     => "rest/V1/products/$sku/websites/$website_id";
 }
