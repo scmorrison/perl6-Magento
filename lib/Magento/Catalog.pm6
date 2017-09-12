@@ -13,7 +13,6 @@ our multi products(
     Hash :$search_criteria = %()
 ) {
     my $query_string = search-criteria-to-query-string $search_criteria;
-    note $query_string;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
