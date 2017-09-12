@@ -402,3 +402,20 @@ our sub product-attribute-modified() {
         ],  	
     }
 }
+
+our sub products-attribute-set() {
+    attributeSet => %{
+        attributeSetName => 'DeleteMe',
+        entityTypeId     => 4,
+        sortOrder        => 0
+    },
+    skeletonId => 4
+}
+
+our sub products-attribute-set-modified() {
+    attributeSet => %{
+        attributeSetName => 'DeleteMeModified',
+        entityTypeId     => 4,
+        sortOrder        => 0
+    }
+}

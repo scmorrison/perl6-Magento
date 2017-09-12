@@ -131,30 +131,32 @@ our sub products-attributes-delete(
 }
 
 proto sub categories-attributes(|) is export {*}
+#GET    /V1/categories/attributes
+our multi categories-attributes(
+    Hash $config,
+    Hash :$search_criteria = %()
+) {
+    my $query_string = search-criteria-to-query-string $search_criteria;
+    Magento::HTTP::request
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/categories/attributes?$query_string";
+}
 #GET    /V1/categories/attributes/:attribute_code
 our multi categories-attributes(
     Hash $config,
-    Int  :$attribute_code
+    Str  :$attribute_code!
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
         uri     => "rest/V1/categories/attributes/$attribute_code";
 }
-#GET    /V1/categories/attributes
-our multi categories-attributes(
-    Hash $config
-) {
-    Magento::HTTP::request
-        method  => 'GET',
-        config  => $config,
-        uri     => "rest/V1/categories/attributes";
-}
 
 #GET    /V1/categories/attributes/:attribute_code/options
 our sub categories-attributes-options(
     Hash $config,
-    Int  :$attribute_code
+    Str  :$attribute_code!
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
@@ -175,17 +177,19 @@ our sub products-types(
 proto sub products-attribute-sets(|) is export {*}
 #GET    /V1/products/attribute-sets/sets/list
 our multi products-attribute-sets(
-    Hash $config
+    Hash $config,
+    Hash :$search_criteria = %()
 ) {
+    my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/sets/list";
+        uri     => "rest/V1/products/attribute-sets/sets/list?$query_string";
 }
 #GET    /V1/products/attribute-sets/:attribute_set_id
 our multi products-attribute-sets(
     Hash $config,
-    Int  :$attribute_set_id
+    Int  :$attribute_set_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -195,7 +199,7 @@ our multi products-attribute-sets(
 #POST   /V1/products/attribute-sets
 our multi products-attribute-sets(
     Hash $config,
-    Hash :$data
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -206,8 +210,8 @@ our multi products-attribute-sets(
 #PUT    /V1/products/attribute-sets/:attribute_set_id
 our multi products-attribute-sets(
     Hash $config,
-    Int  :$attribute_set_id,
-    Hash :$data
+    Int  :$attribute_set_id!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
@@ -219,7 +223,7 @@ our multi products-attribute-sets(
 #DELETE /V1/products/attribute-sets/:attribute_set_id
 our sub products-attribute-sets-delete(
     Hash $config,
-    Int  :$attribute_set_id
+    Int  :$attribute_set_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
@@ -231,7 +235,7 @@ proto sub products-attribute-sets-attributes(|) is export {*}
 #GET    /V1/products/attribute-sets/:attribute_set_id/attributes
 our multi products-attribute-sets-attributes(
     Hash $config,
-    Int  :$attribute_set_id
+    Int  :$attribute_set_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -241,7 +245,7 @@ our multi products-attribute-sets-attributes(
 #POST   /V1/products/attribute-sets/attributes
 our multi products-attribute-sets-attributes(
     Hash $config,
-    Hash :$data
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -253,29 +257,31 @@ our multi products-attribute-sets-attributes(
 #DELETE /V1/products/attribute-sets/:attribute_set_id/attributes/:attribute_code
 our sub products-attribute-sets-attributes-delete(
     Hash $config,
-    Int  :$attribute_set_id,
-    Int  :$attribute_code
+    Int  :$attribute_set_id!,
+    Str  :$attribute_code!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attribute_set_id/attributes/attribute_code";
+        uri     => "rest/V1/products/attribute-sets/$attribute_set_id/attributes/$attribute_code";
 }
 
 #GET    /V1/products/attribute-sets/groups/list
 proto sub products-attribute-groups(|) is export {*}
 our multi products-attribute-groups(
-    Hash $config
+    Hash $config,
+    Hash :$search_criteria = %()
 ) {
+    my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/groups/list";
+        uri     => "rest/V1/products/attribute-sets/groups/list?$query_string";
 }
 #POST   /V1/products/attribute-sets/groups
 our multi products-attribute-groups(
     Hash $config,
-    Hash :$data
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -286,8 +292,8 @@ our multi products-attribute-groups(
 #PUT    /V1/products/attribute-sets/:attribute_set_id/groups
 our multi products-attribute-groups(
     Hash $config,
-    Int  :$attribute_set_id,
-    Hash :$data
+    Int  :$attribute_set_id!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
@@ -299,7 +305,7 @@ our multi products-attribute-groups(
 #DELETE /V1/products/attribute-sets/groups/:group_id
 our sub products-attribute-sets-groups-delete(
     Hash $config,
-    Int  :$group_id
+    Int  :$group_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',

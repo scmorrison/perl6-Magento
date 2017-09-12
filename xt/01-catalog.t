@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 2;
+plan 4;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -81,4 +81,92 @@ subtest {
     %config ==> products-attributes-delete(attribute_code => 'deleteme') ==> my $t6_results;
     is $t6_results, True, 'products attributes delete';
 
-}, 'Product Attributes';
+}, 'Product attributes';
+
+subtest {
+
+    plan 3;
+
+    %config ==> categories-attributes(attribute_code => 'name') ==> my %t1_results;
+    is %t1_results<default_frontend_label>, 'Name', 'categories attributes by attribute code';
+
+    %config ==> categories-attributes() ==> my @t2_results;
+    is @t2_results.elems > 0, True, 'categories attributes all';
+
+    %config ==> categories-attributes-options(attribute_code => 'display_mode') ==> my @t3_results;
+    is @t3_results.elems > 0, True, 'categories attributes options all ';
+
+}, 'Category attributes';
+
+subtest {
+    plan 8;
+
+    %config ==> products-attribute-sets() ==> my %t1_results;
+    is %t1_results<items>.head<attribute_set_name>, 'Default', 'products attribute sets all';
+
+    my %t2_data = Products::products-attribute-set();
+    %config ==> products-attribute-sets(data => %t2_data) ==> my %t2_results;
+    is %t2_results<attribute_set_name>, 'DeleteMe', 'products attribute sets new';
+    my $t2_attribute_set_id = %t2_results<attribute_set_id>;
+
+    %config ==> products-attribute-sets(attribute_set_id => $t2_attribute_set_id) ==> my %t3_results;
+    is %t3_results<attribute_set_name>, 'DeleteMe', 'products attribute sets by attribute set id';
+
+    my %t4_data = Products::products-attribute-set-modified();
+    %config ==> products-attribute-sets(attribute_set_id => $t2_attribute_set_id, data => %t4_data) ==> my %t4_results;
+    is %t4_results<attribute_set_name>, 'DeleteMeModified', 'products attribute sets modified';
+
+    # 
+    # Attribute sets
+    #
+
+    my %t6_attribute = Products::product-attribute();
+    %config ==> products-attributes(data => %t6_attribute);
+
+    %config ==> products-attribute-sets-attributes(attribute_set_id => $t2_attribute_set_id) ==> my @t5_results;
+    is @t5_results.head<attribute_code> , 'gift_message_available', 'products attribute sets attributes all';
+
+    my %t6_search_criteria = %{
+        searchCriteria => %{
+            filterGroups => [
+                {
+                    filters => [
+                        {
+                            field => 'attribute_set_id',
+                            value => $t2_attribute_set_id,
+                            condition_type =>  'eq'
+                        },
+                    ]
+                },
+            ],
+        }
+    }
+
+    %config
+    ==> products-attribute-groups(search_criteria => %t6_search_criteria)
+    ==> my %t6_attribute_groups;
+
+    my %t6_data = %{
+        attributeSetId   => $t2_attribute_set_id,
+        attributeGroupId => %t6_attribute_groups<items>.head<attribute_group_id>,
+        attributeCode    => 'deleteme',
+        sortOrder        => 0
+    }
+
+    %config ==> products-attribute-sets-attributes(data => %t6_data) ==> my $t6_results;
+    is $t6_results.Int > 0, True, 'products attribute sets attributes assign new';
+
+    %config
+    ==> products-attribute-sets-attributes-delete(
+        attribute_set_id => $t2_attribute_set_id,
+        attribute_code => 'deleteme')
+    ==> my $t7_results;
+    is $t7_results, True, 'products attribute sets attributes delete';
+
+    # Clean up
+    %config ==> products-attributes-delete(attribute_code => 'deleteme');
+
+    %config ==> products-attribute-sets-delete(attribute_set_id => $t2_attribute_set_id) ==> my $fin_results;
+    is $fin_results, True, 'products attribute sets delete';
+
+}, 'Product attribute sets';
