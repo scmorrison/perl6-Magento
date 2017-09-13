@@ -420,9 +420,9 @@ our sub products-media-delete(
         uri     => "rest/V1/products/$sku/media/$entry_id";
 }
 
-proto sub products-group-prices(|) is export {*}
+proto sub products-tier-prices(|) is export {*}
 #GET    /V1/products/:sku/group-prices/:customer_group_id/tiers
-our multi products-group-prices(
+our multi products-tier-prices(
     Hash $config,
     Str  :$sku!,
     Int  :$customer_group_id!
@@ -433,23 +433,22 @@ our multi products-group-prices(
         uri     => "rest/V1/products/$sku/group-prices/$customer_group_id/tiers";
 }
 #POST   /V1/products/:sku/group-prices/:customer_group_id/tiers/:qty/price/:price
-our multi products-group-prices(
+our multi products-tier-prices(
     Hash $config,
     Str  :$sku,
     Int  :$customer_group_id,
     Int  :$qty,
-    Real :$price,
-    Hash :$data
+    Real :$price
 ) {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/products/$sku/group-prices/$customer_group_id/tiers/$qty/price/$price",
-        content => to-json $data;
+        content => '{}';
 }
 
 #DELETE /V1/products/:sku/group-prices/:customer_group_id/tiers/:qty
-our sub products-group-prices-delete(
+our sub products-tier-prices-delete(
     Hash $config,
     Str  :$sku,
     Int  :$customer_group_id,

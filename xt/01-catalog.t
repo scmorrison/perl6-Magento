@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 7;
+plan 8;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -265,3 +265,28 @@ subtest {
     %config ==> products-attribute-sets-delete(attribute_set_id => $t1_attribute_set_id);
 
 }, 'Product media';
+
+subtest {
+    plan 3;
+
+    %config
+    ==> products-tier-prices(
+        sku               => 'P6-TEST-0001',
+        customer_group_id => 1,
+        qty               => 10,
+        price             => 12.95)
+    ==> my $t1_results;
+    is $t1_results, True, 'products tier prices new';
+
+    %config ==> products-tier-prices(sku => 'P6-TEST-0001', customer_group_id => 1) ==> my @t2_results;
+    is @t2_results.head<value>, '12.95', 'products tier prices all';
+
+    %config
+    ==> products-tier-prices-delete(
+        sku               => 'P6-TEST-0001',
+        customer_group_id => 1,
+        qty               => 10)
+    ==> my $t3_results;
+    is $t3_results, True, 'products group prices delete';
+
+}, 'Product tier prices';
