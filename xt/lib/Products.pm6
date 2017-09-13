@@ -419,3 +419,17 @@ our sub products-attribute-set-modified() {
         sortOrder        => 0
     }
 }
+
+our sub products-attribute-group() {
+    group => {
+        attributeGroupName => 'Delete Me',
+        attributeSetId     => 4
+    }
+}
+
+our sub products-attribute-group-save() {
+    group => {
+        attributeGroupName => 'Delete Me Too',
+        attributeSetId     => 4
+    }
+}

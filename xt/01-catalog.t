@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 4;
+plan 5;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -170,3 +170,41 @@ subtest {
     is $fin_results, True, 'products attribute sets delete';
 
 }, 'Product attribute sets';
+
+subtest {
+    plan 4;
+
+    my %t1_search_criteria = %{
+        searchCriteria => %{
+            filterGroups => [
+                {
+                    filters => [
+                        {
+                            field => 'attribute_set_id',
+                            value => 4,
+                            condition_type => 'eq'
+                        },
+                    ]
+                },
+            ],
+        }
+    }
+
+    %config ==> products-attribute-groups(search_criteria => %t1_search_criteria) ==> my %t1_results;
+    is %t1_results<items>.head<attribute_group_name>, 'Product Details', 'products attributes groups all';
+
+    my %t2_data = Products::products-attribute-group();
+    %config ==> products-attribute-groups(data => %t2_data) ==> my %t2_results;
+    is %t2_results<attribute_group_name>, 'Delete Me', 'products attributes groups new';
+    my $t2_group_id = %t2_results<attribute_group_id>;
+
+    my %t3_data = Products::products-attribute-group-save();
+    %config ==> products-attribute-groups(attribute_set_id => 4, data => %t3_data) ==> my %t3_results;
+    is %t3_results<attribute_group_name>, 'Delete Me Too', 'products attributes groups modified';
+    my $t3_group_id = %t3_results<attribute_group_id>;
+
+    %config ==> products-attribute-groups-delete(group_id => $t2_group_id.Int) ==> my $fin_result;
+    %config ==> products-attribute-groups-delete(group_id => $t3_group_id.Int);
+    is $fin_result, True, 'products attributes groups delete';
+
+}, 'Product attribute groups';

@@ -303,7 +303,7 @@ our multi products-attribute-groups(
 }
 
 #DELETE /V1/products/attribute-sets/groups/:group_id
-our sub products-attribute-sets-groups-delete(
+our sub products-attribute-groups-delete(
     Hash $config,
     Int  :$group_id!
 ) is export {
