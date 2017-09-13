@@ -433,3 +433,10 @@ our sub products-attribute-group-save() {
         attributeSetId     => 4
     }
 }
+
+our sub products-attributes-option() {
+    option => %{
+        label => 'Delete Me',
+        value => 'deleteme'
+    }
+}

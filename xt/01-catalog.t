@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 5;
+plan 6;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -208,3 +208,31 @@ subtest {
     is $fin_result, True, 'products attributes groups delete';
 
 }, 'Product attribute groups';
+
+subtest {
+
+    plan 3;
+
+    # Get options
+    %config ==> products-attributes-options(attribute_code => 'shipment_type') ==> my @t1_results;
+    is @t1_results.head<label>, 'Together', 'products attributes options get by attribute code';
+
+    my %t2_attribute = Products::product-attribute();
+    %config ==> products-attributes(data => %t2_attribute) ==> my %t2_attribute_results;
+
+    # New
+    my %t2_data = Products::products-attributes-option();
+    %config ==> products-attributes-options(attribute_code => 'deleteme', data => %t2_data) ==> my $t2_results;
+    is $t2_results, True, 'products attributes options new';
+
+    # Create temporary attribute
+    %config ==> products-attributes(attribute_code => 'deleteme') ==> %t2_attribute;
+    my $t2_option_id = %t2_attribute<options>.grep({$_<label> ~~ 'Delete Me'}).head<value>.Int;
+
+    # Delete
+    %config ==> products-attributes-options-delete(attribute_code => 'deleteme', option_id => $t2_option_id) ==> my $t3_results;
+    is $t3_results, True, 'product attributes options delete';
+
+    # Cleanup temporary attribute
+    %config ==> products-attributes-delete(attribute_code => 'deleteme');
+}, 'Product attribute options';

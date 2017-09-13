@@ -317,7 +317,7 @@ our sub products-attribute-groups-delete(
 proto sub products-attributes-options(|) is export {*}
 our multi products-attributes-options(
     Hash $config,
-    Int  :$attribute_code
+    Str  :$attribute_code!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -327,8 +327,8 @@ our multi products-attributes-options(
 #POST   /V1/products/attributes/:attribute_code/options
 our multi products-attributes-options(
     Hash $config,
-    Int  :$attribute_code,
-    Hash :$data
+    Str  :$attribute_code!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -340,8 +340,8 @@ our multi products-attributes-options(
 #DELETE /V1/products/attributes/:attribute_code/options/:option_id
 our sub products-attributes-options-delete(
     Hash $config,
-    Int  :$attribute_code,
-    Int  :$option_id
+    Str  :$attribute_code!,
+    Int  :$option_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
