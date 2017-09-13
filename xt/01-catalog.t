@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 6;
+plan 7;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -236,3 +236,32 @@ subtest {
     # Cleanup temporary attribute
     %config ==> products-attributes-delete(attribute_code => 'deleteme');
 }, 'Product attribute options';
+
+subtest {
+    plan 5;
+
+    my %t1_attribute_set = Products::products-attribute-set();
+    %config ==> products-attribute-sets(data => %t1_attribute_set) ==> my %t1_attribute_set_results;
+    my $t1_attribute_set_id = %t1_attribute_set_results<attribute_set_id>.Int;
+    %config ==> products-media-types(attribute_set_name => 'DeleteMe') ==> my @t1_results;
+    is @t1_results.head<attribute_code>, 'image', 'products media types all';
+
+    %config ==> products-media(sku => 'P6-TEST-0001') ==> my @t2_results;
+    like @t2_results.head<file>, /'sample-file'/, 'products media by sku';
+    
+    my %t3_data = Products::products-media();
+    %config ==> products-media(sku => 'P6-TEST-0001', data => %t3_data) ==> my @t3_results;
+    is @t3_results.elems, 1, 'products media new';
+    my $t3_entry_id = @t3_results.head.Int;
+
+    my %t4_data = Products::products-media(entry_id => $t3_entry_id);
+    %config ==> products-media(sku => 'P6-TEST-0001', entry_id => $t3_entry_id, data => %t4_data) ==> my $t4_results;
+    is $t4_results, True, 'products media modify';
+
+    %config ==> products-media-delete(sku => 'P6-TEST-0001', entry_id => $t3_entry_id) ==> my $t5_results;
+    is $t5_results, True, 'products media delete';
+
+    # Cleanup temporary attribute set
+    %config ==> products-attribute-sets-delete(attribute_set_id => $t1_attribute_set_id);
+
+}, 'Product media';

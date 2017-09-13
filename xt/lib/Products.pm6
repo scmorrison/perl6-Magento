@@ -95,7 +95,7 @@ our sub downloadable() {
                 position   => 0,
                 disabled   => 'false',
                 content => %{
-                  base64EncodedData => encode-base64(slurp('xt'.IO.child('assets').child('media-file.png'), :bin), :str),
+                  base64EncodedData => encode-base64(slurp('xt'.IO.child('assets').child('sample-file.png'), :bin), :str),
                   type => 'image/png',
                   name => 'sample-file.png'
                 },
@@ -438,5 +438,37 @@ our sub products-attributes-option() {
     option => %{
         label => 'Delete Me',
         value => 'deleteme'
+    }
+}
+
+our proto sub products-media(|) {*}
+our multi products-media() {
+    entry => %{
+        mediaType  => 'image',
+        label      => 'Media File',
+        position   => 1,
+        disabled   => 'false',
+        content => %{
+          base64EncodedData => encode-base64(slurp('xt'.IO.child('assets').child('media-file.png'), :bin), :str),
+          type => 'image/png',
+          name => 'media-file.png'
+        }
+    }
+}
+
+our multi products-media(
+    Int :$entry_id!
+) {
+    entry => %{
+        id         => $entry_id,
+        mediaType  => 'image',
+        label      => 'Media File',
+        position   => 1,
+        disabled   => 'false',
+        content => %{
+          base64EncodedData => encode-base64(slurp('xt'.IO.child('assets').child('media-file.png'), :bin), :str),
+          type => 'image/png',
+          name => 'media-file.png'
+        }
     }
 }

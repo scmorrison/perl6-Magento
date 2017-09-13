@@ -352,8 +352,8 @@ our sub products-attributes-options-delete(
 #GET    /V1/products/media/types/:attribute_set_name
 our sub products-media-types(
     Hash $config,
-    Str  :$attribute_set_name
-) {
+    Str  :$attribute_set_name!
+) is export {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
@@ -364,7 +364,7 @@ proto sub products-media(|) is export {*}
 #GET    /V1/products/:sku/media
 our multi products-media(
     Hash $config,
-    Str  :$sku,
+    Str  :$sku!,
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -374,8 +374,8 @@ our multi products-media(
 #GET    /V1/products/:sku/media/:entry_id
 our multi products-media(
     Hash $config,
-    Str  :$sku,
-    Int  :$entry_id
+    Str  :$sku!,
+    Int  :$entry_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -385,21 +385,21 @@ our multi products-media(
 #POST   /V1/products/:sku/media
 our multi products-media(
     Hash $config,
-    Str  :$sku,
-    Hash :$data
+    Str  :$sku!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media";
+        uri     => "rest/V1/products/$sku/media",
         content => to-json $data;
 }
 #PUT    /V1/products/:sku/media/:entry_id
 our multi products-media(
     Hash $config,
-    Str  :$sku,
-    Int  :$entry_id,
-    Hash :$data
+    Str  :$sku!,
+    Int  :$entry_id!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
@@ -411,8 +411,8 @@ our multi products-media(
 #DELETE /V1/products/:sku/media/:entry_id
 our sub products-media-delete(
     Hash $config,
-    Str  :$sku,
-    Int  :$entry_id
+    Str  :$sku!,
+    Int  :$entry_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
@@ -424,8 +424,8 @@ proto sub products-group-prices(|) is export {*}
 #GET    /V1/products/:sku/group-prices/:customer_group_id/tiers
 our multi products-group-prices(
     Hash $config,
-    Str  :$sku,
-    Int  :$customer_group_id
+    Str  :$sku!,
+    Int  :$customer_group_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
