@@ -513,3 +513,25 @@ our sub products-option() {
         ]
     }
 }
+
+our sub products-links() {
+    items => [
+        %{
+            sku               => 'P6-TEST-0001',
+            linkType          => 'related',
+            linkedProductSku  => 'P6-TEST-0002',
+            linkedProductType => 'simple',
+            position          => 0,
+        },
+    ]
+}
+
+our sub products-links-update() {
+    entity => %{
+        sku               => 'P6-TEST-0001',
+        linkType          => 'related',
+        linkedProductSku  => 'P6-TEST-0002',
+        linkedProductType => 'simple',
+        position          => 0
+    }
+}

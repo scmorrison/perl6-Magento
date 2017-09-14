@@ -624,8 +624,8 @@ proto sub products-links(|) is export {*}
 #GET    /V1/products/:sku/links/:type
 our multi products-links(
     Hash $config,
-    Str  :$sku,
-    Str  :$type
+    Str  :$sku!,
+    Str  :$type!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -635,8 +635,8 @@ our multi products-links(
 #POST   /V1/products/:sku/links
 our multi products-links(
     Hash $config,
-    Str  :$sku,
-    Hash :$data
+    Str  :$sku!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -644,12 +644,13 @@ our multi products-links(
         uri     => "rest/V1/products/$sku/links",
         content => to-json $data;
 }
+
 #PUT    /V1/products/:sku/links
-our multi products-links(
+our sub products-links-update(
     Hash $config,
-    Str  :$sku,
-    Hash :$data
-) {
+    Str  :$sku!,
+    Hash :$data!
+) is export {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
@@ -660,22 +661,21 @@ our multi products-links(
 #DELETE /V1/products/:sku/links/:type/:linkedProductSku
 our sub products-links-delete(
     Hash $config,
-    Str  :$sku,
-    Str  :$type,
-    Str  :$linkedProductSku
+    Str  :$sku!,
+    Str  :$type!,
+    Str  :$linked_product_sku!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/links/$type/$linkedProductSku";
+        uri     => "rest/V1/products/$sku/links/$type/$linked_product_sku";
 }
-
 
 proto sub categories-products(|) is export {*}
 #GET    /V1/categories/:category_id/products
 our multi categories-products(
     Hash $config,
-    Int  :$category_id
+    Int  :$category_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -685,8 +685,8 @@ our multi categories-products(
 #POST   /V1/categories/:category_id/products
 our multi categories-products(
     Hash $config,
-    Int  :$category_id,
-    Hash :$data
+    Int  :$category_id!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -697,8 +697,8 @@ our multi categories-products(
 #PUT    /V1/categories/:category_id/products
 our multi categories-products(
     Hash $config,
-    Int  :$category_id,
-    Hash :$data
+    Int  :$category_id!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
@@ -710,8 +710,8 @@ our multi categories-products(
 #DELETE /V1/categories/:category_id/products/:sku
 our sub categories-products-delete(
     Hash $config,
-    Int  :$category_id,
-    Str  :$sku
+    Int  :$category_id!,
+    Str  :$sku!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
@@ -722,8 +722,8 @@ our sub categories-products-delete(
 #* POST   /V1/products/:sku/websites
 our sub products-websites(
     Hash $config,
-    Str  :$sku,
-    Hash :$data
+    Str  :$sku!,
+    Hash :$data!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',

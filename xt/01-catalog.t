@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 10;
+plan 11;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -343,3 +343,25 @@ subtest {
     %config ==> products-custom-options-delete(sku => 'P6-TEST-0001', option_id => $t2_option_id) ==> my $fin_results;
     is $fin_results, True, 'products custom options delete';
 }, 'Product custom options';
+
+subtest {
+    plan 5;
+
+    %config ==> products-links-types() ==> my @t1_results;
+    is @t1_results.head<name>, 'related', 'products links types all';
+
+    my %t2_data = Products::products-links();
+    %config ==> products-links(sku => 'P6-TEST-0001', data => %t2_data) ==> my $t2_results;
+    is $t2_results, True, 'products links new';
+
+    %config ==> products-links(sku => 'P6-TEST-0001', type => 'related') ==> my @t3_results;
+    is @t3_results.head<linked_product_sku>, 'P6-TEST-0002', 'products links by sku and type';
+
+    my %t3_data = Products::products-links-update();
+    %config ==> products-links-update(sku => 'P6-TEST-0001', data => %t3_data) ==> my $t3_results;
+    is $t3_results, True, 'products links update';
+
+    %config ==> products-links-delete(sku => 'P6-TEST-0001', type => 'related', linked_product_sku => 'P6-TEST-0002') ==> my $fin_results;
+    is $fin_results, True, 'products links delete';
+
+}, 'Product links';
