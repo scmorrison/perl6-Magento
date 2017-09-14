@@ -735,9 +735,9 @@ our sub products-websites(
 #* PUT   /V1/products/:sku/websites
 our sub products-websites-update(
     Hash $config,
-    Str  :$sku,
-    Hash :$data
-) {
+    Str  :$sku!,
+    Hash :$data!
+) is export {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
@@ -748,8 +748,8 @@ our sub products-websites-update(
 #* DELETE /V1/products/:sku/websites/:website_id
 our sub products-websites-delete(
     Hash $config,
-    Str  :$sku,
-    Int  :$website_id
+    Str  :$sku!,
+    Int  :$website_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',

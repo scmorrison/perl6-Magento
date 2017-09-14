@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 12;
+plan 13;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -384,3 +384,28 @@ subtest {
     is $t4_results, True, 'categories products delete';
 
 }, 'Categories products';
+
+subtest {
+    plan 3;
+
+    my %t1_data = productWebsiteLink => %{
+        sku       => 'P6-TEST-0001',
+        websiteId => 1 
+    }
+
+    %config ==> products-websites(sku => 'P6-TEST-0001', data => %t1_data) ==> my $t1_results;
+    is $t1_results, True, 'products websites new';
+
+    %config ==> products-websites-update(sku => 'P6-TEST-0001', data => %t1_data) ==> my $t2_results;
+    is $t2_results, True, 'products websites update';
+
+    %config ==> products-websites-delete(sku => 'P6-TEST-0001', website_id => 1) ==> my $fin_results;
+    is $fin_results, True, 'products websites delete';
+
+}, 'Product websites';
+
+# Cleanup
+%config ==> products-delete(sku => 'P6-TEST-0001');
+%config ==> products-delete(sku => 'P6-TEST-0002');
+%config ==> products-delete(sku => 'P6-TEST-0003');
+%config ==> products-delete(sku => 'P6-TEST-0004');
