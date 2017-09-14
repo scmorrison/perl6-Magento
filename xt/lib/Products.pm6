@@ -535,3 +535,11 @@ our sub products-links-update() {
         position          => 0
     }
 }
+
+our sub categories-products() {
+    productLink => %{
+        sku        => 'P6-TEST-0001',
+        position   => 0,
+        categoryId => '2'
+    }
+}

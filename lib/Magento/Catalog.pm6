@@ -695,11 +695,11 @@ our multi categories-products(
         content => to-json $data;
 }
 #PUT    /V1/categories/:category_id/products
-our multi categories-products(
+our sub categories-products-update(
     Hash $config,
     Int  :$category_id!,
     Hash :$data!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,

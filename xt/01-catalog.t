@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 11;
+plan 12;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -365,3 +365,22 @@ subtest {
     is $fin_results, True, 'products links delete';
 
 }, 'Product links';
+
+subtest {
+    plan 4;
+
+    my %t1_data = Products::categories-products();
+    %config ==> categories-products(category_id => 2, data => %t1_data) ==> my $t1_results;
+    is $t1_results, True, 'categories products new';
+
+    %config ==> categories-products(category_id => 2) ==> my @t2_results;
+    is @t2_results.elems > 0, True, 'categories products all';
+
+    my %t3_data = Products::categories-products();
+    %config ==> categories-products-update(category_id => 2, data => %t3_data) ==> my $t3_results;
+    is $t3_results, True, 'categories products update';
+
+    %config ==> categories-products-delete(category_id => 2, sku => 'P6-TEST-0001') ==> my $t4_results;
+    is $t4_results, True, 'categories products delete';
+
+}, 'Categories products';
