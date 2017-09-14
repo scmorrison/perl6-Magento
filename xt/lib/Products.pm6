@@ -483,3 +483,33 @@ our sub category() {
         includeInMenu => 'true'
     }
 }
+
+our sub products-option() {
+    option => %{
+        productSku    => 'P6-TEST-0001',
+        title         => 'Delete Me',
+        type          => 'multiple',
+        sortOrder     =>  0,
+        isRequire     => 'true',
+        values => [
+            %{
+                title       => 'Green',
+                sortOrder   =>  0,
+                price       =>  0,
+                priceType   => 'fixed'
+            },
+            %{
+                title       => 'Blue',
+                sortOrder   =>  1,
+                price       =>  0,
+                priceType   => 'fixed'
+            },
+            %{
+                title       => 'Gold',
+                sortOrder   =>  2,
+                price       =>  10.00,
+                priceType   => 'fixed'
+            }
+        ]
+    }
+}

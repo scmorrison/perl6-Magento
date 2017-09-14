@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 9;
+plan 10;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -318,3 +318,28 @@ subtest {
     is $fin_results, True, 'categories delete';
 
 }, 'Categories';
+
+subtest {
+    plan 4;
+
+    %config ==> products-options-types() ==> my @t1_results;
+    is @t1_results.grep({$_<code> ~~ 'date'}).head<label>, 'Date', 'products custom options types';
+
+    my %t2_data = Products::products-option();
+    %config ==> products-custom-options(data => %t2_data) ==> my %t2_results;
+    is %t2_results<title>, 'Delete Me', 'products custom options new';
+    my $t2_option_id = %t2_results<option_id>.Int;
+
+    %config ==> products-custom-options(sku => 'P6-TEST-0001') ==> my @t3_results;
+    is @t3_results.grep({$_<title> ~~ 'Delete Me'}).head<type>, 'multiple', 'products custom options by sku';
+
+    # Revisit: This is currently not working in Magento, updating a custom option creates a new option
+    # https://github.com/magento/magento2/issues/5972
+    #my %t4_data = option => %( |%t2_data<option>, isRequire => 'false' );
+    #%config ==> products-custom-options(option_id => $t2_option_id, data => %t4_data) ==> my %t4_results;
+    #is %t4_results<option_id>, $t2_option_id, 'products custom options update [optionId]';
+    #is %t4_results<is_require>, 'False', 'products custom options update [isRequire]';
+
+    %config ==> products-custom-options-delete(sku => 'P6-TEST-0001', option_id => $t2_option_id) ==> my $fin_results;
+    is $fin_results, True, 'products custom options delete';
+}, 'Product custom options';

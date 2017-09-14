@@ -540,11 +540,11 @@ our sub products-options-types(
         uri     => "rest/V1/products/options/types";
 }
 
-proto sub products-options(|) is export {*}
+proto sub products-custom-options(|) is export {*}
 #GET    /V1/products/:sku/options
-our multi products-options(
+our multi products-custom-options(
     Hash $config,
-    Str  :$sku
+    Str  :$sku!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -552,10 +552,10 @@ our multi products-options(
         uri     => "rest/V1/products/$sku/options";
 }
 #GET    /V1/products/:sku/options/:option_id
-our multi products-options(
+our multi products-custom-options(
     Hash $config,
-    Str  :$sku,
-    Int  :$option_id
+    Str  :$sku!,
+    Int  :$option_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -563,9 +563,9 @@ our multi products-options(
         uri     => "rest/V1/products/$sku/options/$option_id";
 }
 #POST   /V1/products/options
-our multi products-options(
+our multi products-custom-options(
     Hash $config,
-    Hash :$data
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -574,11 +574,12 @@ our multi products-options(
         content => to-json $data;
 }
 #PUT    /V1/products/options/:option_id
-our multi products-options(
+our multi products-custom-options(
     Hash $config,
-    Int  :$option_id,
-    Hash :$data
+    Int  :$option_id!,
+    Hash :$data!
 ) {
+    note "UPDATING";
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
@@ -587,10 +588,10 @@ our multi products-options(
 }
 
 #DELETE /V1/products/:sku/options/:option_id
-our sub products-options-delete(
+our sub products-custom-options-delete(
     Hash $config,
-    Str  :$sku,
-    Int  :$option_id
+    Str  :$sku!,
+    Int  :$option_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
