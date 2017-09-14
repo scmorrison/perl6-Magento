@@ -6,7 +6,7 @@ use Magento::Catalog;
 use Magento::Config;
 use Products;
 
-plan 8;
+plan 9;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
@@ -57,7 +57,6 @@ subtest {
 }, 'Products';
 
 subtest {
-
     plan 5;
 
     %config ==> products-attributes-types() ==> my @t1_results;
@@ -210,7 +209,6 @@ subtest {
 }, 'Product attribute groups';
 
 subtest {
-
     plan 3;
 
     # Get options
@@ -290,3 +288,33 @@ subtest {
     is $t3_results, True, 'products group prices delete';
 
 }, 'Product tier prices';
+
+subtest {
+    plan 6;
+
+    %config ==> categories() ==> my %t1_results;
+    is %t1_results<children_data>.head<name>, 'Default Category', 'categories all';
+
+    %config ==> categories(category_id => 1) ==> my %t2_results;
+    is %t2_results<name>, 'Root Catalog', 'categories by id';
+
+    my %t3_data = Products::category();
+    %config ==> categories(data => %t3_data) ==> my %t3_results;
+    is %t3_results<name>, 'Delete Me', 'categories new';
+    my $t3_category_id = %t3_results<id>;
+
+    my %t4_data = category => %( |%t3_results, name => 'Delete Me Modified' );
+    %config ==> categories(category_id => $t3_category_id, data => %t4_data) ==> my %t4_results;
+    is %t4_results<name>, 'Delete Me Modified', 'categories update';
+
+    my %t5_data = %{
+        parentId => 1,
+        afterId  => 1
+    }
+    %config ==> categories-move(category_id => $t3_category_id, data => %t5_data) ==> my $t5_results;
+    is $t5_results, True, 'categories move';
+
+    %config ==> categories-delete(category_id => $t3_category_id) ==> my $fin_results;
+    is $fin_results, True, 'categories delete';
+
+}, 'Categories';

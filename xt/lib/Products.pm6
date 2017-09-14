@@ -472,3 +472,14 @@ our multi products-media(
         }
     }
 }
+
+our sub category() {
+    category => %{
+        parentId      => 1,
+        name          => 'Delete Me',
+        isActive      => 'true',
+        position      => 1,
+        level         => 1,
+        includeInMenu => 'true'
+    }
+}

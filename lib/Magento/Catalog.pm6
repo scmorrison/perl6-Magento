@@ -463,17 +463,19 @@ our sub products-tier-prices-delete(
 proto sub categories(|) is export {*}
 #GET    /V1/categories
 our multi categories(
-    Hash $config
+    Hash $config,
+    Int  :$root_category_id = 1,
+    Int  :$depth = 1;
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories";
+        uri     => "rest/V1/categories?rootCategoryId=$root_category_id&depth=$depth";
 }
 #GET    /V1/categories/:category_id
 our multi categories(
     Hash $config,
-    Int  :$category_id
+    Int  :$category_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -483,7 +485,7 @@ our multi categories(
 #POST   /V1/categories
 our multi categories(
     Hash $config,
-    Hash :$data
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
@@ -494,8 +496,8 @@ our multi categories(
 #PUT    /V1/categories/:id
 our multi categories(
     Hash $config,
-    Int  :$category_id,
-    Hash :$data
+    Int  :$category_id!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
@@ -507,7 +509,7 @@ our multi categories(
 #DELETE /V1/categories/:category_id
 our sub categories-delete(
     Hash $config,
-    Int  :$category_id
+    Int  :$category_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
