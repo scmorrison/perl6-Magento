@@ -93,7 +93,7 @@ sub MAIN($mod_name) {
                     ' new';
                 }
                 when 'PUT' {
-                    ' modified';
+                    ' update';
                 }
                 when 'DELETE' {
                     ' delete';

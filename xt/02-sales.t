@@ -33,7 +33,7 @@ subtest {
         data => %t2_data
     )
     ==> my $t2_results;
-    is True, True, 'creditmemo modified';
+    is True, True, 'creditmemo update';
 
     # POST   /V1/creditmemo
     my %t3_data = Sales::creditmemo();
@@ -260,7 +260,7 @@ subtest {
         data      => %t3_data
     )
     ==> my $t3_results;
-    is True, True, 'orders modified';
+    is True, True, 'orders update';
 
     # POST   /V1/orders/
     my %t4_data = Sales::orders();
@@ -322,7 +322,7 @@ subtest {
             data => %t1_data
     )
     ==> my $t1_results;
-    is True, True, 'orders create modified';
+    is True, True, 'orders create update';
 
 }, 'Orders create';
 
