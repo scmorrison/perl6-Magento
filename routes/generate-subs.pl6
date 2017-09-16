@@ -28,7 +28,11 @@ sub MAIN($mod_name) {
     unit module Magento::{$mod_name};
     END
 
-    for $routes.lines -> $line {
+    sub tokenize($str) {
+        $str.match(/ [\S* \s* '/V1/'] <(\S*)> /).Str.split('/').grep({$_ !~~ /^':'/ }).join('')
+    }
+
+    for $routes.lines.sort({ tokenize($^a) gt tokenize($^b) }) -> $line {
         my ($http_method, $route) = ~<< $line.match: / ^ ('GET'|'PUT'|'POST'|'DELETE') \s* (\S*) $ /;
         my @params = $route.split('/')[2..*].grep({ $_ ~~ /':'/});
         push @params, 'search_criteria = %()' when $route ~~ /'search'/;
