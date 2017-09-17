@@ -2,6 +2,8 @@
 
 use v6;
 use String::CamelCase;
+use lib 'lib';
+use Magento::Utils;
 
 sub MAIN($mod_name) {
 
@@ -37,11 +39,7 @@ sub MAIN($mod_name) {
 
     my $this_sub_index = 1;
 
-    sub tokenize($str) {
-        $str.match(/ [\S* \s* '/V1/'] <(\S*)> /).Str.split('/').grep({$_ !~~ /^':'/ }).join('')
-    }
-
-    for $routes.lines.sort({ tokenize($^a) gt tokenize($^b) }) -> $line {
+    for sort({ tokenize($^a) gt tokenize($^b) }, lines $routes) -> $line {
         my ($http_method, $route) = ~<< $line.match: / ^ ('GET'|'PUT'|'POST'|'DELETE') \s* (\S*) $ /;
         my @params = $route.split('/')[2..*].grep({ $_ ~~ /':'/});
         push @params, 'query_string' when $route ~~ /'search'/;
