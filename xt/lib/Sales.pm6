@@ -4,7 +4,12 @@ use Base64;
 unit module Sales;
 
 our sub creditmemo {
-    %();
+	entity => %{
+        orderId => 0,
+        items   => [
+
+        ]
+	}
 }
 
 our sub creditmemo-comments {

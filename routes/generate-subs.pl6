@@ -80,7 +80,7 @@ sub MAIN($mod_name) {
         print ("\n" when @params.elems eq 0) ~ "    Hash :\$data!" when $http_method ~~ 'POST'|'PUT';
 
         # Close signature and add 'is export' if single sub
-        print "\n)" ~ ($sub_name_count eq 1 ?? ' is export' !! '')  ~ " \{\n"; 
+        print "\n)" ~ ($sub_name_count eq 1 || $http_method ~~ 'DELETE' ?? ' is export' !! '')  ~ " \{\n"; 
 
         # Add query string parsing if search capable routine
         print "    my \$query_string = search-criteria-to-query-string \$search_criteria;\n" when $route ~~ /'search'/;

@@ -250,6 +250,8 @@ our sub bundle() {
     }
 }
 
+# Connfigurable products don't set qty, revisit
+# https://github.com/magento/magento2/issues/7876
 our sub configurable() {
     product => %{
         sku            => 'P6-TEST-0004',
@@ -258,7 +260,7 @@ our sub configurable() {
         attributeSetId => 4,
         price          => 19.95,
         status         => 1,
-        visibility     => 1,
+        visibility     => 2,
         weight         => 1.5,
         customAttributes => [
             %{
@@ -272,7 +274,7 @@ our sub configurable() {
               isInStock                => 'true',
               isQtyDecimal             => 'true',
               useConfigMinQty          => 'true',
-              minQty                   => 10,
+              minQty                   => 1,
               useConfigMinSaleQty      => 1,
               minSaleQty               => 1,
               useConfigMaxSaleQty      => 'true',
@@ -282,10 +284,10 @@ our sub configurable() {
               useConfigNotifyStockQty  => 'true',
               notifyStockQty           => 0,
               useConfigQtyIncrements   => 'true',
-              qtyIncrements            => 0,
+              qtyIncrements            => 1,
               useConfigEnableQtyInc    => 'true',
-              enableQtyIncrements      => 'true',
-              useConfigManageStock     => 'true',
+              enableQtyIncrements      => 'false',
+              useConfigManageStock     => 'false',
               manageStock              => 'true'
           },
           configurableProductOptions => [
@@ -334,6 +336,18 @@ our sub configurable() {
     }
 }
 
+our sub configurable-qty() {
+    product => %{
+        sku => 'P6-TEST-0004',
+        extensionAttributes => %{
+            stockItem => %{
+                qty       => 100,
+                isInStock => 'true'
+            }
+        }
+    }, saveOptions => 'true';
+}
+
 our sub delete-me() {
     product => %{
         sku            => 'P6-TEST-DELETE',
@@ -344,6 +358,12 @@ our sub delete-me() {
         status         => 1,
         visibility     => 1,
         weight         => 1.5,
+        extensionAttributes => %{
+            stockItem => %{
+                qty       => 100,
+                isInStock => 'true'
+            }
+        }
     }
 }
 
