@@ -12,9 +12,10 @@ use Magento::Quote;
 use Quote;
 use Setup;
 
-my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
+my %config      = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 my $customer_id = Setup::customer-id();
 my $cart_id;
+my $cart_item_id;
 
 subtest {
 
@@ -86,7 +87,7 @@ subtest {
     )
     ==> my %t1_results;
     is %t1_results<sku>, 'P6-TEST-DELETE', 'carts items new';
-    my $t1_item_id = %t1_results<item_id>;
+    $cart_item_id = %t1_results<item_id>;
 
     # PUT    /V1/carts/:cartId/items/:itemId
     my %t2_data = Quote::carts-items-update(quote_id => "$cart_id");
@@ -94,7 +95,7 @@ subtest {
     %config
     ==> carts-items(
         cart_id => $cart_id,
-        item_id => $t1_item_id,
+        item_id => $cart_item_id,
         data    => %t2_data
     )
     ==> my %t2_results;
@@ -106,47 +107,35 @@ subtest {
     ==> my @t3_results;
     is @t3_results.head<product_type>, 'simple', 'carts items by cart_id';
 
-    # DELETE /V1/carts/:cartId/items/:itemId
-    %config
-    ==> carts-items-delete(
-        cart_id => $cart_id,
-        item_id => $t1_item_id
-    )
-    ==> my $t4_results;
-    is $t4_results, True, 'carts items delete';
-
 }, 'Carts items';
 
 subtest {
-#
-#    # PUT    /V1/carts/:cartId/coupons/:couponCode
-#    my %t2_data = Quote::carts-coupons();
-#
-#    my $coupon_id = Setup::coupon-id();
-#    %config
-#    ==> carts-coupons(
-#        cart_id     => $cart_id,
-#        coupon_code => 'DeleteMeCoupon'
-#    )
-#    ==> my $t2_results;
-#    note $t2_results.perl;
+
+    use Magento::SalesRule;
+    # PUT    /V1/carts/:cartId/coupons/:couponCode
+    my $coupon_id = Setup::coupon-id();
+
+    # No way to assign 'specific' coupon_code
+    # to sales rule using the API yet, revisit.
+    %config
+    ==> carts-coupons(
+        cart_id     => $cart_id,
+        coupon_code => 'DeleteMeCoupon'
+    )
+    ==> my $t2_results;
     is True, True, 'carts coupons update';
 
     # GET    /V1/carts/:cartId/coupons
-#    %config
-#    ==> carts-coupons(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-    is True, True, 'carts coupons by id';
+    %config
+    ==> carts-coupons(:$cart_id)
+    ==> my @t2_results;
+    is @t2_results, [], 'carts coupons by cart_id';
 
     # DELETE /V1/carts/:cartId/coupons
-#    %config
-#    ==> carts-coupons(
-#        cart_id => ''
-#    )
-#    ==> my $t3_results;
-    is True, True, 'carts coupons delete';
+    %config
+    ==> carts-coupons-delete(:$cart_id)
+    ==> my $t3_results;
+    is $t3_results, True, 'carts coupons delete';
 
 }, 'Carts coupons';
 
@@ -739,5 +728,18 @@ subtest {
 #    is True, True, 'guest carts-totals by id';
 #
 #}, 'Guest carts-totals';
+
+subtest {
+    
+    # DELETE /V1/carts/:cartId/items/:itemId
+    %config
+    ==> carts-items-delete(
+        cart_id => $cart_id,
+        item_id => $cart_item_id
+    )
+    ==> my $cart_results;
+    is $cart_results, True, 'carts items delete';
+
+}, 'Cleanup';
 
 done-testing;

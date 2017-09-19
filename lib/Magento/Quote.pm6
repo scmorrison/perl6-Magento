@@ -96,7 +96,7 @@ our multi carts-coupons(
 our sub carts-coupons-delete(
     Hash $config,
     Int  :$cart_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
@@ -277,7 +277,7 @@ our multi carts-mine-coupons(
 # DELETE /V1/carts/mine/coupons
 our sub carts-mine-coupons-delete(
     Hash $config
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
@@ -348,7 +348,7 @@ our multi carts-mine-items(
 our sub carts-mine-items-delete(
     Hash $config,
     Int  :$item_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
@@ -621,7 +621,7 @@ our multi guest-carts-coupons(
 our sub guest-carts-coupons-delete(
     Hash $config,
     Int  :$cart_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
@@ -685,7 +685,7 @@ our sub guest-carts-items-delete(
     Hash $config,
     Int  :$cart_id!,
     Int  :$item_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,

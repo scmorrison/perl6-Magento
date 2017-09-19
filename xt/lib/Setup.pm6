@@ -67,8 +67,7 @@ our sub customer-id() {
 
 }
 
-our sub coupon-id() {
-
+our sub rule-id() {
 
     # Confirm rule id doesn't exist
     my %rule_search_criteria = %{
@@ -95,26 +94,31 @@ our sub coupon-id() {
     my %rule_data   = rule => %{
         name                => 'DeleteMeSalesRule',
         websiteIds          => [ 0, 1 ],
-        customerGroupIds    => [ 1 ],
+        customerGroupIds    => [ 0, 1 ],
         usesPerCustomer     => 1,
         isActive            => 'true',
-        stopRulesProcessing => 'true',
+        stopRulesProcessing => 'false',
         isAdvanced          => 'true',
         sortOrder           => 0,
+        simpleAction        => 'by_percent',
         discountAmount      => 4,
-        discountStep        => 1,
+        discountStep        => 0,
         applyToShipping     => 'true',
         timesUsed           => 0,
         isRss               => 'true',
         couponType          => 'specific',
-        useAutoGeneration   => 'true',
+        useAutoGeneration   => 'false',
         usesPerCoupon       => 1
     }
 
-    my $rule_id = %rule_search_results<items>.elems eq 0
-                  ?? sales-rules(%config, data => %rule_data)<rule_id>
-                  !! %rule_search_results<items>.head<rule_id>;
+    return %rule_search_results<items>.elems eq 0
+           ?? sales-rules(%config, data => %rule_data)<rule_id>
+           !! %rule_search_results<items>.head<rule_id>;
+}
 
+our sub coupon-id(
+    Int :$rule_id = rule-id()
+) {
     my %coupon_search_criteria = %{
         searchCriteria => %{ 
             filterGroups => [
@@ -135,14 +139,17 @@ our sub coupon-id() {
         ruleId    => $rule_id,
         code      => 'DeleteMeCoupon',
         timesUsed => 0,
-        type      => 1
+        isPrimary => 1,
+        type      => 0
     }
 
+    my $new_coupon = coupons(%config, data => %coupon_data);
     my %coupon_search_results = coupons-search(%config, search_criteria => %coupon_search_criteria);
-    my $coupon_id = %coupon_search_results<items>.elems eq 0
-                    ?? coupons(%config, data => %coupon_data)<coupon_id>
-                    !! %coupon_search_results<items>.head<coupon_id>;
-    return $coupon_id;
+
+    # Return coupon_id
+    return %coupon_search_results<items>.elems eq 0
+           ?? $new_coupon<coupon_id>
+           !! %coupon_search_results<items>.head<coupon_id>;
 }
 
 our sub product-sku() {
