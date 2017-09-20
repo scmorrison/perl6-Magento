@@ -537,7 +537,7 @@ proto sub guest-carts(|) is export {*}
 # GET    /V1/guest-carts/:cartId
 our multi guest-carts(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -547,20 +547,19 @@ our multi guest-carts(
 
 # POST   /V1/guest-carts
 our multi guest-carts(
-    Hash $config,
-    Hash :$data!
+    Hash $config
 ) {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/guest-carts",
-        content => to-json $data;
+        content => '';
 }
 
 # PUT    /V1/guest-carts/:cartId
 our multi guest-carts(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) {
     Magento::HTTP::request
@@ -574,7 +573,7 @@ proto sub guest-carts-billing-address(|) is export {*}
 # GET    /V1/guest-carts/:cartId/billing-address
 our multi guest-carts-billing-address(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -585,20 +584,21 @@ our multi guest-carts-billing-address(
 # POST   /V1/guest-carts/:cartId/billing-address
 our multi guest-carts-billing-address(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/guest-carts/$cart_id/billing-address",
         content => to-json $data;
+    return $results.Int||$results;
 }
 
 # PUT    /V1/guest-carts/:cartId/collect-totals
 our sub guest-carts-collect-totals(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) is export {
     Magento::HTTP::request
@@ -612,7 +612,7 @@ proto sub guest-carts-coupons(|) is export {*}
 # GET    /V1/guest-carts/:cartId/coupons
 our multi guest-carts-coupons(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -623,7 +623,7 @@ our multi guest-carts-coupons(
 # PUT    /V1/guest-carts/:cartId/coupons/:couponCode
 our multi guest-carts-coupons(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Str  :$coupon_code!,
     Hash :$data!
 ) {
@@ -637,7 +637,7 @@ our multi guest-carts-coupons(
 # DELETE /V1/guest-carts/:cartId/coupons
 our sub guest-carts-coupons-delete(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',
@@ -648,7 +648,7 @@ our sub guest-carts-coupons-delete(
 # POST   /V1/guest-carts/:cartId/estimate-shipping-methods
 our sub guest-carts-estimate-shipping-methods(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) is export {
     Magento::HTTP::request
@@ -662,7 +662,7 @@ proto sub guest-carts-items(|) is export {*}
 # GET    /V1/guest-carts/:cartId/items
 our multi guest-carts-items(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -673,7 +673,7 @@ our multi guest-carts-items(
 # POST   /V1/guest-carts/:cartId/items
 our multi guest-carts-items(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) {
     Magento::HTTP::request
@@ -686,7 +686,7 @@ our multi guest-carts-items(
 # PUT    /V1/guest-carts/:cartId/items/:itemId
 our multi guest-carts-items(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Int  :$item_id!,
     Hash :$data!
 ) {
@@ -700,7 +700,7 @@ our multi guest-carts-items(
 # DELETE /V1/guest-carts/:cartId/items/:itemId
 our sub guest-carts-items-delete(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Int  :$item_id!
 ) is export {
     Magento::HTTP::request
@@ -712,7 +712,7 @@ our sub guest-carts-items-delete(
 # PUT    /V1/guest-carts/:cartId/order
 our sub guest-carts-order(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) is export {
     Magento::HTTP::request
@@ -725,7 +725,7 @@ our sub guest-carts-order(
 # GET    /V1/guest-carts/:cartId/payment-methods
 our sub guest-carts-payment-methods(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
@@ -737,7 +737,7 @@ proto sub guest-carts-selected-payment-method(|) is export {*}
 # GET    /V1/guest-carts/:cartId/selected-payment-method
 our multi guest-carts-selected-payment-method(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -748,7 +748,7 @@ our multi guest-carts-selected-payment-method(
 # PUT    /V1/guest-carts/:cartId/selected-payment-method
 our multi guest-carts-selected-payment-method(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) {
     Magento::HTTP::request
@@ -761,7 +761,7 @@ our multi guest-carts-selected-payment-method(
 # GET    /V1/guest-carts/:cartId/shipping-methods
 our sub guest-carts-shipping-methods(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
@@ -772,7 +772,7 @@ our sub guest-carts-shipping-methods(
 # GET    /V1/guest-carts/:cartId/totals
 our sub guest-carts-totals(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) is export {
     Magento::HTTP::request
         method  => 'GET',

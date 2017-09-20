@@ -491,7 +491,7 @@ subtest {
     ==> carts-billing-address(
         cart_id => $cart_id,
         data    => %t1_address
-    ) ==> note();
+    );
 
     # PUT    /V1/carts/:cartId/selected-payment-method
     my %t1_data = method => %{
@@ -564,65 +564,70 @@ subtest {
 
 }, 'Carts order';
 
-#
-#subtest {
-#
-#    # GET    /V1/guest-carts/:cartId
-#    %config
-#    ==> guest-carts(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts by id';
-#
-#    # POST   /V1/guest-carts
-#    my %t2_data = Quote::guest-carts();
-#
-#    %config
-#    ==> guest-carts(
-#            data => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'guest carts new';
-#
-#    # PUT    /V1/guest-carts/:cartId
-#    my %t3_data = Quote::guest-carts();
-#
-#    %config
-#    ==> guest-carts(
-#        cart_id => '',
-#        data   => %t3_data
-#    )
-#    ==> my $t3_results;
-#    is True, True, 'guest carts update';
-#
-#}, 'Guest carts';
-#
-#subtest {
-#
-#    # GET    /V1/guest-carts/:cartId/billing-address
-#    %config
-#    ==> guest-carts-billing-address(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-billing-address by id';
-#
-#    # POST   /V1/guest-carts/:cartId/billing-address
-#    my %t2_data = Quote::guest-carts-billing-address();
-#
-#    %config
-#    ==> guest-carts-billing-address(
-#        cart_id => '',
-#        data   => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'guest carts-billing-address new';
-#
-#}, 'Guest carts-billing-address';
-#
-#subtest {
-#
+
+subtest {
+
+    # POST   /V1/guest-carts
+    my $t1_results = guest-carts(%config);
+    is $t1_results.chars, 32, 'guest carts new';
+    my $t1_cart_id = $t1_results;
+
+    # revisit, need to add customer to guest cart?
+
+    # PUT    /V1/guest-carts/:cartId
+    #my %t2_data = %{
+    #    customerId => $customer_id,
+    #    storeId    => 1
+    #}
+
+    #%config
+    #==> guest-carts(
+    #    cart_id => $t1_cart_id,
+    #    data    => %t2_data
+    #)
+    #==> my $t2_results;
+    #is True, True, 'guest carts update';
+
+    # POST   /V1/guest-carts/:cartId/billing-address
+    my %t3_data = %{
+        address => %{
+            firstname     => 'Camelia',
+            lastname      => 'Butterfly',
+            postcode      => '90210',
+            city          => 'Beverly Hills',
+            street        => ['Zoe Ave'],
+            regionId      => 12,
+            countryId     => 'US',
+            telephone     => '555-555-5555',
+            email         => $customer_email
+
+        }
+    }
+
+    my $t3_results = guest-carts-billing-address
+        %config,
+        cart_id => $t1_cart_id,
+        data    => %t3_data;
+    is $t3_results ~~ Int, True, 'guest carts-billing-address new';
+
+
+    # GET    /V1/guest-carts/:cartId/billing-address
+    %config
+    ==> guest-carts-billing-address(
+        cart_id => $t1_cart_id
+    )
+    ==> my %t4_results;
+    is %t4_results<country_id>, 'US', 'guest carts-billing-address by cart_id';
+
+    
+    # GET    /V1/guest-carts/:cartId
+    %config
+    ==> guest-carts(
+        cart_id => $t1_cart_id
+    )
+    ==> my %t5_results;
+    is %t5_results<currency><quote_currency_code>, 'USD', 'guest carts by cart_id';
+
 #    # PUT    /V1/guest-carts/:cartId/collect-totals
 #    my %t1_data = Quote::guest-carts-collect-totals();
 #
@@ -800,6 +805,8 @@ subtest {
 #    is True, True, 'guest carts-totals by id';
 #
 #}, 'Guest carts-totals';
+
+}, 'Guest carts';
 
 subtest {
     
