@@ -129,8 +129,24 @@ our sub guest-carts-estimate-shipping-methods {
     %();
 }
 
-our sub guest-carts-items {
-    %();
+our sub guest-carts-items(
+    :$cart_id 
+) {
+    cartItem  => %{
+        sku => 'P6-TEST-DELETE',
+        qty => 5,
+        quoteId => "$cart_id"
+    }
+}
+
+our sub guest-carts-items-update(
+    :$cart_id 
+) {
+    cartItem  => %{
+        sku => 'P6-TEST-DELETE',
+        qty => 7,
+        quoteId => "$cart_id"
+    }
 }
 
 our sub guest-carts-order {

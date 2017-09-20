@@ -751,11 +751,12 @@ our multi guest-carts-selected-payment-method(
     Str  :$cart_id!,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $response = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
         uri     => "rest/V1/guest-carts/$cart_id/selected-payment-method",
         content => to-json $data;
+    return $response.Int||$response;
 }
 
 # GET    /V1/guest-carts/:cartId/shipping-methods

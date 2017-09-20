@@ -13,6 +13,7 @@ use v6;
 use Test;
 use lib 'lib', 'xt'.IO.child('lib');
 
+use Magento::Checkout;
 use Magento::Config;
 use Magento::Customer;
 use Magento::Quote;
@@ -628,19 +629,153 @@ subtest {
     ==> my %t5_results;
     is %t5_results<currency><quote_currency_code>, 'USD', 'guest carts by cart_id';
 
-#    # PUT    /V1/guest-carts/:cartId/collect-totals
-#    my %t1_data = Quote::guest-carts-collect-totals();
-#
-#    %config
-#    ==> guest-carts-collect-totals(
-#        cart_id => '',
-#        data   => %t1_data
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-collect-totals update';
-#
-#}, 'Guest carts-collect-totals';
-#
+    # POST   /V1/guest-carts/:cartId/items
+    my %t6_data = Quote::guest-carts-items(cart_id => $t1_cart_id);
+
+    %config
+    ==> guest-carts-items(
+        cart_id => $t1_cart_id,
+        data    => %t6_data
+    )
+    ==> my %t6_results;
+    is %t6_results<product_type>, 'simple', 'guest carts-items new';
+
+    # PUT    /V1/guest-carts/:cartId/items/:itemId
+    my %t7_data = Quote::guest-carts-items-update(cart_id => $t1_cart_id);
+
+    %config
+    ==> guest-carts-items(
+        cart_id => $t1_cart_id,
+        item_id => %t6_results<item_id>,
+        data    => %t7_data
+    )
+    ==> my %t7_results;
+    is %t7_results<qty>, 7, 'guest carts-items update';
+
+    # GET    /V1/guest-carts/:cartId/items
+    %config
+    ==> guest-carts-items(
+        cart_id => $t1_cart_id
+    )
+    ==> my @t8_results;
+    is @t8_results.elems, 1, 'guest carts-items by cart_id';
+
+    my %t9_data = addressInformation => %{
+        shippingAddress => %{
+            firstname     => 'Camelia',
+            lastname      => 'Butterfly',
+            postcode      => '90210',
+            city          => 'Beverly Hills',
+            street        => ['Zoe Ave'],
+            regionId      => 12,
+            countryId     => 'US',
+            telephone     => '555-555-5555',
+            email         => $customer_email
+        },
+        billingAddress => %{
+            firstname     => 'Camelia',
+            lastname      => 'Butterfly',
+            postcode      => '90210',
+            city          => 'Beverly Hills',
+            street        => ['Zoe Ave'],
+            regionId      => 12,
+            countryId     => 'US',
+            telephone     => '555-555-5555',
+            email         => $customer_email
+        },
+        shippingCarrierCode => 'flatrate', 
+        shippingMethodCode  => 'flatrate'
+    }
+
+    %config
+    ==> guest-carts-shipping-information(
+        cart_id => $t1_cart_id,
+        data    => %t9_data)
+    ==> my %t9_results;
+    is %t9_results<totals><base_currency_code>, 'USD', 'guest carts set shipping / billing address'; 
+
+    my %t10_data = %{
+        email         => $customer_email,
+        paymentMethod => %{
+            method => 'banktransfer'
+        },
+        billingAddress => %{
+            firstname     => 'Camelia',
+            lastname      => 'Butterfly',
+            postcode      => '90210',
+            city          => 'Beverly Hills',
+            street        => ['Zoe Ave'],
+            regionId      => 12,
+            countryId     => 'US',
+            telephone     => '555-555-5555',
+            sameAsBilling => 1
+        }
+    }
+
+    %config
+    ==> guest-carts-set-payment-information(
+        cart_id => $t1_cart_id,
+        data    => %t10_data)
+    ==> my $t10_results;
+    is $t10_results, True, 'guest carts set payment method'; 
+
+    # PUT    /V1/guest-carts/:cartId/collect-totals
+    my %t11_data = paymentMethod => %{
+        method => 'banktransfer'
+    }
+    %config
+    ==> guest-carts-collect-totals(
+        cart_id => $t1_cart_id,
+        data    => %t11_data
+    )
+    ==> my %t11_results;
+    is %t11_results<quote_currency_code>, 'USD', 'guest carts-collect-totals update';
+
+    # GET    /V1/guest-carts/:cartId/selected-payment-method
+    %config
+    ==> guest-carts-selected-payment-method(
+        cart_id => $t1_cart_id
+    )
+    ==> my %t12_results;
+    is %t12_results<method>, 'banktransfer', 'guest carts-selected-payment-method by cart_id';
+
+    # PUT    /V1/guest-carts/:cartId/selected-payment-method
+    my %t13_data = method => %{
+        method => 'banktransfer'
+    }
+
+    my $t13_results = guest-carts-selected-payment-method(
+        %config,
+        cart_id => $t1_cart_id,
+        data    => %t13_data
+    );
+    is $t13_results ~~ Int, True, 'guest carts-selected-payment-method update';
+
+    # GET    /V1/guest-carts/:cartId/payment-methods
+    %config
+    ==> guest-carts-payment-methods(
+        cart_id => $t1_cart_id
+    )
+    ==> my @t14_results;
+    is so @t14_results.any.grep({ $_<code> ~~ 'checkmo' }), True, 'guest carts-payment-methods by cart_id';
+
+    # GET    /V1/guest-carts/:cartId/shipping-methods
+    %config
+    ==> guest-carts-shipping-methods(
+        cart_id => $t1_cart_id
+    )
+    ==> my @t15_results;
+    is so @t15_results.any.grep({ $_<carrier_code> ~~ 'flatrate' }), True, 'guest carts-shipping-methods by cart_id';
+
+    # GET    /V1/guest-carts/:cartId/totals
+    %config
+    ==> guest-carts-totals(
+        cart_id => $t1_cart_id
+    )
+    ==> my %t16_results;
+    is %t16_results<base_currency_code>, 'USD', 'guest carts-totals by cart_id';
+
+
 #subtest {
 #
 #    # GET    /V1/guest-carts/:cartId/coupons
@@ -690,37 +825,6 @@ subtest {
 #
 #subtest {
 #
-#    # GET    /V1/guest-carts/:cartId/items
-#    %config
-#    ==> guest-carts-items(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-items by id';
-#
-#    # POST   /V1/guest-carts/:cartId/items
-#    my %t2_data = Quote::guest-carts-items();
-#
-#    %config
-#    ==> guest-carts-items(
-#        cart_id => '',
-#        data   => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'guest carts-items new';
-#
-#    # PUT    /V1/guest-carts/:cartId/items/:itemId
-#    my %t3_data = Quote::guest-carts-items();
-#
-#    %config
-#    ==> guest-carts-items(
-#        cart_id => '',
-#    item_id => '',
-#        data   => %t3_data
-#    )
-#    ==> my $t3_results;
-#    is True, True, 'guest carts-items update';
-#
 #    # DELETE /V1/guest-carts/:cartId/items/:itemId
 #    %config
 #    ==> guest-carts-items(
@@ -746,65 +850,6 @@ subtest {
 #    is True, True, 'guest carts-order update';
 #
 #}, 'Guest carts-order';
-#
-#subtest {
-#
-#    # GET    /V1/guest-carts/:cartId/payment-methods
-#    %config
-#    ==> guest-carts-payment-methods(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-payment-methods by id';
-#
-#}, 'Guest carts-payment-methods';
-#
-#subtest {
-#
-#    # GET    /V1/guest-carts/:cartId/selected-payment-method
-#    %config
-#    ==> guest-carts-selected-payment-method(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-selected-payment-method by id';
-#
-#    # PUT    /V1/guest-carts/:cartId/selected-payment-method
-#    my %t2_data = Quote::guest-carts-selected-payment-method();
-#
-#    %config
-#    ==> guest-carts-selected-payment-method(
-#        cart_id => '',
-#        data   => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'guest carts-selected-payment-method update';
-#
-#}, 'Guest carts-selected-payment-method';
-#
-#subtest {
-#
-#    # GET    /V1/guest-carts/:cartId/shipping-methods
-#    %config
-#    ==> guest-carts-shipping-methods(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-shipping-methods by id';
-#
-#}, 'Guest carts-shipping-methods';
-#
-#subtest {
-#
-#    # GET    /V1/guest-carts/:cartId/totals
-#    %config
-#    ==> guest-carts-totals(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-totals by id';
-#
-#}, 'Guest carts-totals';
 
 }, 'Guest carts';
 

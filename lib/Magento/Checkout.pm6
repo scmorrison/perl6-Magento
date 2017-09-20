@@ -6,16 +6,40 @@ use JSON::Fast;
 
 unit module Magento::Checkout;
 
-# POST   /V1/guest-carts/:cartId/shipping-information
-our sub guest-carts-shipping-information(
+subset CartId of Any where Str|Int;
+
+proto sub carts-mine-payment-information(|) is export {*}
+# POST   /V1/carts/mine/payment-information
+our multi carts-mine-payment-information(
     Hash $config,
-    Int  :$cart_id!,
+    Hash :$data!
+) {
+    Magento::HTTP::request
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/carts/mine/payment-information",
+        content => to-json $data;
+}
+
+# GET    /V1/carts/mine/payment-information
+our multi carts-mine-payment-information(
+    Hash $config
+) {
+    Magento::HTTP::request
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/carts/mine/payment-information";
+}
+
+# POST   /V1/carts/mine/set-payment-information
+our sub carts-mine-set-payment-information(
+    Hash $config,
     Hash :$data!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/shipping-information",
+        uri     => "rest/V1/carts/mine/set-payment-information",
         content => to-json $data;
 }
 
@@ -31,11 +55,23 @@ our sub carts-mine-shipping-information(
         content => to-json $data;
 }
 
+# POST   /V1/carts/mine/totals-information
+our sub carts-mine-totals-information(
+    Hash $config,
+    Hash :$data!
+) is export {
+    Magento::HTTP::request
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/carts/mine/totals-information",
+        content => to-json $data;
+}
+
 # POST   /V1/carts/:cartId/shipping-information
 our sub carts-shipping-information(
-    Hash $config,
-    Int  :$cart_id!,
-    Hash :$data!
+    Hash   $config,
+    CartId :$cart_id!,
+    Hash   :$data!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
@@ -54,31 +90,6 @@ our sub carts-totals-information(
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/carts/$cart_id/totals-information",
-        content => to-json $data;
-}
-
-# POST   /V1/guest-carts/:cartId/totals-information
-our sub guest-carts-totals-information(
-    Hash $config,
-    Int  :$cart_id!,
-    Hash :$data!
-) is export {
-    Magento::HTTP::request
-        method  => 'POST',
-        config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/totals-information",
-        content => to-json $data;
-}
-
-# POST   /V1/carts/mine/totals-information
-our sub carts-mine-totals-information(
-    Hash $config,
-    Hash :$data!
-) is export {
-    Magento::HTTP::request
-        method  => 'POST',
-        config  => $config,
-        uri     => "rest/V1/carts/mine/totals-information",
         content => to-json $data;
 }
 
@@ -107,33 +118,10 @@ our multi guest-carts-payment-information(
         uri     => "rest/V1/guest-carts/$cart_id/payment-information";
 }
 
-proto sub carts-mine-payment-information(|) is export {*}
-# POST   /V1/carts/mine/payment-information
-our multi carts-mine-payment-information(
-    Hash $config,
-    Hash :$data!
-) {
-    Magento::HTTP::request
-        method  => 'POST',
-        config  => $config,
-        uri     => "rest/V1/carts/mine/payment-information",
-        content => to-json $data;
-}
-
-# GET    /V1/carts/mine/payment-information
-our multi carts-mine-payment-information(
-    Hash $config
-) {
-    Magento::HTTP::request
-        method  => 'GET',
-        config  => $config,
-        uri     => "rest/V1/carts/mine/payment-information";
-}
-
 # POST   /V1/guest-carts/:cartId/set-payment-information
 our sub guest-carts-set-payment-information(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) is export {
     Magento::HTTP::request
@@ -143,15 +131,29 @@ our sub guest-carts-set-payment-information(
         content => to-json $data;
 }
 
-# POST   /V1/carts/mine/set-payment-information
-our sub carts-mine-set-payment-information(
+# POST   /V1/guest-carts/:cartId/shipping-information
+our sub guest-carts-shipping-information(
     Hash $config,
+    Str  :$cart_id!,
     Hash :$data!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/set-payment-information",
+        uri     => "rest/V1/guest-carts/$cart_id/shipping-information",
+        content => to-json $data;
+}
+
+# POST   /V1/guest-carts/:cartId/totals-information
+our sub guest-carts-totals-information(
+    Hash $config,
+    Str  :$cart_id!,
+    Hash :$data!
+) is export {
+    Magento::HTTP::request
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/guest-carts/$cart_id/totals-information",
         content => to-json $data;
 }
 
