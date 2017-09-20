@@ -44,12 +44,7 @@ subtest {
     # PUT    /V1/carts/:cartId
     my %t3_data = customerId => $customer_id,
                   storeId    => 1;
-    my $t3_results = (
-        %config
-        ==> carts(
-            cart_id => $cart_id,
-            data   => %t3_data));
-
+    my $t3_results = carts(%config, cart_id => $cart_id, data => %t3_data);
     given $t3_results {
         when Bool {
             is $t3_results, True, 'carts update';
@@ -70,32 +65,32 @@ if %*ENV<P6MAGENTOCUSPASS> {
         request-access-token(
             host      => %config<host>,
             username  => $customer_email,
-            password  => 'p6magento',
+            password  => %*ENV<P6MAGENTOCUSPASS>,
             user_type => 'customer');
 
 
         # POST   /V1/carts/mine
-        %( |%config, accress_token => $customer_access_token )
-        ==> carts-mine()
-        ==> my $t1_results;
-        is $t1_results.^name, 'Int', 'carts mine new';
+        my $t1_results = carts-mine %( |%config, accress_token => $customer_access_token );
+        is $t1_results ~~ Int, True, 'carts mine new';
         my $customer_cart_id = $t1_results;
 
         # GET    /V1/carts/mine
-        %( |%config, accress_token => $customer_access_token )
-        ==> carts-mine(:$customer_id)
-        ==> my %t2_results;
+        my %t2_results =
+            carts-mine
+                %( |%config, accress_token => $customer_access_token ),
+                :$customer_id;
+
         is %t2_results<customer_is_guest>, False, 'carts mine by id';
 
         # PUT    /V1/carts/mine
         my %t3_data = customerId => $customer_id,
                       storeId    => 1;
 
-        %( |%config, accress_token => $customer_access_token )
-        ==> carts-mine(
-            data => %t3_data
-        )
-        ==> my $t3_results;
+        my $t3_results =
+            carts-mine
+                %( |%config, accress_token => $customer_access_token ),
+                data => %t3_data;
+
         given $t3_results {
             when Bool {
                 is $t3_results, True, 'carts mine update';
@@ -111,21 +106,19 @@ if %*ENV<P6MAGENTOCUSPASS> {
 subtest {
 
     # POST   /V1/carts/:cartId/billing-address
-    my %t2_data = Quote::carts-billing-address();
+    my %t1_data = Quote::carts-billing-address();
 
-    my $t2_results = (
-        %config
-        ==> carts-billing-address(
+    my $t1_results =
+        carts-billing-address
+            %config,
             cart_id => $cart_id,
-            data   => %t2_data));
-    is $t2_results.^name, 'Int', 'carts billing-address new';
-    my $cart_address_id = $t2_results;
+            data    => %t1_data;
+    is $t1_results ~~ Int, True, 'carts billing-address new';
+    my $cart_address_id = $t1_results;
 
     # GET    /V1/carts/:cartId/billing-address
-    %config
-    ==> carts-billing-address(:$cart_id)
-    ==> my %t1_results;
-    is %t1_results<postcode>, 90210, 'carts billing-address by id';
+    my %t2_results = carts-billing-address %config, :$cart_id;
+    is %t2_results<postcode>, 90210, 'carts billing-address by id';
 
 }, 'Carts billing-address';
 
@@ -136,32 +129,28 @@ subtest {
     # POST   /V1/carts/:quoteId/items
     my %t1_data = Quote::carts-items(quote_id => "$cart_id");
 
-    %config
-    ==> carts-items(
-        quote_id => $cart_id,
-        data     => %t1_data
-    )
-    ==> my %t1_results;
+    my %t1_results =
+        carts-items
+            %config,
+            quote_id => $cart_id,
+            data     => %t1_data;
     is %t1_results<sku>, 'P6-TEST-DELETE', 'carts items new';
     $cart_item_id = %t1_results<item_id>;
 
     # PUT    /V1/carts/:cartId/items/:itemId
     my %t2_data = Quote::carts-items-update(quote_id => "$cart_id");
 
-    %config
-    ==> carts-items(
-        cart_id => $cart_id,
-        item_id => $cart_item_id,
-        data    => %t2_data
-    )
-    ==> my %t2_results;
+    my %t2_results =
+        carts-items
+            %config,
+            cart_id => $cart_id,
+            item_id => $cart_item_id,
+            data    => %t2_data;
     is %t2_results<qty>, 5, 'carts items update';
 
     # GET    /V1/carts/:cartId/items
-    %config
-    ==> carts-items(:$cart_id)
-    ==> my @t3_results;
-    is @t3_results.head<product_type>, 'simple', 'carts items by cart_id';
+    my $t3_results = carts-items %config, :$cart_id;
+    is $t3_results.head<product_type>, 'simple', 'carts items by cart_id';
 
 }, 'Carts items';
 
@@ -200,29 +189,30 @@ subtest {
     # POST   /V1/carts/:cartId/estimate-shipping-methods
     my %t1_data = Quote::carts-estimate-shipping-methods();
 
-    %config
-    ==> carts-estimate-shipping-methods(
-        cart_id => $cart_id,
-        data    => %t1_data
-    )
-    ==> my @t1_results;
-    is @t1_results.head<carrier_code>, 'flatrate', 'carts estimate-shipping-methods';
+    my $t1_results =
+        carts-estimate-shipping-methods
+            %config,
+            cart_id => $cart_id,
+            data    => %t1_data;
+    is $t1_results.head<carrier_code>, 'flatrate', 'carts estimate-shipping-methods';
 
 }, 'Carts estimate-shipping-methods';
 
 subtest {
 
     # POST   /V1/carts/:cartId/estimate-shipping-methods-by-address-id
-    %config ==> customers-addresses-shipping(id => $customer_id) ==> my %t1_address;
-    my %t1_data = %{ addressId => %t1_address<id> }
+    my %t1_data = %{ 
+        addressId => customers-addresses-shipping(
+            %config,
+            id => $customer_id)<id>
+    }
 
-    %config
-    ==> carts-estimate-shipping-methods-by-address-id(
-        cart_id => $cart_id,
-        data    => %t1_data
-    )
-    ==> my @t1_results;
-    is @t1_results.head<carrier_code>, 'flatrate', 'carts estimate-shipping-methods-by-address-id';
+    my $t1_results =
+        carts-estimate-shipping-methods-by-address-id
+            %config,
+            cart_id => $cart_id,
+            data    => %t1_data;
+    is $t1_results.head<carrier_code>, 'flatrate', 'carts estimate-shipping-methods-by-address-id';
 
 }, 'Carts estimate-shipping-methods-by-address-id';
 
@@ -421,9 +411,7 @@ subtest {
 subtest {
 
     # GET    /V1/carts/:cartId/payment-methods
-    %config
-    ==> carts-payment-methods(:$cart_id)
-    ==> my @t1_results;
+    my @t1_results = carts-payment-methods(%config, :$cart_id);
     is so @t1_results.any.grep({ $_<code> ~~ 'banktransfer' }), True, 'carts payment-methods by cart_id';
 
 }, 'Carts payment-methods';
@@ -447,13 +435,13 @@ subtest {
         }
     }
 
-    %config
-    ==> carts-search(
-        search_criteria => %t1_search_criteria
-    )
-    ==> my %t1_results;
-    is so %t1_results<items>.any.grep({ $_<billing_address><email> ~~ $customer_email }),
-    True, 'carts search all';
+    my %t1_results =
+        carts-search
+            %config,
+            search_criteria => %t1_search_criteria;
+    is so %t1_results<items>.any.grep({
+        $_<billing_address><email> ~~ $customer_email
+    }), True, 'carts search all';
 
 }, 'Carts search';
 
@@ -488,29 +476,25 @@ subtest {
     # https://github.com/magento/magento2/issues/2517
 
     # Assign shipping address to cart
-    %config
-    ==> carts-billing-address(
+    carts-billing-address
+        %config,
         cart_id => $cart_id,
-        data    => %t1_address
-    );
+        data    => %t1_address;
 
     # PUT    /V1/carts/:cartId/selected-payment-method
     my %t1_data = method => %{
         method => 'banktransfer'
     }
 
-    %config
-    ==> carts-selected-payment-method(
-        cart_id => $cart_id,
-        data    => %t1_data
-    )
-    ==> my %t1_results;
+    my %t1_results =
+        carts-selected-payment-method
+            %config,
+            cart_id => $cart_id,
+            data    => %t1_data;
     is %t1_results<message>, 'Shipping address is not set', 'carts selected-payment-method update';
 
     # GET    /V1/carts/:cartId/selected-payment-method
-    %config
-    ==> carts-selected-payment-method(:$cart_id)
-    ==> my @t2_results;
+    my @t2_results = carts-selected-payment-method %config, :$cart_id;
     is @t2_results, [], 'carts selected-payment-method by id';
 
 
@@ -519,9 +503,7 @@ subtest {
 subtest {
 
     # GET    /V1/carts/:cartId/shipping-methods
-    %config
-    ==> carts-shipping-methods(:$cart_id)
-    ==> my %t1_results;
+    my %t1_results = carts-shipping-methods %config, :$cart_id;
     is %t1_results<message>, 'Shipping address not set.', 'carts shipping-methods by cart_id';
 
 }, 'Carts shipping-methods';
@@ -529,9 +511,7 @@ subtest {
 subtest {
 
     # GET    /V1/carts/:cartId/totals
-    %config
-    ==> carts-totals(:$cart_id)
-    ==> my %t1_results;
+    my %t1_results = carts-totals %config, :$cart_id;
     is %t1_results<grand_total>, '99.75', 'carts totals by cart_id';
 
 }, 'Carts totals';
@@ -539,7 +519,7 @@ subtest {
 subtest {
 
     # POST   /V1/customers/:customerId/carts
-    my $t1_results = customers-carts(%config, :$customer_id);
+    my $t1_results = customers-carts %config, :$customer_id;
     is $t1_results ~~ Int, True, 'customers carts new';
 
 }, 'Customers carts';
@@ -555,12 +535,11 @@ subtest {
         method => 'banktransfer'
     }
 
-    %config
-    ==> carts-order(
-        cart_id => $cart_id,
-        data    => %t1_data
-    )
-    ==> my %t1_results;
+    my %t1_results = 
+        carts-order
+            %config,
+            cart_id => $cart_id,
+            data    => %t1_data;
     like %t1_results<message>, / 'Please check the shipping address information' /, 'carts order update';
 
 }, 'Carts order';
@@ -569,7 +548,7 @@ subtest {
 subtest {
 
     # POST   /V1/guest-carts
-    my $t1_results = guest-carts(%config);
+    my $t1_results = guest-carts %config;
     is $t1_results.chars, 32, 'guest carts new';
     my $t1_cart_id = $t1_results;
 
@@ -582,11 +561,11 @@ subtest {
     #}
 
     #%config
-    #==> guest-carts(
-    #    cart_id => $t1_cart_id,
-    #    data    => %t2_data
-    #)
-    #==> my $t2_results;
+    #my $t2_results =
+    #    guest-carts
+    #        %config,
+    #        cart_id => $t1_cart_id,
+    #        data    => %t2_data;
     #is True, True, 'guest carts update';
 
     # POST   /V1/guest-carts/:cartId/billing-address
@@ -613,51 +592,43 @@ subtest {
 
 
     # GET    /V1/guest-carts/:cartId/billing-address
-    %config
-    ==> guest-carts-billing-address(
-        cart_id => $t1_cart_id
-    )
-    ==> my %t4_results;
+    my %t4_results =
+        guest-carts-billing-address
+            %config,
+            cart_id => $t1_cart_id;
     is %t4_results<country_id>, 'US', 'guest carts-billing-address by cart_id';
 
     
     # GET    /V1/guest-carts/:cartId
-    %config
-    ==> guest-carts(
-        cart_id => $t1_cart_id
-    )
-    ==> my %t5_results;
+    my %t5_results =
+        guest-carts
+            %config,
+            cart_id => $t1_cart_id;
     is %t5_results<currency><quote_currency_code>, 'USD', 'guest carts by cart_id';
 
     # POST   /V1/guest-carts/:cartId/items
-    my %t6_data = Quote::guest-carts-items(cart_id => $t1_cart_id);
+    my %t6_data = Quote::guest-carts-items cart_id => $t1_cart_id;
 
-    %config
-    ==> guest-carts-items(
-        cart_id => $t1_cart_id,
-        data    => %t6_data
-    )
-    ==> my %t6_results;
+    my %t6_results =
+        guest-carts-items
+            %config,
+            cart_id => $t1_cart_id,
+            data    => %t6_data;
     is %t6_results<product_type>, 'simple', 'guest carts-items new';
 
     # PUT    /V1/guest-carts/:cartId/items/:itemId
-    my %t7_data = Quote::guest-carts-items-update(cart_id => $t1_cart_id);
+    my %t7_data = Quote::guest-carts-items-update cart_id => $t1_cart_id;
 
-    %config
-    ==> guest-carts-items(
-        cart_id => $t1_cart_id,
-        item_id => %t6_results<item_id>,
-        data    => %t7_data
-    )
-    ==> my %t7_results;
+    my %t7_results =
+        guest-carts-items
+            %config,
+            cart_id => $t1_cart_id,
+            item_id => %t6_results<item_id>,
+            data    => %t7_data;
     is %t7_results<qty>, 7, 'guest carts-items update';
 
     # GET    /V1/guest-carts/:cartId/items
-    %config
-    ==> guest-carts-items(
-        cart_id => $t1_cart_id
-    )
-    ==> my @t8_results;
+    my @t8_results = guest-carts-items %config, cart_id => $t1_cart_id;
     is @t8_results.elems, 1, 'guest carts-items by cart_id';
 
     my %t9_data = addressInformation => %{
@@ -687,11 +658,11 @@ subtest {
         shippingMethodCode  => 'flatrate'
     }
 
-    %config
-    ==> guest-carts-shipping-information(
-        cart_id => $t1_cart_id,
-        data    => %t9_data)
-    ==> my %t9_results;
+    my %t9_results =
+        guest-carts-shipping-information
+            %config,
+            cart_id => $t1_cart_id,
+            data    => %t9_data;
     is %t9_results<totals><base_currency_code>, 'USD', 'guest carts set shipping / billing address'; 
 
     my %t10_data = %{
@@ -712,31 +683,29 @@ subtest {
         }
     }
 
-    %config
-    ==> guest-carts-set-payment-information(
-        cart_id => $t1_cart_id,
-        data    => %t10_data)
-    ==> my $t10_results;
+    my $t10_results =
+        guest-carts-set-payment-information
+            %config,
+            cart_id => $t1_cart_id,
+            data    => %t10_data;
     is $t10_results, True, 'guest carts set payment method'; 
 
     # PUT    /V1/guest-carts/:cartId/collect-totals
     my %t11_data = paymentMethod => %{
         method => 'banktransfer'
     }
-    %config
-    ==> guest-carts-collect-totals(
-        cart_id => $t1_cart_id,
-        data    => %t11_data
-    )
-    ==> my %t11_results;
+    my %t11_results =
+        guest-carts-collect-totals
+            %config,
+            cart_id => $t1_cart_id,
+            data    => %t11_data;
     is %t11_results<quote_currency_code>, 'USD', 'guest carts-collect-totals update';
 
     # GET    /V1/guest-carts/:cartId/selected-payment-method
-    %config
-    ==> guest-carts-selected-payment-method(
-        cart_id => $t1_cart_id
-    )
-    ==> my %t12_results;
+    my %t12_results =
+        guest-carts-selected-payment-method
+            %config,
+            cart_id => $t1_cart_id;
     is %t12_results<method>, 'banktransfer', 'guest carts-selected-payment-method by cart_id';
 
     # PUT    /V1/guest-carts/:cartId/selected-payment-method
@@ -752,27 +721,24 @@ subtest {
     is $t13_results ~~ Int, True, 'guest carts-selected-payment-method update';
 
     # GET    /V1/guest-carts/:cartId/payment-methods
-    %config
-    ==> guest-carts-payment-methods(
-        cart_id => $t1_cart_id
-    )
-    ==> my @t14_results;
+    my @t14_results =
+        guest-carts-payment-methods
+            %config,
+            cart_id => $t1_cart_id;
     is so @t14_results.any.grep({ $_<code> ~~ 'checkmo' }), True, 'guest carts-payment-methods by cart_id';
 
     # GET    /V1/guest-carts/:cartId/shipping-methods
-    %config
-    ==> guest-carts-shipping-methods(
-        cart_id => $t1_cart_id
-    )
-    ==> my @t15_results;
+    my @t15_results =
+        guest-carts-shipping-methods
+            %config,
+            cart_id => $t1_cart_id;
     is so @t15_results.any.grep({ $_<carrier_code> ~~ 'flatrate' }), True, 'guest carts-shipping-methods by cart_id';
 
     # GET    /V1/guest-carts/:cartId/totals
-    %config
-    ==> guest-carts-totals(
-        cart_id => $t1_cart_id
-    )
-    ==> my %t16_results;
+    my %t16_results =
+        guest-carts-totals
+            %config,
+            cart_id => $t1_cart_id;
     is %t16_results<base_currency_code>, 'USD', 'guest carts-totals by cart_id';
 
 
@@ -856,12 +822,11 @@ subtest {
 subtest {
     
     # DELETE /V1/carts/:cartId/items/:itemId
-    %config
-    ==> carts-items-delete(
-        cart_id => $cart_id,
-        item_id => $cart_item_id
-    )
-    ==> my $cart_results;
+    my $cart_results =
+        carts-items-delete
+            %config,
+            cart_id => $cart_id,
+            item_id => $cart_item_id;
     is $cart_results, True, 'carts items delete';
 
 }, 'Cleanup';

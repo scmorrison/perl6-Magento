@@ -75,7 +75,7 @@ my %config = %{
 }
 
 #GET    /V1/customers/:customerId
-%config ==> customers(id => 1) ==> say();
+say customers %config, id => 1;
 ```
 
 Using password authentication as Admin:
@@ -92,7 +92,7 @@ my %config = %{
 }
 
 #GET    /V1/customers/:customerId
-%config ==> customers(id => 1) ==> say();
+say customers %config, id => 1;
 ```
 
 Using password authentication as Customer:
@@ -112,7 +112,7 @@ my $access_token =
 my %config = %{:$host, :$access_key, store => 'default'};
 
 #GET    /V1/customers/me
-%config ==> customers-me() ==> say();
+say customers-me %config;
 ```
 
 ### Response format
@@ -159,9 +159,7 @@ my %customer_search_criteria = %{
 }
 
 # Do a customer search using the search criteria hash
-%config
-==> customers-search(search_criteria => %customer_search_criteria)
-==> say();
+say customers-search %config, search_criteria => %customer_search_criteria;
 ```
 
 ### Custom API endpoints
