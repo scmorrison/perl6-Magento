@@ -9,7 +9,7 @@ our sub request(
     Hash :$config,
     Str  :$method = 'GET',
     Str  :$uri,
-    Str  :$content,
+    Str  :$content = '',
     Hash :$headers
     --> Any
 ) {
@@ -36,7 +36,7 @@ our sub request(
         }
         when 'GET' {
             HTTP::Tinyish.new.get:
-                $url, headers => %request_headers;
+                $url, headers => %request_headers, :$content;
         }
         when 'POST' {
             HTTP::Tinyish.new.post:

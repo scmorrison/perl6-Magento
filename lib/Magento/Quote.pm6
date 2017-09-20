@@ -22,11 +22,12 @@ our multi carts(
 our multi carts(
     Hash $config
 ) {
-    Magento::HTTP::request(
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/carts/",
-        content => '').Int
+        content => '';
+    return $results.Int||$results;
 }
 
 # PUT    /V1/carts/:cartId
@@ -60,11 +61,12 @@ our multi carts-billing-address(
     Int  :$cart_id!,
     Hash :$data!
 ) {
-    Magento::HTTP::request(
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/carts/$cart_id/billing-address",
-        content => to-json $data).Int;
+        content => to-json $data;
+    return $results.Int||$results;
 }
 
 proto sub carts-coupons(|) is export {*}
@@ -195,12 +197,14 @@ our multi carts-mine(
 
 # GET    /V1/carts/mine
 our multi carts-mine(
-    Hash $config
+    Hash $config,
+    Int  :$customer_id
 ) {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine";
+        uri     => "rest/V1/carts/mine",
+        content => to-json %{ customerId => $customer_id };
 }
 
 # PUT    /V1/carts/mine
@@ -492,6 +496,19 @@ our sub carts-shipping-methods(
         uri     => "rest/V1/carts/$cart_id/shipping-methods";
 }
 
+# POST    /V1/carts/:cartId/shipping-address
+our sub carts-shipping-address(
+    Hash $config,
+    Int  :$cart_id!,
+    Hash :$data!
+) is export {
+    Magento::HTTP::request
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/default/V1/carts/$cart_id/shipping-address",
+        content => to-json $data;
+}
+
 # GET    /V1/carts/:cartId/totals
 our sub carts-totals(
     Hash $config,
@@ -506,14 +523,14 @@ our sub carts-totals(
 # POST   /V1/customers/:customerId/carts
 our sub customers-carts(
     Hash $config,
-    Int  :$customer_id!,
-    Hash :$data!
+    Int  :$customer_id!
 ) is export {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/customers/$customer_id/carts",
-        content => to-json $data;
+        content => '';
+    return $results.Int||$results;
 }
 
 proto sub guest-carts(|) is export {*}

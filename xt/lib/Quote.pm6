@@ -25,7 +25,17 @@ our sub carts-coupons {
 }
 
 our sub carts-estimate-shipping-methods {
-    %();
+    address => %{
+        firstname       => 'Camelia',
+        lastname        => 'Butterfly',
+        email           => 'p6magento@fakeemail.com',
+        postcode        => '90210',
+        city            => 'Beverly Hills',
+        street          => ['Zoe Ave'],
+        regionId        => 12,
+        countryId       => 'US',
+        telephone       => '555-555-5555'
+    }
 }
 
 our sub carts-estimate-shipping-methods-by-address-id {
@@ -69,7 +79,6 @@ our sub carts-mine-coupons {
 }
 
 our sub carts-mine-estimate-shipping-methods {
-    %();
 }
 
 our sub carts-mine-estimate-shipping-methods-by-address-id {
