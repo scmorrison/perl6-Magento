@@ -7,6 +7,7 @@ Perl 6 Magento 2 API client module.
 - [Getting started](#getting-started)
 - [Module usage](#module-usage)
   * [Response format](#response-format)
+  * [Error messages](#error-messages)
   * [Search critera](#search-criteria)
   * [Custom API endpoints](#custom-api-endpoints)
 - [CLI usage](#cli-usage)
@@ -127,6 +128,19 @@ my %config = %{
     format       => 'json',
     # or
     format       => 'xml'
+}
+```
+
+### Error messages
+
+For a successful request only the relevant data will be returned from the server response. For example, only the `cart_id` value will be returned when a new cart is successfully created on the server.
+
+When an error occurs, the response will return a `Perl 6` Hash with a `message` and `status` pair, like this:
+
+```perl
+%{
+    message => 'Cannot assign customer to the given cart. Customer already has active cart.',
+    status  => 400
 }
 ```
 

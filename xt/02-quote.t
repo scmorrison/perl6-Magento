@@ -45,6 +45,7 @@ subtest {
     my %t3_data = customerId => $customer_id,
                   storeId    => 1;
     my $t3_results = carts(%config, cart_id => $cart_id, data => %t3_data);
+    note $t3_results;
     given $t3_results {
         when Bool {
             is $t3_results, True, 'carts update';

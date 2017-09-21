@@ -48,12 +48,22 @@ our sub request(
         }
     }
 
-    return do given $format {
-        when 'json'|'xml' {
-            %res<content>;
+    return do given %res<status> {
+        when 200 {
+            do given $format {
+                when 'json'|'xml' {
+                    %res<content>;
+                }
+                default {
+                    from-json %res<content>||False;
+                }
+            }
         }
         default {
-            %res<content>.defined ?? from-json(%res<content>) !! False;
+            %{
+                message => from-json(%res<content>)<message>,
+                status  => %res<status>
+            }
         }
     }
 }
