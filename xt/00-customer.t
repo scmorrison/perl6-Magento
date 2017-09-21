@@ -25,20 +25,20 @@ subtest {
     }
   
     # Customer Groups New
-    %config ==> customer-groups(data => %t1_data) ==> my %t1_results;
+    my %t1_results = customer-groups %config, data => %t1_data;
     is %t1_results<code>, 'TestCustomerGroup', 'customer groups new [code]';
     is %t1_results<tax_class_id>, 3, 'customer groups new [tax_class_id]';
     is %t1_results<tax_class_name>, 'Retail Customer', 'customer groups new [tax_class_name]';
     my $t1_customer_group_id = %t1_results<id>;
 
     # Customer Group by ID
-    %config ==> customer-groups(id => $t1_customer_group_id) ==> my %t2_results;
+    my %t2_results = customer-groups %config, id => $t1_customer_group_id;
     is %t2_results<code>, 'TestCustomerGroup', 'customer groups by id [code]';
     is %t2_results<tax_class_id>, 3, 'customer groups by id [tax_class_id]';
     is %t2_results<tax_class_name>, 'Retail Customer', 'customer groups by id [tax_class_name]';
 
     # Customer Group store default
-    %config ==> customer-groups-default(store_id => 1) ==> my %t3_results;
+    my %t3_results = customer-groups-default %config, store_id => 1;
     is %t3_results<code>, 'General', 'customer groups store default [code]';
     is %t3_results<tax_class_id>, 3, 'customer groups store default [tax_class_id]';
     is %t3_results<tax_class_name>, 'Retail Customer', 'customer groups store default [tax_class_name]';
@@ -50,7 +50,7 @@ subtest {
     }
 
     # Customer Groups update 
-    %config ==> customer-groups(id => $t1_customer_group_id, data => %t4_data) ==> my %t4_results;
+    my %t4_results = customer-groups %config, id => $t1_customer_group_id, data => %t4_data;
     is %t4_results<code>, 'TestCustomerGroupModded', 'customer groups update [code]';
 
     my %t5_search_criteria = %{
@@ -71,11 +71,11 @@ subtest {
         }
     }
     # Customer Groups search
-    %config ==> customer-groups-search(search_criteria => %t5_search_criteria) ==> my %t5_results;
+    my %t5_results = customer-groups-search %config, search_criteria => %t5_search_criteria;
     is %t5_results<items>.head<code>, 'TestCustomerGroupModded', 'customer groups search [code]';
 
     # Customer Group Delete
-    %config ==> customer-groups-delete(id => $t1_customer_group_id) ==> my $fin_results;
+    my $fin_results = customer-groups-delete %config, id => $t1_customer_group_id;
     is $fin_results, True, 'customer groups delete';
 
 }, 'Customer groups';
@@ -84,35 +84,35 @@ subtest {
     plan 8;
 
     # Customer Metadata all
-    %config ==> customer-metadata() ==> my @t1_results;
-    is @t1_results.head<attribute_code>, 'website_id', 'customer metadata all';
+    my $t1_results = customer-metadata %config;
+    is $t1_results.head<attribute_code>, 'website_id', 'customer metadata all';
 
     # Customer Metadata attribute
-    %config ==> customer-metadata-attribute(attribute_code => 'website_id') ==> my %t2_results;
+    my %t2_results = customer-metadata-attribute %config, attribute_code => 'website_id';
     is %t2_results<frontend_label>, 'Associate to Website', 'customer metadata attribute';
 
     # Customer Metadata form
-    %config ==> customer-metadata-form(form_code => 'adminhtml_customer') ==> my @t3_results;
-    is @t3_results.head<attribute_code>, 'created_at', 'customer metadata form';
+    my $t3_results = customer-metadata-form %config, form_code => 'adminhtml_customer';
+    is $t3_results.head<attribute_code>, 'created_at', 'customer metadata form';
 
     # Customer Metadata custom
-    %config ==> customer-metadata-custom() ==> my @t4_results;
+    my @t4_results = customer-metadata-custom %config;
     is @t4_results, (), 'customer metadata custom';
 
     # Customer Metadata address attribute
-    %config ==> customer-address-attribute(attribute_code => 'postcode') ==> my %t5_results;
+    my %t5_results = customer-address-attribute %config, attribute_code => 'postcode';
     is %t5_results<store_label>, 'Zip/Postal Code', 'customer metadata address attribute';
 
     # Customer Metadata address form
-    %config ==> customer-address-form(form_code => 'customer_register_address') ==> my @t6_results;
-    is @t6_results.head<store_label>, 'Prefix', 'customer metadata address form';
+    my $t6_results = customer-address-form %config, form_code => 'customer_register_address';
+    is $t6_results.head<store_label>, 'Prefix', 'customer metadata address form';
 
     # Customer Metadata address
-    %config ==> customer-address() ==> my @t7_results;
-    is @t7_results.head<store_label>, 'Prefix', 'customer metadata address';
+    my $t7_results = customer-address %config;
+    is $t7_results.head<store_label>, 'Prefix', 'customer metadata address';
 
     # Customer Metadata address custom
-    %config ==> customer-address-custom() ==> my @t8_results;
+    my @t8_results = customer-address-custom %config;
     is @t8_results, (), 'customer metadata address custom';
 
 
@@ -144,7 +144,7 @@ subtest {
         },
     }
     # Customer new
-    %config ==> customers(data => %t1_data) ==> my %t1_results;
+    my %t1_results = customers %config, data => %t1_data;
     is %t1_results<firstname>, 'Camelia', 'customer new [firstname]';
     is %t1_results<lastname>, 'Butterfly', 'customer new [lastname]';
     is %t1_results<created_in>, 'Default Store View', 'customer new [created_in]';
@@ -162,7 +162,7 @@ subtest {
     }
 
     # Customer update
-    %config ==> customers(id => $t1_customer_id, data => %t2_data) ==> my %t2_results;
+    my %t2_results = customers %config, id => $t1_customer_id, data => %t2_data;
     is %t2_results<firstname>, 'Camelia', 'customer update [firstname]';
     is %t2_results<lastname>, 'Butterfly', 'customer update [lastname]';
     is %t2_results<middlename>, 'Perl 6!!!!', 'customer update [middlename]';
@@ -175,7 +175,7 @@ subtest {
     #
     # This will only work if Stores > Configuration > Customer Configuration 
     # > Create New Account Options > Require Emails Confirmation = Yes
-    %config ==> customers-confirm(data => %t3_data) ==> my %t3_results;
+    my %t3_results = customers-confirm %config, data => %t3_data;
     # This should return the following message:
     is %t3_results<message>, 'No confirmation needed.', 'customer confirm email';
 
@@ -198,7 +198,7 @@ subtest {
     }
 
     # Customer search
-    %config ==> customers-search(search_criteria => %t4_search_criteria) ==> my %t4_results;
+    my %t4_results = customers-search %config, search_criteria => %t4_search_criteria;
     is %t4_results<items>.head<firstname>, 'Camelia', 'customer search [firstname]';
     is %t4_results<items>.head<lastname>, 'Butterfly', 'customer search [lastname]';
 
@@ -206,11 +206,11 @@ subtest {
         confirmationKey => 'aklsjdkljasdjklasdjklasjkldlkajsdjklasdlkj' 
     }
     # Customer email activate
-    %config ==> customers-email-activate(email => 'camelia1@p6magentofakemail.com', data => %t5_data) ==> my %t5_results;
+    my %t5_results = customers-email-activate %config, email => 'camelia1@p6magentofakemail.com', data => %t5_data;
     is %t5_results<message>, 'Account already active', 'customer email activate';
 
     # Customer reset link token
-    %config ==> customers-reset-link-token(id => $t1_customer_id, link_token => 'asdasdasd') ==> my %t6_results;
+    my %t6_results = customers-reset-link-token %config, id => $t1_customer_id, link_token => 'asdasdasd';
     is %t6_results<message>, 'Reset password token mismatch.', 'customer reset link token';
 
     my %t7_data = %{
@@ -225,11 +225,11 @@ subtest {
     # and:
     # Stores > Configuration > Customer Configuration > Password Options
     # > Min Time Between Password Reset Requests = 0
-    %config ==> customers-password(data => %t7_data) ==> my $t7_results;
+    my $t7_results = customers-password %config, data => %t7_data;
     is $t7_results, True, 'customer password';
 
     # Customer confirm by id
-    %config ==> customers-confirm(id => $t1_customer_id) ==> my $t8_results;
+    my $t8_results = customers-confirm %config, id => $t1_customer_id;
     is $t8_results, 'account_confirmed', 'customer confirm by id';
 
     my %t9_data = %{
@@ -243,11 +243,11 @@ subtest {
         }
     }
     # Customer validate
-    %config ==> customers-validate(data => %t9_data) ==> my %t9_results;
+    my %t9_results = customers-validate %config, data => %t9_data;
     is %t9_results<valid>, True, 'customer validate';
 
     # Customer permissions read-only (Check if customer can be deleted)
-    %config ==> customers-permissions(id => $t1_customer_id) ==> my $t10_results;
+    my $t10_results = customers-permissions %config, id => $t1_customer_id;
     is $t10_results, False, 'customer permissions read-only';
 
     my %t11_data = %{
@@ -255,27 +255,27 @@ subtest {
         websiteId     => 1
     }
     # Customer is email available
-    %config ==> customers-email-available(data => %t11_data) ==> my $t11_results;
+    my $t11_results = customers-email-available %config, data => %t11_data;
     is $t11_results, False, 'customer email available';
 
     # Customer address by id
-    %config ==> customers-addresses(address_id => $t1_address_id) ==> my %t12_results;
+    my %t12_results = customers-addresses %config, address_id => $t1_address_id;
     is %t12_results<postcode>, '90210', 'customer address by id';
 
     # Customer shipping address
-    %config ==> customers-addresses-shipping(id => $t1_customer_id) ==> my %t13_results;
+    my %t13_results = customers-addresses-shipping %config, id => $t1_customer_id;
     is %t13_results<postcode>, '90210', 'customer shipping address';
 
     # Customer billing address
-    %config ==> customers-addresses-billing(id => $t1_customer_id) ==> my %t14_results;
+    my %t14_results = customers-addresses-billing %config, id => $t1_customer_id;
     is %t14_results<postcode>, '90210', 'customer shipping address';
 
     # Customer address delete
-    %config ==> customers-addresses-delete(address_id => $t1_address_id) ==> my $fin_address_results;
+    my $fin_address_results = customers-addresses-delete %config, address_id => $t1_address_id;
     is $fin_address_results, True, 'customer address delete';
 
     # Customer delete
-    %config ==> customers-delete(id => $t1_customer_id) ==> my $fin_customer_results;
+    my $fin_customer_results = customers-delete %config, id => $t1_customer_id;
     is $fin_customer_results, True, 'customer delete';
 
 }, 'Customers';

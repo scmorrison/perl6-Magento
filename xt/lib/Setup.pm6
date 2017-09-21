@@ -143,12 +143,11 @@ our sub coupon-id(
         type      => 0
     }
 
-    my $new_coupon = coupons(%config, data => %coupon_data);
     my %coupon_search_results = coupons-search(%config, search_criteria => %coupon_search_criteria);
 
     # Return coupon_id
     return %coupon_search_results<items>.elems eq 0
-           ?? $new_coupon<coupon_id>
+           ?? coupons(%config, data => %coupon_data)<coupon_id>
            !! %coupon_search_results<items>.head<coupon_id>;
 }
 

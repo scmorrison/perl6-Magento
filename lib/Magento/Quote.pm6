@@ -624,14 +624,13 @@ our multi guest-carts-coupons(
 our multi guest-carts-coupons(
     Hash $config,
     Str  :$cart_id!,
-    Str  :$coupon_code!,
-    Hash :$data!
+    Str  :$coupon_code!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
         uri     => "rest/V1/guest-carts/$cart_id/coupons/$coupon_code",
-        content => to-json $data;
+        content => '';
 }
 
 # DELETE /V1/guest-carts/:cartId/coupons
@@ -715,11 +714,12 @@ our sub guest-carts-order(
     Str  :$cart_id!,
     Hash :$data!
 ) is export {
-    Magento::HTTP::request
+    my $response = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
         uri     => "rest/V1/guest-carts/$cart_id/order",
         content => to-json $data;
+    return $response.Int||$response;
 }
 
 # GET    /V1/guest-carts/:cartId/payment-methods

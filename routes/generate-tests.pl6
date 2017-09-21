@@ -61,7 +61,10 @@ sub MAIN($mod_name) {
         # Print the route above the sub definition
         print "\n    # $line";
         print "\n    my \%t{$this_sub_index}_data = {$mod_name}::{$sub_name}();\n" when $http_method ~~ 'POST'|'PUT';
-        print "\n    \%config\n    ==> {$sub_name}(";
+        print "\n    my \$t{$this_sub_index}_results =\n";
+        print "        {$sub_name} ";
+        print "\n            " when @params.elems > 0 || $http_method ~~ 'POST'|'PUT';
+        print "\%config{@params.elems > 0 || $http_method ~~ 'POST'|'PUT' ?? ',' !! ''}";
         my $param_max_length =
             (@params.elems > 0
              ?? @params.sort({ $^a.chars > $^b.chars }).head.subst(/':'/, '').chars
@@ -70,7 +73,7 @@ sub MAIN($mod_name) {
         my @signature = @params.map: -> $p {
              my $param = decamelize (S/':'// given $p), '_';
              my $space = ($param.chars < $max_space ?? $max_space - $param.chars !! 1);
-             "    $param" ~ \
+             "        $param" ~ \
             (' ' x ($space eq 0 ?? 1 !! $space)) ~ \
             "=> ''";
         }
@@ -80,8 +83,8 @@ sub MAIN($mod_name) {
         push @signature, "        data" ~ (' ' x ($space <= 0 ?? 1 !! $space)) ~ \
             "=> \%t{$this_sub_index}_data" when $http_method ~~ 'POST'|'PUT';
 
-        say "\n    " ~ @signature.join(",\n") when @signature.elems > 0;
-        print "    )\n    ==> my \$t{$this_sub_index}_results;";
+        print "\n    " ~ @signature.join(",\n") when @signature.elems > 0;
+        print ";";
         say "\n    is True, True, '{S/'-'/ / given $sub_name}" ~ \
             do given $http_method {
                 when 'GET' {

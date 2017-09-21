@@ -6,6 +6,8 @@ use JSON::Fast;
 
 unit module Magento::Catalog;
 
+subset Id of Any where Int|Str;
+
 proto sub products(|) is export {*}
 #GET    /V1/products
 our multi products(
@@ -247,11 +249,12 @@ our multi products-attribute-sets-attributes(
     Hash $config,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $response = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/products/attribute-sets/attributes",
         content => to-json $data;
+    return $response.Int||$response;
 }
 
 #DELETE /V1/products/attribute-sets/:attribute_set_id/attributes/:attribute_code
@@ -305,7 +308,7 @@ our multi products-attribute-groups(
 #DELETE /V1/products/attribute-sets/groups/:group_id
 our sub products-attribute-groups-delete(
     Hash $config,
-    Int  :$group_id!
+    Id   :$group_id!
 ) is export {
     Magento::HTTP::request
         method  => 'DELETE',

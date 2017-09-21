@@ -741,81 +741,67 @@ subtest {
             cart_id => $t1_cart_id;
     is %t16_results<base_currency_code>, 'USD', 'guest carts-totals by cart_id';
 
+    # Setup coupon
+    my $coupon_id = Setup::coupon-id();
 
-#subtest {
-#
-#    # GET    /V1/guest-carts/:cartId/coupons
-#    %config
-#    ==> guest-carts-coupons(
-#        cart_id => ''
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-coupons by id';
-#
-#    # PUT    /V1/guest-carts/:cartId/coupons/:couponCode
-#    my %t2_data = Quote::guest-carts-coupons();
-#
-#    %config
-#    ==> guest-carts-coupons(
-#        cart_id    => '',
-#    coupon_code => '',
-#        data       => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'guest carts-coupons update';
-#
-#    # DELETE /V1/guest-carts/:cartId/coupons
-#    %config
-#    ==> guest-carts-coupons(
-#        cart_id => ''
-#    )
-#    ==> my $t3_results;
-#    is True, True, 'guest carts-coupons delete';
-#
-#}, 'Guest carts-coupons';
-#
-#subtest {
-#
-#    # POST   /V1/guest-carts/:cartId/estimate-shipping-methods
-#    my %t1_data = Quote::guest-carts-estimate-shipping-methods();
-#
-#    %config
-#    ==> guest-carts-estimate-shipping-methods(
-#        cart_id => '',
-#        data   => %t1_data
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-estimate-shipping-methods new';
-#
-#}, 'Guest carts-estimate-shipping-methods';
-#
-#subtest {
-#
-#    # DELETE /V1/guest-carts/:cartId/items/:itemId
-#    %config
-#    ==> guest-carts-items(
-#        cart_id => '',
-#    item_id => ''
-#    )
-#    ==> my $t4_results;
-#    is True, True, 'guest carts-items delete';
-#
-#}, 'Guest carts-items';
-#
-#subtest {
-#
-#    # PUT    /V1/guest-carts/:cartId/order
-#    my %t1_data = Quote::guest-carts-order();
-#
-#    %config
-#    ==> guest-carts-order(
-#        cart_id => '',
-#        data   => %t1_data
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'guest carts-order update';
-#
-#}, 'Guest carts-order';
+    # revisit, this doesn't work. there is no way to associate a 
+    # coupon_code to a sales rule using the API.
+
+    # PUT    /V1/guest-carts/:cartId/coupons/:couponCode
+    my %t17_results =
+        guest-carts-coupons
+            %config,
+            cart_id     => $t1_cart_id,
+            coupon_code => 'DeleteMeCoupon';
+    is %t17_results<message>, 'Coupon code is not valid', 'guest carts-coupons update';
+
+
+    # GET    /V1/guest-carts/:cartId/coupons
+    my $t18_results = guest-carts-coupons %config, cart_id => $t1_cart_id;
+    is $t18_results, [], 'guest carts-coupons all by cart_id';
+
+    # DELETE /V1/guest-carts/:cartId/coupons
+    my $t19_results = guest-carts-coupons-delete %config, cart_id => $t1_cart_id;
+    is $t19_results, True, 'guest carts-coupons delete';
+
+    # POST   /V1/guest-carts/:cartId/estimate-shipping-methods
+    my %t20_data = Quote::carts-estimate-shipping-methods();
+
+    my $t20_results =
+        guest-carts-estimate-shipping-methods
+            %config,
+            cart_id => $t1_cart_id,
+            data    => %t20_data;
+    is so $t20_results.any.grep({ $_<carrier_code> ~~ 'flatrate' }), True, 'guest carts-estimate-shipping-methods assign';
+
+    # DELETE /V1/guest-carts/:cartId/items/:itemId
+    my $t21_results =
+        guest-carts-items-delete
+            %config,
+            cart_id => $t1_cart_id,
+            item_id => %t6_results<item_id>;
+    is True, True, 'guest carts-items delete';
+
+    my %t22_data = Quote::guest-carts-items cart_id => $t1_cart_id;
+
+    my %t22_results =
+        guest-carts-items
+            %config,
+            cart_id => $t1_cart_id,
+            data    => %t22_data;
+    is %t22_results<product_type>, 'simple', 'guest carts-items re-add after delete';
+
+    # PUT    /V1/guest-carts/:cartId/order
+    my %t23_data = paymentMethod => %{
+        method => 'banktransfer'
+    }
+
+    my $t23_results =
+        guest-carts-order
+            %config,
+            cart_id => $t1_cart_id,
+            data    => %t23_data;
+    is $t23_results ~~ Int, True, 'guest carts-order place order';
 
 }, 'Guest carts';
 
