@@ -48,8 +48,8 @@ our sub request(
         }
     }
 
-    return do given %res<status> {
-        when 200 {
+    return do given %res<success> {
+        when so * {
             do given $format {
                 when 'json'|'xml' {
                     %res<content>;

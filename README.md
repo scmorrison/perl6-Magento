@@ -60,7 +60,7 @@ use Magento::Customer;
 my %config = Magento::Config::from-file;
 
 #GET    /V1/customers/:customerId
-%config ==> customers(id => 1) ==> say();
+say customers %config, id => 1;
 ```
 
 Using pre-generated Access Token without `~/.6mag/config.yml`:
