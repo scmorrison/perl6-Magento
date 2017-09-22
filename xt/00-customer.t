@@ -4,6 +4,9 @@ use v6;
 # live development system. Do not run
 # this against a production system.
 
+my $customer_email = '';
+my $customer_pass  = 'fakeMagent0P6';
+
 use Test;
 use lib 'lib';
 

@@ -7,6 +7,7 @@ unit module Magento::HTTP;
 
 our sub request(
     Hash :$config,
+    Str  :$host,
     Str  :$method = 'GET',
     Str  :$uri,
     Str  :$content = '',
@@ -14,7 +15,7 @@ our sub request(
     --> Any
 ) {
     # Config variables
-    my $host         = $config<host>;
+    my $magento_host = $host||$config<host>;
     my $format       = $config<format>||'default';
     my $access_token = $config<access_token>;
 
@@ -27,7 +28,7 @@ our sub request(
         $headers ?? |$headers !! %()
     }
 
-    my $url = "{$host}/{$uri.trans: /'['/ => '\\[', /']'/ => '\\]'}";
+    my $url = "{$magento_host}/{$uri.trans: /'['/ => '\\[', /']'/ => '\\]'}";
 
     my %res = do given $method {
         when 'DELETE' {
@@ -36,7 +37,7 @@ our sub request(
         }
         when 'GET' {
             HTTP::Tinyish.new.get:
-                $url, headers => %request_headers, :$content;
+                $url, headers => %request_headers;
         }
         when 'POST' {
             HTTP::Tinyish.new.post:
@@ -61,8 +62,9 @@ our sub request(
         }
         default {
             %{
-                message => from-json(%res<content>)<message>,
-                status  => %res<status>
+                message    => from-json(%res<content>)<message>,
+                status     => %res<status>,
+                parameters => %res<parameters>||%{};
             }
         }
     }

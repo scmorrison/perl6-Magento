@@ -182,36 +182,34 @@ our sub carts-items-delete(
         uri     => "rest/V1/carts/$cart_id/items/$item_id";
 }
 
-proto sub carts-mine(|) is export {*}
+#proto sub carts-mine(|) is export {*}
 # POST   /V1/carts/mine
-our multi carts-mine(
-    Hash $config,
-    Hash :$data!
-) {
-    Magento::HTTP::request
+our sub carts-mine-new(
+    Hash $config
+) is export {
+    my $response = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/carts/mine",
-        content => to-json $data;
+        content => '';
+    return $response.Int||$response;
 }
 
 # GET    /V1/carts/mine
-our multi carts-mine(
-    Hash $config,
-    Int  :$customer_id
-) {
+our sub carts-mine(
+    Hash $config
+) is export {
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine",
-        content => to-json %{ customerId => $customer_id };
+        uri     => "rest/V1/carts/mine";
 }
 
 # PUT    /V1/carts/mine
-our multi carts-mine(
+our sub carts-mine-update(
     Hash $config,
     Hash :$data!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,

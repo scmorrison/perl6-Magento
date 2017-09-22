@@ -5,10 +5,10 @@ use v6;
 # this against a production system.
 
 # To run the `mine` tests working set the password for the customer
-# then run these scripts with the P6MAGENTOCUSPASS enviornment 
+# then run these scripts with the P6MAGENTOMINE enviornment 
 # variable set:
 # 
-# P6MAGENTOCUSPASS=password prove -ve 'perl6 -Ilib' xt/02-quote.t
+# P6MAGENTOMINE=1 prove -ve 'perl6 -Ilib' xt/02-quote.t
 
 use Test;
 use lib 'lib', 'xt'.IO.child('lib');
@@ -20,9 +20,10 @@ use Magento::Quote;
 use Quote;
 use Setup;
 
-my %config      = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
-my $customer_id = Setup::customer-id();
+my %config         = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
+my $customer_id    = Setup::customer-id();
 my $customer_email = 'p6magento@fakeemail.com';
+my $customer_pass  = 'fakeMagent0P6';
 my $cart_id;
 my $cart_item_id;
 
@@ -56,53 +57,6 @@ subtest {
     }
 
 }, 'Carts';
-
-if %*ENV<P6MAGENTOCUSPASS> {
-
-    subtest {
-
-        use Magento::Auth;
-        my $customer_access_token = 
-        request-access-token(
-            host      => %config<host>,
-            username  => $customer_email,
-            password  => %*ENV<P6MAGENTOCUSPASS>,
-            user_type => 'customer');
-
-
-        # POST   /V1/carts/mine
-        my $t1_results = carts-mine %( |%config, accress_token => $customer_access_token );
-        is $t1_results ~~ Int, True, 'carts mine new';
-        my $customer_cart_id = $t1_results;
-
-        # GET    /V1/carts/mine
-        my %t2_results =
-            carts-mine
-                %( |%config, accress_token => $customer_access_token ),
-                :$customer_id;
-
-        is %t2_results<customer_is_guest>, False, 'carts mine by id';
-
-        # PUT    /V1/carts/mine
-        my %t3_data = customerId => $customer_id,
-                      storeId    => 1;
-
-        my $t3_results =
-            carts-mine
-                %( |%config, accress_token => $customer_access_token ),
-                data => %t3_data;
-
-        given $t3_results {
-            when Bool {
-                is $t3_results, True, 'carts mine update';
-            }
-            default {
-                like $t3_results<message>, /'Cannot assign customer to the given cart'/, 'carts mine update';
-            }
-        }
-
-    }, 'Carts mine';
-}
 
 subtest {
 
@@ -216,198 +170,6 @@ subtest {
     is $t1_results.head<carrier_code>, 'flatrate', 'carts estimate-shipping-methods-by-address-id';
 
 }, 'Carts estimate-shipping-methods-by-address-id';
-
-#subtest {
-#
-#    # GET    /V1/carts/mine/billing-address
-#    %config
-#    ==> carts-mine-billing-address(    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-billing-address all';
-#
-#    # POST   /V1/carts/mine/billing-address
-#    my %t2_data = Quote::carts-mine-billing-address();
-#
-#    %config
-#    ==> carts-mine-billing-address(
-#            data => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'carts mine-billing-address new';
-#
-#}, 'Carts mine-billing-address';
-#
-#subtest {
-#
-#    # PUT    /V1/carts/mine/collect-totals
-#    my %t1_data = Quote::carts-mine-collect-totals();
-#
-#    %config
-#    ==> carts-mine-collect-totals(
-#            data => %t1_data
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-collect-totals update';
-#
-#}, 'Carts mine-collect-totals';
-#
-#subtest {
-#
-#    # GET    /V1/carts/mine/coupons
-#    %config
-#    ==> carts-mine-coupons(    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-coupons all';
-#
-#    # PUT    /V1/carts/mine/coupons/:couponCode
-#    my %t2_data = Quote::carts-mine-coupons();
-#
-#    %config
-#    ==> carts-mine-coupons(
-#        coupon_code => '',
-#        data       => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'carts mine-coupons update';
-#
-#    # DELETE /V1/carts/mine/coupons
-#    %config
-#    ==> carts-mine-coupons(    )
-#    ==> my $t3_results;
-#    is True, True, 'carts mine-coupons delete';
-#
-#}, 'Carts mine-coupons';
-#
-#subtest {
-#
-#    # POST   /V1/carts/mine/estimate-shipping-methods
-#    my %t1_data = Quote::carts-mine-estimate-shipping-methods();
-#
-#    %config
-#    ==> carts-mine-estimate-shipping-methods(
-#            data => %t1_data
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-estimate-shipping-methods new';
-#
-#}, 'Carts mine-estimate-shipping-methods';
-#
-#subtest {
-#
-#    # POST   /V1/carts/mine/estimate-shipping-methods-by-address-id
-#    my %t1_data = Quote::carts-mine-estimate-shipping-methods-by-address-id();
-#
-#    %config
-#    ==> carts-mine-estimate-shipping-methods-by-address-id(
-#            data => %t1_data
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-estimate-shipping-methods-by-address-id new';
-#
-#}, 'Carts mine-estimate-shipping-methods-by-address-id';
-#
-#subtest {
-#
-#    # GET    /V1/carts/mine/items
-#    %config
-#    ==> carts-mine-items(    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-items all';
-#
-#    # POST   /V1/carts/mine/items
-#    my %t2_data = Quote::carts-mine-items();
-#
-#    %config
-#    ==> carts-mine-items(
-#            data => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'carts mine-items new';
-#
-#    # PUT    /V1/carts/mine/items/:itemId
-#    my %t3_data = Quote::carts-mine-items();
-#
-#    %config
-#    ==> carts-mine-items(
-#        item_id => '',
-#        data   => %t3_data
-#    )
-#    ==> my $t3_results;
-#    is True, True, 'carts mine-items update';
-#
-#    # DELETE /V1/carts/mine/items/:itemId
-#    %config
-#    ==> carts-mine-items(
-#        item_id => ''
-#    )
-#    ==> my $t4_results;
-#    is True, True, 'carts mine-items delete';
-#
-#}, 'Carts mine-items';
-#
-#subtest {
-#
-#    # PUT    /V1/carts/mine/order
-#    my %t1_data = Quote::carts-mine-order();
-#
-#    %config
-#    ==> carts-mine-order(
-#            data => %t1_data
-#    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-order update';
-#
-#}, 'Carts mine-order';
-#
-#subtest {
-#
-#    # GET    /V1/carts/mine/payment-methods
-#    %config
-#    ==> carts-mine-payment-methods(    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-payment-methods all';
-#
-#}, 'Carts mine-payment-methods';
-#
-#subtest {
-#
-#    # GET    /V1/carts/mine/selected-payment-method
-#    %config
-#    ==> carts-mine-selected-payment-method(    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-selected-payment-method all';
-#
-#    # PUT    /V1/carts/mine/selected-payment-method
-#    my %t2_data = Quote::carts-mine-selected-payment-method();
-#
-#    %config
-#    ==> carts-mine-selected-payment-method(
-#            data => %t2_data
-#    )
-#    ==> my $t2_results;
-#    is True, True, 'carts mine-selected-payment-method update';
-#
-#}, 'Carts mine-selected-payment-method';
-#
-#subtest {
-#
-#    # GET    /V1/carts/mine/shipping-methods
-#    %config
-#    ==> carts-mine-shipping-methods(    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-shipping-methods all';
-#
-#}, 'Carts mine-shipping-methods';
-#
-#subtest {
-#
-#    # GET    /V1/carts/mine/totals
-#    %config
-#    ==> carts-mine-totals(    )
-#    ==> my $t1_results;
-#    is True, True, 'carts mine-totals all';
-#
-#}, 'Carts mine-totals';
 
 subtest {
 
@@ -805,6 +567,245 @@ subtest {
     is $t23_results ~~ Int, True, 'guest carts-order place order';
 
 }, 'Guest carts';
+
+if %*ENV<P6MAGENTOMINE> {
+
+    subtest {
+
+        use Magento::Auth;
+        my $customer_access_token = 
+            request-access-token
+                host      => %config<host>,
+                username  => $customer_email,
+                password  => $customer_pass,
+                user_type => 'customer';
+
+        my %mine_config = %( |%config, access_token => $customer_access_token );
+
+        # POST   /V1/carts/mine
+        my $t1_results = carts-mine-new %mine_config;
+        is $t1_results ~~ Int, True, 'carts mine new';
+        my $customer_cart_id = $t1_results;
+
+        # GET    /V1/carts/mine
+        my %t2_results = carts-mine %mine_config;
+        is %t2_results<customer_is_guest>, False, 'carts mine by access_token';
+
+        # PUT    /V1/carts/mine
+        my %t3_data = customerId => $customer_id,
+                      storeId    => 1,
+                      quote      => $customer_cart_id;
+
+        my $t3_results =
+            carts-mine-update
+                %mine_config,
+                data => %t3_data;
+        is $t3_results, '', 'carts mine update';
+
+        #given $t3_results {
+        #    when Int {
+        #        is $t3_results, True, 'carts mine update';
+        #    }
+        #    default {
+        #        like $t3_results<message>, /'Cannot assign customer to the given cart'/, 'carts mine update';
+        #    }
+        #}
+
+    }, 'Carts mine';
+
+    #subtest {
+    #
+    #    # GET    /V1/carts/mine/billing-address
+    #    %config
+    #    ==> carts-mine-billing-address(    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-billing-address all';
+    #
+    #    # POST   /V1/carts/mine/billing-address
+    #    my %t2_data = Quote::carts-mine-billing-address();
+    #
+    #    %config
+    #    ==> carts-mine-billing-address(
+    #            data => %t2_data
+    #    )
+    #    ==> my $t2_results;
+    #    is True, True, 'carts mine-billing-address new';
+    #
+    #}, 'Carts mine-billing-address';
+    #
+    #subtest {
+    #
+    #    # PUT    /V1/carts/mine/collect-totals
+    #    my %t1_data = Quote::carts-mine-collect-totals();
+    #
+    #    %config
+    #    ==> carts-mine-collect-totals(
+    #            data => %t1_data
+    #    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-collect-totals update';
+    #
+    #}, 'Carts mine-collect-totals';
+    #
+    #subtest {
+    #
+    #    # GET    /V1/carts/mine/coupons
+    #    %config
+    #    ==> carts-mine-coupons(    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-coupons all';
+    #
+    #    # PUT    /V1/carts/mine/coupons/:couponCode
+    #    my %t2_data = Quote::carts-mine-coupons();
+    #
+    #    %config
+    #    ==> carts-mine-coupons(
+    #        coupon_code => '',
+    #        data       => %t2_data
+    #    )
+    #    ==> my $t2_results;
+    #    is True, True, 'carts mine-coupons update';
+    #
+    #    # DELETE /V1/carts/mine/coupons
+    #    %config
+    #    ==> carts-mine-coupons(    )
+    #    ==> my $t3_results;
+    #    is True, True, 'carts mine-coupons delete';
+    #
+    #}, 'Carts mine-coupons';
+    #
+    #subtest {
+    #
+    #    # POST   /V1/carts/mine/estimate-shipping-methods
+    #    my %t1_data = Quote::carts-mine-estimate-shipping-methods();
+    #
+    #    %config
+    #    ==> carts-mine-estimate-shipping-methods(
+    #            data => %t1_data
+    #    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-estimate-shipping-methods new';
+    #
+    #}, 'Carts mine-estimate-shipping-methods';
+    #
+    #subtest {
+    #
+    #    # POST   /V1/carts/mine/estimate-shipping-methods-by-address-id
+    #    my %t1_data = Quote::carts-mine-estimate-shipping-methods-by-address-id();
+    #
+    #    %config
+    #    ==> carts-mine-estimate-shipping-methods-by-address-id(
+    #            data => %t1_data
+    #    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-estimate-shipping-methods-by-address-id new';
+    #
+    #}, 'Carts mine-estimate-shipping-methods-by-address-id';
+    #
+    #subtest {
+    #
+    #    # GET    /V1/carts/mine/items
+    #    %config
+    #    ==> carts-mine-items(    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-items all';
+    #
+    #    # POST   /V1/carts/mine/items
+    #    my %t2_data = Quote::carts-mine-items();
+    #
+    #    %config
+    #    ==> carts-mine-items(
+    #            data => %t2_data
+    #    )
+    #    ==> my $t2_results;
+    #    is True, True, 'carts mine-items new';
+    #
+    #    # PUT    /V1/carts/mine/items/:itemId
+    #    my %t3_data = Quote::carts-mine-items();
+    #
+    #    %config
+    #    ==> carts-mine-items(
+    #        item_id => '',
+    #        data   => %t3_data
+    #    )
+    #    ==> my $t3_results;
+    #    is True, True, 'carts mine-items update';
+    #
+    #    # DELETE /V1/carts/mine/items/:itemId
+    #    %config
+    #    ==> carts-mine-items(
+    #        item_id => ''
+    #    )
+    #    ==> my $t4_results;
+    #    is True, True, 'carts mine-items delete';
+    #
+    #}, 'Carts mine-items';
+    #
+    #subtest {
+    #
+    #    # PUT    /V1/carts/mine/order
+    #    my %t1_data = Quote::carts-mine-order();
+    #
+    #    %config
+    #    ==> carts-mine-order(
+    #            data => %t1_data
+    #    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-order update';
+    #
+    #}, 'Carts mine-order';
+    #
+    #subtest {
+    #
+    #    # GET    /V1/carts/mine/payment-methods
+    #    %config
+    #    ==> carts-mine-payment-methods(    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-payment-methods all';
+    #
+    #}, 'Carts mine-payment-methods';
+    #
+    #subtest {
+    #
+    #    # GET    /V1/carts/mine/selected-payment-method
+    #    %config
+    #    ==> carts-mine-selected-payment-method(    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-selected-payment-method all';
+    #
+    #    # PUT    /V1/carts/mine/selected-payment-method
+    #    my %t2_data = Quote::carts-mine-selected-payment-method();
+    #
+    #    %config
+    #    ==> carts-mine-selected-payment-method(
+    #            data => %t2_data
+    #    )
+    #    ==> my $t2_results;
+    #    is True, True, 'carts mine-selected-payment-method update';
+    #
+    #}, 'Carts mine-selected-payment-method';
+    #
+    #subtest {
+    #
+    #    # GET    /V1/carts/mine/shipping-methods
+    #    %config
+    #    ==> carts-mine-shipping-methods(    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-shipping-methods all';
+    #
+    #}, 'Carts mine-shipping-methods';
+    #
+    #subtest {
+    #
+    #    # GET    /V1/carts/mine/totals
+    #    %config
+    #    ==> carts-mine-totals(    )
+    #    ==> my $t1_results;
+    #    is True, True, 'carts mine-totals all';
+    #
+    #}, 'Carts mine-totals';
+
+}
 
 subtest {
     
