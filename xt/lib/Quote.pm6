@@ -85,8 +85,24 @@ our sub carts-mine-estimate-shipping-methods-by-address-id {
     %();
 }
 
-our sub carts-mine-items {
-    %();
+our sub carts-mine-items(
+    :$cart_id
+) {
+    cartItem  => %{
+        sku => 'P6-TEST-DELETE',
+        qty => 5,
+        quoteId => "$cart_id"
+    }
+}
+
+our sub carts-mine-items-update(
+    :$cart_id 
+) {
+    cartItem  => %{
+        sku => 'P6-TEST-DELETE',
+        qty => 7,
+        quoteId => "$cart_id"
+    }
 }
 
 our sub carts-mine-order {

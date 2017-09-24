@@ -14,12 +14,9 @@ use Magento::Config;
 use Magento::Customer;
 use Magento::Store;
 
-plan 3;
-
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 
 subtest {
-    plan 12;
 
     my %t1_data = group => %{ 
         code          => 'TestCustomerGroup',
@@ -84,7 +81,6 @@ subtest {
 }, 'Customer groups';
 
 subtest {
-    plan 8;
 
     # Customer Metadata all
     my $t1_results = customer-metadata %config;
@@ -122,7 +118,6 @@ subtest {
 }, 'Customer metadata';
 
 subtest {
-    plan 21;
 
     my %t1_data = %{
         customer  => %{
@@ -282,3 +277,26 @@ subtest {
     is $fin_customer_results, True, 'customer delete';
 
 }, 'Customers';
+
+if %*ENV<P6MAGENTOMINE> {
+
+    my $customer_email = 'p6magento@fakeemail.com';
+    my $customer_pass  = 'fakeMagent0P6';
+    my %mine_config;
+
+    subtest {
+
+        use Magento::Auth;
+        my $customer_access_token = 
+            request-access-token
+                host      => %config<host>,
+                username  => $customer_email,
+                password  => $customer_pass,
+                user_type => 'customer';
+
+        %mine_config = %( |%config, access_token => $customer_access_token );
+
+    }, 'Me';
+}
+
+done-testing;

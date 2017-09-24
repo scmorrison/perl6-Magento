@@ -233,11 +233,12 @@ our multi carts-mine-billing-address(
     Hash $config,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $response = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/carts/mine/billing-address",
         content => to-json $data;
+    return $response.Int||$response;
 }
 
 # PUT    /V1/carts/mine/collect-totals
@@ -362,11 +363,12 @@ our sub carts-mine-order(
     Hash $config,
     Hash :$data!
 ) is export {
-    Magento::HTTP::request
+    my $response = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
         uri     => "rest/V1/carts/mine/order",
         content => to-json $data;
+    return $response.Int||$response;
 }
 
 # GET    /V1/carts/mine/payment-methods
@@ -395,11 +397,12 @@ our multi carts-mine-selected-payment-method(
     Hash $config,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $response = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
         uri     => "rest/V1/carts/mine/selected-payment-method",
         content => to-json $data;
+    return $response.Int||$response;
 }
 
 # GET    /V1/carts/mine/shipping-methods

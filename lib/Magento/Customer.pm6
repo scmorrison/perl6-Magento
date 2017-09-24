@@ -242,11 +242,70 @@ our multi customers(
 }
 
 #PUT    /V1/customers/me/activate
-#GET    /V1/customers/me          - use GET customers/:customerId
-#PUT    /V1/customers/me          - use PUT customers/:customerId
-#PUT    /V1/customers/me/password - use customers/password
+our sub customers-me-activate(
+    Hash $config,
+    Hash :$data
+) is export {
+    Magento::HTTP::request
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/customers/me/activate",
+        content => to-json $data;
+}
+
+proto sub customers-me(|) is export {*}
+#GET    /V1/customers/me
+our multi customers-me(
+    Hash $config
+) {
+    Magento::HTTP::request
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/me";
+}
+#PUT    /V1/customers/me
+our multi customers-me(
+    Hash $config,
+    Hash :$data
+) {
+    Magento::HTTP::request
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/customers/me",
+        content => to-json $data;
+}
+
+#PUT    /V1/customers/me/password
+our sub customers-me-password(
+    Hash $config,
+    Hash :$data
+) is export {
+    Magento::HTTP::request
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/customers/me/password",
+        content => to-json $data;
+}
+
 #GET    /V1/customers/me/billingAddress
+our sub customers-me-billing-address(
+    Hash $config
+) is export {
+    Magento::HTTP::request
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/me/billingAddress";
+}
+
 #GET    /V1/customers/me/shippingAddress
+our sub customers-me-shipping-address(
+    Hash $config
+) is export {
+    Magento::HTTP::request
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/customers/me/shippingAddress";
+}
 
 #GET    /V1/customers/search
 our sub customers-search(
