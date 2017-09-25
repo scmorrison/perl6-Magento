@@ -56,7 +56,7 @@ our sub tax-rates-delete(
 # GET    /V1/taxRates/search
 our sub tax-rates-search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
@@ -115,7 +115,7 @@ our multi tax-rules(
 # GET    /V1/taxRules/search
 our sub tax-rules-search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
@@ -175,7 +175,7 @@ our sub tax-classes-delete(
 # GET    /V1/taxClasses/search
 our sub tax-classes-search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request

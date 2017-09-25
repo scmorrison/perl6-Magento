@@ -21,7 +21,7 @@ our multi cms-page(
 # GET    /V1/cmsPage/search
 our sub cms-page-search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
 my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
@@ -81,7 +81,7 @@ our multi cms-block(
 # GET    /V1/cmsBlock/search
 our sub cms-block-search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
 my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request

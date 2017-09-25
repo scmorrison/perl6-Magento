@@ -12,7 +12,7 @@ proto sub products(|) is export {*}
 #GET    /V1/products
 our multi products(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
@@ -89,7 +89,7 @@ our multi products-attributes(
 #GET    /V1/products/attributes
 our multi products-attributes(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
@@ -136,7 +136,7 @@ proto sub categories-attributes(|) is export {*}
 #GET    /V1/categories/attributes
 our multi categories-attributes(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
@@ -180,7 +180,7 @@ proto sub products-attribute-sets(|) is export {*}
 #GET    /V1/products/attribute-sets/sets/list
 our multi products-attribute-sets(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
@@ -273,7 +273,7 @@ our sub products-attribute-sets-attributes-delete(
 proto sub products-attribute-groups(|) is export {*}
 our multi products-attribute-groups(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request

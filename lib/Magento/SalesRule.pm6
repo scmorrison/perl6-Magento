@@ -93,7 +93,7 @@ our sub coupons-generate(
 # GET    /V1/coupons/search
 our sub coupons-search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
@@ -153,7 +153,7 @@ our sub sales-rules-delete(
 # GET    /V1/salesRules/search
 our sub sales-rules-search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request

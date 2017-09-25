@@ -452,7 +452,7 @@ our sub carts-payment-methods(
 # GET    /V1/carts/search
 our sub carts-search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
