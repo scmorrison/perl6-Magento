@@ -351,6 +351,7 @@
 ## Magento::Search
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
+|search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Make Full Text Search and return found Documents|GET|/V1/search|
 ## Magento::Store
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|

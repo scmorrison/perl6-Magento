@@ -9,7 +9,7 @@ unit module Magento::Search;
 # GET    /V1/search
 our sub search(
     Hash $config,
-    Hash :$search_criteria = %()
+    Hash :$search_criteria = %{}
 ) is export {
     my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
