@@ -1,379 +1,379 @@
 ## Magento::Backend
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|modules|    Hash $config|Returns an array of enabled modules|GET|/V1/modules|
+|<div style='white-space: nowrap;'>modules</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Returns an array of enabled modules|GET|<div style='white-space: nowrap;'>/V1/modules</div>|
 ## Magento::Bundle
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|bundle-products-links|    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!,<br/>    Hash :$data!|Add child product to specified Bundle option by product sku|POST|/V1/bundle-products/:sku/links/:optionId|
-|bundle-products-links|    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$id!,<br/>    Hash :$data!||PUT|/V1/bundle-products/:sku/links/:id|
-|bundle-products-children|    Hash $config,<br/>    Str  :$product_sku!|Get all children for Bundle product|GET|/V1/bundle-products/:productSku/children|
-|bundle-products-options-children-delete|    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!,<br/>    Str  :$child_sku!|Remove product from Bundle product option|DELETE|/V1/bundle-products/:sku/options/:optionId/children/:childSku|
-|bundle-products-options-all|    Hash $config,<br/>    Str  :$sku!|Get all options for bundle product|GET|/V1/bundle-products/:sku/options/all|
-|bundle-products-options-types|    Hash $config|Get all types for options for bundle products|GET|/V1/bundle-products/options/types|
-|bundle-products-options|    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!|Get option for bundle product|GET|/V1/bundle-products/:sku/options/:optionId|
-|bundle-products-options-add|    Hash $config,<br/>    Hash :$data!|Add new option for bundle product|POST|/V1/bundle-products/options/add|
-|bundle-products-options|    Hash $config,<br/>    Int  :$option_id!,<br/>    Hash :$data!|Add new option for bundle product|PUT|/V1/bundle-products/options/:optionId|
-|bundle-products-options-delete|    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!|Remove bundle option|DELETE|/V1/bundle-products/:sku/options/:optionId|
+|<div style='white-space: nowrap;'>bundle-products-links</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!,<br/>    Hash :$data!</div>|Add child product to specified Bundle option by product sku|POST|<div style='white-space: nowrap;'>/V1/bundle-products/:sku/links/:optionId</div>|
+|<div style='white-space: nowrap;'>bundle-products-links</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$id!,<br/>    Hash :$data!</div>||PUT|<div style='white-space: nowrap;'>/V1/bundle-products/:sku/links/:id</div>|
+|<div style='white-space: nowrap;'>bundle-products-children</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$product_sku!</div>|Get all children for Bundle product|GET|<div style='white-space: nowrap;'>/V1/bundle-products/:productSku/children</div>|
+|<div style='white-space: nowrap;'>bundle-products-options-children-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!,<br/>    Str  :$child_sku!</div>|Remove product from Bundle product option|DELETE|<div style='white-space: nowrap;'>/V1/bundle-products/:sku/options/:optionId/children/:childSku</div>|
+|<div style='white-space: nowrap;'>bundle-products-options-all</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!</div>|Get all options for bundle product|GET|<div style='white-space: nowrap;'>/V1/bundle-products/:sku/options/all</div>|
+|<div style='white-space: nowrap;'>bundle-products-options-types</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get all types for options for bundle products|GET|<div style='white-space: nowrap;'>/V1/bundle-products/options/types</div>|
+|<div style='white-space: nowrap;'>bundle-products-options</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!</div>|Get option for bundle product|GET|<div style='white-space: nowrap;'>/V1/bundle-products/:sku/options/:optionId</div>|
+|<div style='white-space: nowrap;'>bundle-products-options-add</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Add new option for bundle product|POST|<div style='white-space: nowrap;'>/V1/bundle-products/options/add</div>|
+|<div style='white-space: nowrap;'>bundle-products-options</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$option_id!,<br/>    Hash :$data!</div>|Add new option for bundle product|PUT|<div style='white-space: nowrap;'>/V1/bundle-products/options/:optionId</div>|
+|<div style='white-space: nowrap;'>bundle-products-options-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!</div>|Remove bundle option|DELETE|<div style='white-space: nowrap;'>/V1/bundle-products/:sku/options/:optionId</div>|
 ## Magento::Catalog
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|products|    Hash $config,<br/>    Hash :$search_criteria = %{}|Get product list|GET|/V1/products|
-|products|    Hash $config,<br/>    Hash :$data!|Create product|POST|/V1/products|
-|products|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Create product|PUT|/V1/products/:sku|
-|products|    Hash $config,<br/>    Str  :$sku!|Get info about product by product SKU|GET|/V1/products/:sku|
-|products-delete|    Hash $config,<br/>    Str  :$sku!||DELETE|/V1/products/:sku|
-|products-attributes-types|    Hash $config,|Retrieve list of product attribute types|GET|/V1/products/attributes/types|
-|products-attributes|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve all attributes for entity type|GET|/V1/products/attributes|
-|products-attributes|    Hash $config,<br/>    Hash :$data!|Save attribute data|POST|/V1/products/attributes|
-|categories-attributes|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve all attributes for entity type|GET|/V1/categories/attributes|
-|products-types|    Hash $config|Retrieve available product types|GET|/V1/products/types|
-|products-attribute-sets|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve list of Attribute Sets|GET|/V1/products/attribute-sets/sets/list|
-|products-attribute-sets|    Hash $config,<br/>    Hash :$data!|Create attribute set from data|POST|/V1/products/attribute-sets|
-|products-attribute-sets-attributes|    Hash $config,<br/>    Hash :$data!|Assign attribute to attribute set|POST|/V1/products/attribute-sets/attributes|
-|products-attribute-groups|    Hash $config,<br/>    Hash :$data!|Save attribute group|POST|/V1/products/attribute-sets/groups|
-|products-media|    Hash $config,<br/>    Str  :$sku!,|Retrieve the list of gallery entries associated with given product|GET|/V1/products/:sku/media|
-|products-media|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Create new gallery entry|POST|/V1/products/:sku/media|
-|categories|    Hash $config,<br/>    Int  :$root_category_id = 1,<br/>    Int  :$depth = 1;|Retrieve list of categories|GET|/V1/categories|
-|categories|    Hash $config,<br/>    Hash :$data!|Create category service|POST|/V1/categories|
-|categories|    Hash $config,<br/>    Int  :$category_id!,<br/>    Hash :$data!|Create category service|PUT|/V1/categories/:id|
-|products-options-types|    Hash $config|Get custom option types|GET|/V1/products/options/types|
-|products-custom-options|    Hash $config,<br/>    Str  :$sku!|Get the list of custom options for a specific product|GET|/V1/products/:sku/options|
-|products-custom-options|    Hash $config,<br/>    Hash :$data!|Save Custom Option|POST|/V1/products/options|
-|products-links-types|    Hash $config|Retrieve information about available product link types|GET|/V1/products/links/types|
-|products-links-attributes|    Hash $config,<br/>    Str  :$type|Provide a list of the product link type attributes|GET|/V1/products/links/:type/attributes|
-|products-links|    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$type!|Provide the list of links for a specific product|GET|/V1/products/:sku/links/:type|
-|products-links|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Assign a product link to another product|POST|/V1/products/:sku/links|
-|products-links-update|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Save product link|PUT|/V1/products/:sku/links|
-|products-links-delete|    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$type!,<br/>    Str  :$linked_product_sku!||DELETE|/V1/products/:sku/links/:type/:linkedProductSku|
+|<div style='white-space: nowrap;'>products</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Get product list|GET|<div style='white-space: nowrap;'>/V1/products</div>|
+|<div style='white-space: nowrap;'>products</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create product|POST|<div style='white-space: nowrap;'>/V1/products</div>|
+|<div style='white-space: nowrap;'>products</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!</div>|Create product|PUT|<div style='white-space: nowrap;'>/V1/products/:sku</div>|
+|<div style='white-space: nowrap;'>products</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!</div>|Get info about product by product SKU|GET|<div style='white-space: nowrap;'>/V1/products/:sku</div>|
+|<div style='white-space: nowrap;'>products-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!</div>||DELETE|<div style='white-space: nowrap;'>/V1/products/:sku</div>|
+|<div style='white-space: nowrap;'>products-attributes-types</div>|<div style='white-space: nowrap;'>    Hash $config,</div>|Retrieve list of product attribute types|GET|<div style='white-space: nowrap;'>/V1/products/attributes/types</div>|
+|<div style='white-space: nowrap;'>products-attributes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Retrieve all attributes for entity type|GET|<div style='white-space: nowrap;'>/V1/products/attributes</div>|
+|<div style='white-space: nowrap;'>products-attributes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save attribute data|POST|<div style='white-space: nowrap;'>/V1/products/attributes</div>|
+|<div style='white-space: nowrap;'>categories-attributes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Retrieve all attributes for entity type|GET|<div style='white-space: nowrap;'>/V1/categories/attributes</div>|
+|<div style='white-space: nowrap;'>products-types</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieve available product types|GET|<div style='white-space: nowrap;'>/V1/products/types</div>|
+|<div style='white-space: nowrap;'>products-attribute-sets</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Retrieve list of Attribute Sets|GET|<div style='white-space: nowrap;'>/V1/products/attribute-sets/sets/list</div>|
+|<div style='white-space: nowrap;'>products-attribute-sets</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create attribute set from data|POST|<div style='white-space: nowrap;'>/V1/products/attribute-sets</div>|
+|<div style='white-space: nowrap;'>products-attribute-sets-attributes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Assign attribute to attribute set|POST|<div style='white-space: nowrap;'>/V1/products/attribute-sets/attributes</div>|
+|<div style='white-space: nowrap;'>products-attribute-groups</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save attribute group|POST|<div style='white-space: nowrap;'>/V1/products/attribute-sets/groups</div>|
+|<div style='white-space: nowrap;'>products-media</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,</div>|Retrieve the list of gallery entries associated with given product|GET|<div style='white-space: nowrap;'>/V1/products/:sku/media</div>|
+|<div style='white-space: nowrap;'>products-media</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!</div>|Create new gallery entry|POST|<div style='white-space: nowrap;'>/V1/products/:sku/media</div>|
+|<div style='white-space: nowrap;'>categories</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$root_category_id = 1,<br/>    Int  :$depth = 1;</div>|Retrieve list of categories|GET|<div style='white-space: nowrap;'>/V1/categories</div>|
+|<div style='white-space: nowrap;'>categories</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create category service|POST|<div style='white-space: nowrap;'>/V1/categories</div>|
+|<div style='white-space: nowrap;'>categories</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$category_id!,<br/>    Hash :$data!</div>|Create category service|PUT|<div style='white-space: nowrap;'>/V1/categories/:id</div>|
+|<div style='white-space: nowrap;'>products-options-types</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get custom option types|GET|<div style='white-space: nowrap;'>/V1/products/options/types</div>|
+|<div style='white-space: nowrap;'>products-custom-options</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!</div>|Get the list of custom options for a specific product|GET|<div style='white-space: nowrap;'>/V1/products/:sku/options</div>|
+|<div style='white-space: nowrap;'>products-custom-options</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save Custom Option|POST|<div style='white-space: nowrap;'>/V1/products/options</div>|
+|<div style='white-space: nowrap;'>products-links-types</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieve information about available product link types|GET|<div style='white-space: nowrap;'>/V1/products/links/types</div>|
+|<div style='white-space: nowrap;'>products-links-attributes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$type</div>|Provide a list of the product link type attributes|GET|<div style='white-space: nowrap;'>/V1/products/links/:type/attributes</div>|
+|<div style='white-space: nowrap;'>products-links</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$type!</div>|Provide the list of links for a specific product|GET|<div style='white-space: nowrap;'>/V1/products/:sku/links/:type</div>|
+|<div style='white-space: nowrap;'>products-links</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!</div>|Assign a product link to another product|POST|<div style='white-space: nowrap;'>/V1/products/:sku/links</div>|
+|<div style='white-space: nowrap;'>products-links-update</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!</div>|Save product link|PUT|<div style='white-space: nowrap;'>/V1/products/:sku/links</div>|
+|<div style='white-space: nowrap;'>products-links-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$type!,<br/>    Str  :$linked_product_sku!</div>||DELETE|<div style='white-space: nowrap;'>/V1/products/:sku/links/:type/:linkedProductSku</div>|
 ## Magento::CatalogInventory
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|products-stock-items|    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$item_id!,<br/>    Hash :$data!||PUT|/V1/products/:productSku/stockItems/:itemId|
-|stock-items|    Hash $config,<br/>    Str  :$sku!||GET|/V1/stockItems/:productSku|
-|stock-items-low-stock|    Hash $config|Retrieves a list of SKU's with low inventory qty|GET|/V1/stockItems/lowStock/|
-|stock-statuses|    Hash $config,<br/>    Str  :$sku!||GET|/V1/stockStatuses/:productSku|
+|<div style='white-space: nowrap;'>products-stock-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$item_id!,<br/>    Hash :$data!</div>||PUT|<div style='white-space: nowrap;'>/V1/products/:productSku/stockItems/:itemId</div>|
+|<div style='white-space: nowrap;'>stock-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!</div>||GET|<div style='white-space: nowrap;'>/V1/stockItems/:productSku</div>|
+|<div style='white-space: nowrap;'>stock-items-low-stock</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieves a list of SKU's with low inventory qty|GET|<div style='white-space: nowrap;'>/V1/stockItems/lowStock/</div>|
+|<div style='white-space: nowrap;'>stock-statuses</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!</div>||GET|<div style='white-space: nowrap;'>/V1/stockStatuses/:productSku</div>|
 ## Magento::Checkout
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|carts-mine-payment-information|    Hash $config,<br/>    Hash :$data!|Set payment information and place order for a specified cart.|POST|/V1/carts/mine/payment-information|
-|carts-mine-payment-information|    Hash $config|Get payment information|GET|/V1/carts/mine/payment-information|
-|carts-mine-set-payment-information|    Hash $config,<br/>    Hash :$data!|Set payment information for a specified cart.|POST|/V1/carts/mine/set-payment-information|
-|carts-mine-shipping-information|    Hash $config,<br/>    Hash :$data!||POST|/V1/carts/mine/shipping-information|
-|carts-mine-totals-information|    Hash $config,<br/>    Hash :$data!|Calculate quote totals based on address and shipping method.|POST|/V1/carts/mine/totals-information|
-|carts-shipping-information|    Hash   $config,<br/>    CartId :$cart_id!,<br/>    Hash   :$data!||POST|/V1/carts/:cartId/shipping-information|
-|carts-totals-information|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Calculate quote totals based on address and shipping method.|POST|/V1/carts/:cartId/totals-information|
-|guest-carts-payment-information|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Set payment information and place order for a specified cart.|POST|/V1/guest-carts/:cartId/payment-information|
-|guest-carts-payment-information|    Hash $config,<br/>    Int  :$cart_id!|Get payment information|GET|/V1/guest-carts/:cartId/payment-information|
-|guest-carts-set-payment-information|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Set payment information for a specified cart.|POST|/V1/guest-carts/:cartId/set-payment-information|
-|guest-carts-shipping-information|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!||POST|/V1/guest-carts/:cartId/shipping-information|
-|guest-carts-totals-information|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Calculate quote totals based on address and shipping method.|POST|/V1/guest-carts/:cartId/totals-information|
+|<div style='white-space: nowrap;'>carts-mine-payment-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Set payment information and place order for a specified cart.|POST|<div style='white-space: nowrap;'>/V1/carts/mine/payment-information</div>|
+|<div style='white-space: nowrap;'>carts-mine-payment-information</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get payment information|GET|<div style='white-space: nowrap;'>/V1/carts/mine/payment-information</div>|
+|<div style='white-space: nowrap;'>carts-mine-set-payment-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Set payment information for a specified cart.|POST|<div style='white-space: nowrap;'>/V1/carts/mine/set-payment-information</div>|
+|<div style='white-space: nowrap;'>carts-mine-shipping-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>||POST|<div style='white-space: nowrap;'>/V1/carts/mine/shipping-information</div>|
+|<div style='white-space: nowrap;'>carts-mine-totals-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Calculate quote totals based on address and shipping method.|POST|<div style='white-space: nowrap;'>/V1/carts/mine/totals-information</div>|
+|<div style='white-space: nowrap;'>carts-shipping-information</div>|<div style='white-space: nowrap;'>    Hash   $config,<br/>    CartId :$cart_id!,<br/>    Hash   :$data!</div>||POST|<div style='white-space: nowrap;'>/V1/carts/:cartId/shipping-information</div>|
+|<div style='white-space: nowrap;'>carts-totals-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Calculate quote totals based on address and shipping method.|POST|<div style='white-space: nowrap;'>/V1/carts/:cartId/totals-information</div>|
+|<div style='white-space: nowrap;'>guest-carts-payment-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Set payment information and place order for a specified cart.|POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/payment-information</div>|
+|<div style='white-space: nowrap;'>guest-carts-payment-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Get payment information|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/payment-information</div>|
+|<div style='white-space: nowrap;'>guest-carts-set-payment-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Set payment information for a specified cart.|POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/set-payment-information</div>|
+|<div style='white-space: nowrap;'>guest-carts-shipping-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>||POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/shipping-information</div>|
+|<div style='white-space: nowrap;'>guest-carts-totals-information</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Calculate quote totals based on address and shipping method.|POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/totals-information</div>|
 ## Magento::CheckoutAgreements
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|carts-licence|    Hash $config|Lists active checkout agreements.|GET|/V1/carts/licence|
+|<div style='white-space: nowrap;'>carts-licence</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists active checkout agreements.|GET|<div style='white-space: nowrap;'>/V1/carts/licence</div>|
 ## Magento::Cms
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|cms-page|    Hash $config,<br/>    Int  :$page_id!|Retrieve page.|GET|/V1/cmsPage/:pageId|
-|cms-page-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve pages matching the specified criteria.|GET|/V1/cmsPage/search|
-|cms-page|    Hash $config,<br/>    Hash :$data!|Save page.|POST|/V1/cmsPage|
-|cms-page|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Save page.|PUT|/V1/cmsPage/:id|
-|cms-page-delete|    Hash $config,<br/>    Int  :$page_id!|Delete page by ID.|DELETE|/V1/cmsPage/:pageId|
-|cms-block|    Hash $config,<br/>    Int  :$block_id!|Retrieve block.|GET|/V1/cmsBlock/:blockId|
-|cms-block-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve blocks matching the specified criteria.|GET|/V1/cmsBlock/search|
-|cms-block|    Hash $config,<br/>    Hash :$data!|Save block.|POST|/V1/cmsBlock|
-|cms-block|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Save block.|PUT|/V1/cmsBlock/:id|
-|cms-block-delete|    Hash $config,<br/>    Int  :$block_id!|Delete block by ID.|DELETE|/V1/cmsBlock/:blockId|
+|<div style='white-space: nowrap;'>cms-page</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$page_id!</div>|Retrieve page.|GET|<div style='white-space: nowrap;'>/V1/cmsPage/:pageId</div>|
+|<div style='white-space: nowrap;'>cms-page-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Retrieve pages matching the specified criteria.|GET|<div style='white-space: nowrap;'>/V1/cmsPage/search</div>|
+|<div style='white-space: nowrap;'>cms-page</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save page.|POST|<div style='white-space: nowrap;'>/V1/cmsPage</div>|
+|<div style='white-space: nowrap;'>cms-page</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Save page.|PUT|<div style='white-space: nowrap;'>/V1/cmsPage/:id</div>|
+|<div style='white-space: nowrap;'>cms-page-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$page_id!</div>|Delete page by ID.|DELETE|<div style='white-space: nowrap;'>/V1/cmsPage/:pageId</div>|
+|<div style='white-space: nowrap;'>cms-block</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$block_id!</div>|Retrieve block.|GET|<div style='white-space: nowrap;'>/V1/cmsBlock/:blockId</div>|
+|<div style='white-space: nowrap;'>cms-block-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Retrieve blocks matching the specified criteria.|GET|<div style='white-space: nowrap;'>/V1/cmsBlock/search</div>|
+|<div style='white-space: nowrap;'>cms-block</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save block.|POST|<div style='white-space: nowrap;'>/V1/cmsBlock</div>|
+|<div style='white-space: nowrap;'>cms-block</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Save block.|PUT|<div style='white-space: nowrap;'>/V1/cmsBlock/:id</div>|
+|<div style='white-space: nowrap;'>cms-block-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$block_id!</div>|Delete block by ID.|DELETE|<div style='white-space: nowrap;'>/V1/cmsBlock/:blockId</div>|
 ## Magento::Customer
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|customer-groups|    Hash $config,<br/>    Int  :$id|Get customer group by group ID.|GET|/V1/customerGroups/:id|
-|customer-groups|    Hash $config,<br/>    Hash :$data|Save customer group.|POST|/V1/customerGroups|
-|customer-groups|    Hash $config,<br/>    Int  :$id,<br/>    Hash :$data|Save customer group.|PUT|/V1/customerGroups/:id|
-|customer-groups-default|    Hash $config,<br/>    Int  :$store_id|Get default customer group.|GET|/V1/customerGroups/default/:storeId|
-|customer-groups-default|    Hash $config|Get default customer group.|GET|/V1/customerGroups/default|
-|customer-groups-permissions|    Hash $config,<br/>    Int  :$id|Check if customer group can be deleted.|GET|/V1/customerGroups/:id/permissions|
-|customer-groups-search|    Hash $config,<br/>    Hash :$search_criteria|Retrieve customer groups. The list of groups can be filtered to exclude the NOT_LOGGED_IN group using the first parameter and/or it can be filtered by tax class. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#GroupRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/customerGroups/search|
-|customer-groups-delete|    Hash $config,<br/>    Int  :$id|Delete customer group by ID.|DELETE|/V1/customerGroups/:id|
-|customer-metadata-attribute|    Hash $config,<br/>    Str :$attribute_code|Retrieve attribute metadata.|GET|/V1/attributeMetadata/customer/attribute/:attributeCode|
-|customer-metadata-form|    Hash $config,<br/>    Str :$form_code|Retrieve all attributes filtered by form code|GET|/V1/attributeMetadata/customer/form/:formCode|
-|customer-metadata|    Hash $config<br/>    --> Array|Get all attribute metadata.|GET|/V1/attributeMetadata/customer|
-|customer-metadata-custom|    Hash $config<br/>    --> Array|Get custom attributes metadata for the given data interface.|GET|/V1/attributeMetadata/customer/custom|
-|customer-address-attribute|    Hash $config,<br/>    Str :$attribute_code|Retrieve attribute metadata.|GET|/V1/attributeMetadata/customerAddress/attribute/:attributeCode|
-|customer-address-form|    Hash $config,<br/>    Str :$form_code|Retrieve all attributes filtered by form code|GET|/V1/attributeMetadata/customerAddress/form/:formCode|
-|customer-address|    Hash $config|Get all attribute metadata.|GET|/V1/attributeMetadata/customerAddress|
-|customer-address-custom|    Hash $config|Get custom attributes metadata for the given data interface.|GET|/V1/attributeMetadata/customerAddress/custom|
-|customers-delete|    Hash $config,<br/>    Int  :$id|Delete customer by ID.|DELETE|/V1/customers/:customerId|
-|customers|    Hash $config,<br/>    Int  :$id,<br/>    Hash :$data|Create or update a customer.|PUT|/V1/customers/:id|
-|customers|    Hash $config,<br/>    Int  :$id|Get customer by customer ID.|GET|/V1/customers/:customerId|
-|customers-me-activate|    Hash $config,<br/>    Hash :$data|Activate a customer account using a key that was sent in a confirmation email.|PUT|/V1/customers/me/activate|
-|customers-me|    Hash $config|Get customer by customer ID.|GET|/V1/customers/me|
-|customers-me|    Hash $config,<br/>    Hash :$data|Create or update a customer.|PUT|/V1/customers/me|
-|customers-me-password|    Hash $config,<br/>    Hash :$data|Change customer password.|PUT|/V1/customers/me/password|
-|customers-me-billing-address|    Hash $config|Retrieve default billing address for the given customerId.|GET|/V1/customers/me/billingAddress|
-|customers-me-shipping-address|    Hash $config|Retrieve default shipping address for the given customerId.|GET|/V1/customers/me/shippingAddress|
-|customers-search|    Hash $config,<br/>    Hash :$search_criteria|Retrieve customers which match a specified criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#CustomerRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/customers/search|
-|customers-email-activate|    Hash $config,<br/>    Str  :$email,<br/>    Hash :$data|Activate a customer account using a key that was sent in a confirmation email.|PUT|/V1/customers/:email/activate|
-|customers-reset-link-token|    Hash $config,<br/>    Int  :$id,<br/>    Str  :$link_token|Check if password reset token is valid.|GET|/V1/customers/:customerId/password/resetLinkToken/:resetPasswordLinkToken|
-|customers-password|    Hash $config,<br/>    Hash :$data|Send an email to the customer with a password reset link.|PUT|/V1/customers/password|
-|customers-confirm|    Hash $config,<br/>    Int  :$id|Gets the account confirmation status.|GET|/V1/customers/:customerId/confirm|
-|customers-confirm|    Hash $config,<br/>    Hash :$data|Resend confirmation email.|POST|/V1/customers/confirm|
-|customers-validate|    Hash $config,<br/>    Hash :$data|Validate customer data.|PUT|/V1/customers/validate|
-|customers-permissions|    Hash $config,<br/>    Int  :$id|Check if customer can be deleted.|GET|/V1/customers/:customerId/permissions/readonly|
-|customers-email-available|    Hash $config,<br/>    Hash :$data|Check if given email is associated with a customer account in given website.|POST|/V1/customers/isEmailAvailable|
-|customers-addresses|    Hash $config,<br/>    Int  :$address_id|Retrieve customer address.|GET|/V1/customers/addresses/:addressId|
-|customers-addresses-billing|    Hash $config,<br/>    Int  :$id|Retrieve default billing address for the given customerId.|GET|/V1/customers/:customerId/billingAddress|
-|customers-addresses-shipping|    Hash $config,<br/>    Int  :$id|Retrieve default shipping address for the given customerId.|GET|/V1/customers/:customerId/shippingAddress|
-|customers-addresses-delete|    Hash $config,<br/>    Int  :$address_id|Delete customer address by ID.|DELETE|/V1/addresses/:addressId|
+|<div style='white-space: nowrap;'>customer-groups</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Get customer group by group ID.|GET|<div style='white-space: nowrap;'>/V1/customerGroups/:id</div>|
+|<div style='white-space: nowrap;'>customer-groups</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data</div>|Save customer group.|POST|<div style='white-space: nowrap;'>/V1/customerGroups</div>|
+|<div style='white-space: nowrap;'>customer-groups</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id,<br/>    Hash :$data</div>|Save customer group.|PUT|<div style='white-space: nowrap;'>/V1/customerGroups/:id</div>|
+|<div style='white-space: nowrap;'>customer-groups-default</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$store_id</div>|Get default customer group.|GET|<div style='white-space: nowrap;'>/V1/customerGroups/default/:storeId</div>|
+|<div style='white-space: nowrap;'>customer-groups-default</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get default customer group.|GET|<div style='white-space: nowrap;'>/V1/customerGroups/default</div>|
+|<div style='white-space: nowrap;'>customer-groups-permissions</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Check if customer group can be deleted.|GET|<div style='white-space: nowrap;'>/V1/customerGroups/:id/permissions</div>|
+|<div style='white-space: nowrap;'>customer-groups-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria</div>|Retrieve customer groups. The list of groups can be filtered to exclude the NOT_LOGGED_IN group using the first parameter and/or it can be filtered by tax class. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#GroupRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/customerGroups/search</div>|
+|<div style='white-space: nowrap;'>customer-groups-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Delete customer group by ID.|DELETE|<div style='white-space: nowrap;'>/V1/customerGroups/:id</div>|
+|<div style='white-space: nowrap;'>customer-metadata-attribute</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str :$attribute_code</div>|Retrieve attribute metadata.|GET|<div style='white-space: nowrap;'>/V1/attributeMetadata/customer/attribute/:attributeCode</div>|
+|<div style='white-space: nowrap;'>customer-metadata-form</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str :$form_code</div>|Retrieve all attributes filtered by form code|GET|<div style='white-space: nowrap;'>/V1/attributeMetadata/customer/form/:formCode</div>|
+|<div style='white-space: nowrap;'>customer-metadata</div>|<div style='white-space: nowrap;'>    Hash $config<br/>    --> Array</div>|Get all attribute metadata.|GET|<div style='white-space: nowrap;'>/V1/attributeMetadata/customer</div>|
+|<div style='white-space: nowrap;'>customer-metadata-custom</div>|<div style='white-space: nowrap;'>    Hash $config<br/>    --> Array</div>|Get custom attributes metadata for the given data interface.|GET|<div style='white-space: nowrap;'>/V1/attributeMetadata/customer/custom</div>|
+|<div style='white-space: nowrap;'>customer-address-attribute</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str :$attribute_code</div>|Retrieve attribute metadata.|GET|<div style='white-space: nowrap;'>/V1/attributeMetadata/customerAddress/attribute/:attributeCode</div>|
+|<div style='white-space: nowrap;'>customer-address-form</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str :$form_code</div>|Retrieve all attributes filtered by form code|GET|<div style='white-space: nowrap;'>/V1/attributeMetadata/customerAddress/form/:formCode</div>|
+|<div style='white-space: nowrap;'>customer-address</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get all attribute metadata.|GET|<div style='white-space: nowrap;'>/V1/attributeMetadata/customerAddress</div>|
+|<div style='white-space: nowrap;'>customer-address-custom</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get custom attributes metadata for the given data interface.|GET|<div style='white-space: nowrap;'>/V1/attributeMetadata/customerAddress/custom</div>|
+|<div style='white-space: nowrap;'>customers-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Delete customer by ID.|DELETE|<div style='white-space: nowrap;'>/V1/customers/:customerId</div>|
+|<div style='white-space: nowrap;'>customers</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id,<br/>    Hash :$data</div>|Create or update a customer.|PUT|<div style='white-space: nowrap;'>/V1/customers/:id</div>|
+|<div style='white-space: nowrap;'>customers</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Get customer by customer ID.|GET|<div style='white-space: nowrap;'>/V1/customers/:customerId</div>|
+|<div style='white-space: nowrap;'>customers-me-activate</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data</div>|Activate a customer account using a key that was sent in a confirmation email.|PUT|<div style='white-space: nowrap;'>/V1/customers/me/activate</div>|
+|<div style='white-space: nowrap;'>customers-me</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get customer by customer ID.|GET|<div style='white-space: nowrap;'>/V1/customers/me</div>|
+|<div style='white-space: nowrap;'>customers-me</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data</div>|Create or update a customer.|PUT|<div style='white-space: nowrap;'>/V1/customers/me</div>|
+|<div style='white-space: nowrap;'>customers-me-password</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data</div>|Change customer password.|PUT|<div style='white-space: nowrap;'>/V1/customers/me/password</div>|
+|<div style='white-space: nowrap;'>customers-me-billing-address</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieve default billing address for the given customerId.|GET|<div style='white-space: nowrap;'>/V1/customers/me/billingAddress</div>|
+|<div style='white-space: nowrap;'>customers-me-shipping-address</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieve default shipping address for the given customerId.|GET|<div style='white-space: nowrap;'>/V1/customers/me/shippingAddress</div>|
+|<div style='white-space: nowrap;'>customers-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria</div>|Retrieve customers which match a specified criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#CustomerRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/customers/search</div>|
+|<div style='white-space: nowrap;'>customers-email-activate</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$email,<br/>    Hash :$data</div>|Activate a customer account using a key that was sent in a confirmation email.|PUT|<div style='white-space: nowrap;'>/V1/customers/:email/activate</div>|
+|<div style='white-space: nowrap;'>customers-reset-link-token</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id,<br/>    Str  :$link_token</div>|Check if password reset token is valid.|GET|<div style='white-space: nowrap;'>/V1/customers/:customerId/password/resetLinkToken/:resetPasswordLinkToken</div>|
+|<div style='white-space: nowrap;'>customers-password</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data</div>|Send an email to the customer with a password reset link.|PUT|<div style='white-space: nowrap;'>/V1/customers/password</div>|
+|<div style='white-space: nowrap;'>customers-confirm</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Gets the account confirmation status.|GET|<div style='white-space: nowrap;'>/V1/customers/:customerId/confirm</div>|
+|<div style='white-space: nowrap;'>customers-confirm</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data</div>|Resend confirmation email.|POST|<div style='white-space: nowrap;'>/V1/customers/confirm</div>|
+|<div style='white-space: nowrap;'>customers-validate</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data</div>|Validate customer data.|PUT|<div style='white-space: nowrap;'>/V1/customers/validate</div>|
+|<div style='white-space: nowrap;'>customers-permissions</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Check if customer can be deleted.|GET|<div style='white-space: nowrap;'>/V1/customers/:customerId/permissions/readonly</div>|
+|<div style='white-space: nowrap;'>customers-email-available</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data</div>|Check if given email is associated with a customer account in given website.|POST|<div style='white-space: nowrap;'>/V1/customers/isEmailAvailable</div>|
+|<div style='white-space: nowrap;'>customers-addresses</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$address_id</div>|Retrieve customer address.|GET|<div style='white-space: nowrap;'>/V1/customers/addresses/:addressId</div>|
+|<div style='white-space: nowrap;'>customers-addresses-billing</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Retrieve default billing address for the given customerId.|GET|<div style='white-space: nowrap;'>/V1/customers/:customerId/billingAddress</div>|
+|<div style='white-space: nowrap;'>customers-addresses-shipping</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$id</div>|Retrieve default shipping address for the given customerId.|GET|<div style='white-space: nowrap;'>/V1/customers/:customerId/shippingAddress</div>|
+|<div style='white-space: nowrap;'>customers-addresses-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$address_id</div>|Delete customer address by ID.|DELETE|<div style='white-space: nowrap;'>/V1/addresses/:addressId</div>|
 ## Magento::CustomerBalance
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|carts-mine-balance-apply|    Hash $config,<br/>    Hash :$data!|Apply store credit|POST|/V1/carts/mine/balance/apply|
+|<div style='white-space: nowrap;'>carts-mine-balance-apply</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Apply store credit|POST|<div style='white-space: nowrap;'>/V1/carts/mine/balance/apply</div>|
 ## Magento::Directory
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|directory-currency|    Hash $config|Get currency information for the store.|GET|/V1/directory/currency|
-|directory-countries|    Hash $config|Get all countries and regions information for the store.|GET|/V1/directory/countries|
-|directory-countries|    Hash $config,<br/>    Int  :$country_id!|Get country and region information for the store.|GET|/V1/directory/countries/:countryId|
+|<div style='white-space: nowrap;'>directory-currency</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get currency information for the store.|GET|<div style='white-space: nowrap;'>/V1/directory/currency</div>|
+|<div style='white-space: nowrap;'>directory-countries</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get all countries and regions information for the store.|GET|<div style='white-space: nowrap;'>/V1/directory/countries</div>|
+|<div style='white-space: nowrap;'>directory-countries</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$country_id!</div>|Get country and region information for the store.|GET|<div style='white-space: nowrap;'>/V1/directory/countries/:countryId</div>|
 ## Magento::Downloadable
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|products-downloadable-links|    Hash $config,<br/>    Str  :$sku!|List of links with associated samples|GET|/V1/products/:sku/downloadable-links|
-|products-downloadable-links-samples|    Hash $config,<br/>    Str  :$sku!|List of samples for downloadable product|GET|/V1/products/:sku/downloadable-links/samples|
-|products-downloadable-links|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Update downloadable link of the given product (link type and its resources cannot be changed)|POST|/V1/products/:sku/downloadable-links|
-|products-downloadable-links|    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$id!,<br/>    Hash :$data!|Update downloadable link of the given product (link type and its resources cannot be changed)|PUT|/V1/products/:sku/downloadable-links/:id|
-|products-downloadable-links-delete|    Hash $config,<br/>    Str  :$id!|Delete downloadable link|DELETE|/V1/products/downloadable-links/:id|
-|products-downloadable-links-samples|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Update downloadable sample of the given product|POST|/V1/products/:sku/downloadable-links/samples|
-|products-downloadable-links-samples|    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$id!,<br/>    Hash :$data!|Update downloadable sample of the given product|PUT|/V1/products/:sku/downloadable-links/samples/:id|
-|products-downloadable-links-samples-delete|    Hash $config,<br/>    Str  :$id!|Delete downloadable sample|DELETE|/V1/products/downloadable-links/samples/:id|
+|<div style='white-space: nowrap;'>products-downloadable-links</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!</div>|List of links with associated samples|GET|<div style='white-space: nowrap;'>/V1/products/:sku/downloadable-links</div>|
+|<div style='white-space: nowrap;'>products-downloadable-links-samples</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!</div>|List of samples for downloadable product|GET|<div style='white-space: nowrap;'>/V1/products/:sku/downloadable-links/samples</div>|
+|<div style='white-space: nowrap;'>products-downloadable-links</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!</div>|Update downloadable link of the given product (link type and its resources cannot be changed)|POST|<div style='white-space: nowrap;'>/V1/products/:sku/downloadable-links</div>|
+|<div style='white-space: nowrap;'>products-downloadable-links</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Update downloadable link of the given product (link type and its resources cannot be changed)|PUT|<div style='white-space: nowrap;'>/V1/products/:sku/downloadable-links/:id</div>|
+|<div style='white-space: nowrap;'>products-downloadable-links-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Delete downloadable link|DELETE|<div style='white-space: nowrap;'>/V1/products/downloadable-links/:id</div>|
+|<div style='white-space: nowrap;'>products-downloadable-links-samples</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!</div>|Update downloadable sample of the given product|POST|<div style='white-space: nowrap;'>/V1/products/:sku/downloadable-links/samples</div>|
+|<div style='white-space: nowrap;'>products-downloadable-links-samples</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Update downloadable sample of the given product|PUT|<div style='white-space: nowrap;'>/V1/products/:sku/downloadable-links/samples/:id</div>|
+|<div style='white-space: nowrap;'>products-downloadable-links-samples-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Delete downloadable sample|DELETE|<div style='white-space: nowrap;'>/V1/products/downloadable-links/samples/:id</div>|
 ## Magento::Eav
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|eav-attribute-sets-list|    Hash $config|Retrieve list of Attribute Sets This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#AttributeSetRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/eav/attribute-sets/list|
-|eav-attribute-sets|    Hash $config,<br/>    Int  :$attribute_set_id!|Retrieve attribute set information based on given ID|GET|/V1/eav/attribute-sets/:attributeSetId|
-|eav-attribute-sets-delete|    Hash $config,<br/>    Int  :$attribute_set_id!|Remove attribute set by given ID|DELETE|/V1/eav/attribute-sets/:attributeSetId|
-|eav-attribute-sets|    Hash $config,<br/>    Hash :$data!|Create attribute set from data|POST|/V1/eav/attribute-sets|
-|eav-attribute-sets|    Hash $config,<br/>    Int  :$attribute_set_id!,<br/>    Hash :$data!|Save attribute set data|PUT|/V1/eav/attribute-sets/:attributeSetId|
+|<div style='white-space: nowrap;'>eav-attribute-sets-list</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieve list of Attribute Sets This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#AttributeSetRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/eav/attribute-sets/list</div>|
+|<div style='white-space: nowrap;'>eav-attribute-sets</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$attribute_set_id!</div>|Retrieve attribute set information based on given ID|GET|<div style='white-space: nowrap;'>/V1/eav/attribute-sets/:attributeSetId</div>|
+|<div style='white-space: nowrap;'>eav-attribute-sets-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$attribute_set_id!</div>|Remove attribute set by given ID|DELETE|<div style='white-space: nowrap;'>/V1/eav/attribute-sets/:attributeSetId</div>|
+|<div style='white-space: nowrap;'>eav-attribute-sets</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create attribute set from data|POST|<div style='white-space: nowrap;'>/V1/eav/attribute-sets</div>|
+|<div style='white-space: nowrap;'>eav-attribute-sets</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$attribute_set_id!,<br/>    Hash :$data!</div>|Save attribute set data|PUT|<div style='white-space: nowrap;'>/V1/eav/attribute-sets/:attributeSetId</div>|
 ## Magento::GiftCardAccount
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|carts-giftCards|    Hash $config,<br/>    Int  :$quote_id!|Return GiftCard Account cards|GET|/V1/carts/:quoteId/giftCards|
-|carts-giftCards|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!||PUT|/V1/carts/:cartId/giftCards|
-|carts-mine-giftCards|    Hash $config,<br/>    Hash :$data!||POST|/V1/carts/mine/giftCards|
-|carts-guest-carts-giftCards|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!||POST|/V1/carts/guest-carts/:cartId/giftCards|
-|carts-guest-carts-checkGiftCard|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Str  :$gift_card_code!||GET|/V1/carts/guest-carts/:cartId/checkGiftCard/:giftCardCode|
-|carts-mine-checkGiftCard|    Hash $config,<br/>    Str  :$gift_card_code!||GET|/V1/carts/mine/checkGiftCard/:giftCardCode|
+|<div style='white-space: nowrap;'>carts-giftCards</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$quote_id!</div>|Return GiftCard Account cards|GET|<div style='white-space: nowrap;'>/V1/carts/:quoteId/giftCards</div>|
+|<div style='white-space: nowrap;'>carts-giftCards</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>||PUT|<div style='white-space: nowrap;'>/V1/carts/:cartId/giftCards</div>|
+|<div style='white-space: nowrap;'>carts-mine-giftCards</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>||POST|<div style='white-space: nowrap;'>/V1/carts/mine/giftCards</div>|
+|<div style='white-space: nowrap;'>carts-guest-carts-giftCards</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>||POST|<div style='white-space: nowrap;'>/V1/carts/guest-carts/:cartId/giftCards</div>|
+|<div style='white-space: nowrap;'>carts-guest-carts-checkGiftCard</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Str  :$gift_card_code!</div>||GET|<div style='white-space: nowrap;'>/V1/carts/guest-carts/:cartId/checkGiftCard/:giftCardCode</div>|
+|<div style='white-space: nowrap;'>carts-mine-checkGiftCard</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$gift_card_code!</div>||GET|<div style='white-space: nowrap;'>/V1/carts/mine/checkGiftCard/:giftCardCode</div>|
 ## Magento::GiftMessage
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!|Return the gift message for a specified order.|GET|/V1/carts/:cartId/gift-message|
-|carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!|Return the gift message for a specified item in a specified shopping cart.|GET|/V1/carts/:cartId/gift-message/:itemId|
-|carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Set the gift message for an entire order.|POST|/V1/carts/:cartId/gift-message|
-|carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!|Set the gift message for a specified item in a specified shopping cart.|POST|/V1/carts/:cartId/gift-message/:itemId|
-|carts-mine-gift-message|    Hash $config|Return the gift message for a specified order.|GET|/V1/carts/mine/gift-message|
-|carts-mine-gift-message|    Hash $config,<br/>    Int  :$item_id!|Return the gift message for a specified item in a specified shopping cart.|GET|/V1/carts/mine/gift-message/:itemId|
-|carts-mine-gift-message|    Hash $config,<br/>    Hash :$data!|Set the gift message for an entire order.|POST|/V1/carts/mine/gift-message|
-|carts-mine-gift-message|    Hash $config,<br/>    Int  :$item_id!,<br/>    Hash :$data!|Set the gift message for a specified item in a specified shopping cart.|POST|/V1/carts/mine/gift-message/:itemId|
-|guest-carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!|Return the gift message for a specified order.|GET|/V1/guest-carts/:cartId/gift-message|
-|guest-carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!|Return the gift message for a specified item in a specified shopping cart.|GET|/V1/guest-carts/:cartId/gift-message/:itemId|
-|guest-carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Set the gift message for an entire order.|POST|/V1/guest-carts/:cartId/gift-message|
-|guest-carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!|Set the gift message for a specified item in a specified shopping cart.|POST|/V1/guest-carts/:cartId/gift-message/:itemId|
+|<div style='white-space: nowrap;'>carts-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Return the gift message for a specified order.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/gift-message</div>|
+|<div style='white-space: nowrap;'>carts-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!</div>|Return the gift message for a specified item in a specified shopping cart.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/gift-message/:itemId</div>|
+|<div style='white-space: nowrap;'>carts-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Set the gift message for an entire order.|POST|<div style='white-space: nowrap;'>/V1/carts/:cartId/gift-message</div>|
+|<div style='white-space: nowrap;'>carts-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!</div>|Set the gift message for a specified item in a specified shopping cart.|POST|<div style='white-space: nowrap;'>/V1/carts/:cartId/gift-message/:itemId</div>|
+|<div style='white-space: nowrap;'>carts-mine-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Return the gift message for a specified order.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/gift-message</div>|
+|<div style='white-space: nowrap;'>carts-mine-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$item_id!</div>|Return the gift message for a specified item in a specified shopping cart.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/gift-message/:itemId</div>|
+|<div style='white-space: nowrap;'>carts-mine-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Set the gift message for an entire order.|POST|<div style='white-space: nowrap;'>/V1/carts/mine/gift-message</div>|
+|<div style='white-space: nowrap;'>carts-mine-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$item_id!,<br/>    Hash :$data!</div>|Set the gift message for a specified item in a specified shopping cart.|POST|<div style='white-space: nowrap;'>/V1/carts/mine/gift-message/:itemId</div>|
+|<div style='white-space: nowrap;'>guest-carts-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Return the gift message for a specified order.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/gift-message</div>|
+|<div style='white-space: nowrap;'>guest-carts-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!</div>|Return the gift message for a specified item in a specified shopping cart.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/gift-message/:itemId</div>|
+|<div style='white-space: nowrap;'>guest-carts-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Set the gift message for an entire order.|POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/gift-message</div>|
+|<div style='white-space: nowrap;'>guest-carts-gift-message</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!</div>|Set the gift message for a specified item in a specified shopping cart.|POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/gift-message/:itemId</div>|
 ## Magento::GiftRegistry
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|giftregistry-mine-estimate-shipping-methods|    Hash $config,<br/>    Hash :$data!|Estimate shipping|POST|/V1/giftregistry/mine/estimate-shipping-methods|
-|guest-giftregistry-estimate-shipping-methods|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Estimate shipping|POST|/V1/guest-giftregistry/:cartId/estimate-shipping-methods|
+|<div style='white-space: nowrap;'>giftregistry-mine-estimate-shipping-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Estimate shipping|POST|<div style='white-space: nowrap;'>/V1/giftregistry/mine/estimate-shipping-methods</div>|
+|<div style='white-space: nowrap;'>guest-giftregistry-estimate-shipping-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Estimate shipping|POST|<div style='white-space: nowrap;'>/V1/guest-giftregistry/:cartId/estimate-shipping-methods</div>|
 ## Magento::GiftWrapping
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|gift-wrappings|    Hash $config,<br/>    Str  :$id!|Return data object for specified wrapping ID and store.|GET|/V1/gift-wrappings/:id|
-|gift-wrappings|    Hash $config,<br/>    Hash :$data!|Create/Update new gift wrapping with data object values|POST|/V1/gift-wrappings|
-|gift-wrappings|    Hash $config,<br/>    Int  :$wrapping_id!,<br/>    Hash :$data!|Create/Update new gift wrapping with data object values|PUT|/V1/gift-wrappings/:wrappingId|
-|gift-wrappings|    Hash $config|Return list of gift wrapping data objects based on search criteria|GET|/V1/gift-wrappings|
-|gift-wrappings-delete|    Hash $config,<br/>    Str  :$id!|Delete gift wrapping|DELETE|/V1/gift-wrappings/:id|
+|<div style='white-space: nowrap;'>gift-wrappings</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Return data object for specified wrapping ID and store.|GET|<div style='white-space: nowrap;'>/V1/gift-wrappings/:id</div>|
+|<div style='white-space: nowrap;'>gift-wrappings</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create/Update new gift wrapping with data object values|POST|<div style='white-space: nowrap;'>/V1/gift-wrappings</div>|
+|<div style='white-space: nowrap;'>gift-wrappings</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$wrapping_id!,<br/>    Hash :$data!</div>|Create/Update new gift wrapping with data object values|PUT|<div style='white-space: nowrap;'>/V1/gift-wrappings/:wrappingId</div>|
+|<div style='white-space: nowrap;'>gift-wrappings</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Return list of gift wrapping data objects based on search criteria|GET|<div style='white-space: nowrap;'>/V1/gift-wrappings</div>|
+|<div style='white-space: nowrap;'>gift-wrappings-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Delete gift wrapping|DELETE|<div style='white-space: nowrap;'>/V1/gift-wrappings/:id</div>|
 ## Magento::Integration
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|integration-admin-token|    Hash $config,<br/>    Hash :$data!|Create access token for admin given the admin credentials.|POST|/V1/integration/admin/token|
-|integration-customer-token|    Hash $config,<br/>    Hash :$data!|Create access token for admin given the customer credentials.|POST|/V1/integration/customer/token|
+|<div style='white-space: nowrap;'>integration-admin-token</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create access token for admin given the admin credentials.|POST|<div style='white-space: nowrap;'>/V1/integration/admin/token</div>|
+|<div style='white-space: nowrap;'>integration-customer-token</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create access token for admin given the customer credentials.|POST|<div style='white-space: nowrap;'>/V1/integration/customer/token</div>|
 ## Magento::Quote
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|carts|    Hash $config,<br/>    Int  :$cart_id!|Enables an administrative user to return information for a specified cart.|GET|/V1/carts/:cartId|
-|carts|    Hash $config|Creates an empty cart and quote for a guest.|POST|/V1/carts/|
-|carts|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Assigns a specified customer to a specified shopping cart.|PUT|/V1/carts/:cartId|
-|carts-billing-address|    Hash $config,<br/>    Int  :$cart_id!|Returns the billing address for a specified quote.|GET|/V1/carts/:cartId/billing-address|
-|carts-billing-address|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Assigns a specified billing address to a specified cart.|POST|/V1/carts/:cartId/billing-address|
-|carts-coupons|    Hash $config,<br/>    Int  :$cart_id!|Returns information for a coupon in a specified cart.|GET|/V1/carts/:cartId/coupons|
-|carts-coupons|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Str  :$coupon_code!|Adds a coupon by code to a specified cart.|PUT|/V1/carts/:cartId/coupons/:couponCode|
-|carts-coupons-delete|    Hash $config,<br/>    Int  :$cart_id!|Deletes a coupon from a specified cart.|DELETE|/V1/carts/:cartId/coupons|
-|carts-estimate-shipping-methods|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Estimate shipping by address and return list of available shipping methods|POST|/V1/carts/:cartId/estimate-shipping-methods|
-|carts-estimate-shipping-methods-by-address-id|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Estimate shipping|POST|/V1/carts/:cartId/estimate-shipping-methods-by-address-id|
-|carts-items|    Hash $config,<br/>    Int  :$cart_id!|Lists items that are assigned to a specified cart.|GET|/V1/carts/:cartId/items|
-|carts-items|    Hash $config,<br/>    Int  :$quote_id!,<br/>    Hash :$data!|Add/update the specified cart item.|POST|/V1/carts/:quoteId/items|
-|carts-items|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!|Add/update the specified cart item.|PUT|/V1/carts/:cartId/items/:itemId|
-|carts-items-delete|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!|Removes the specified item from the specified cart.|DELETE|/V1/carts/:cartId/items/:itemId|
-|carts-mine-new|    Hash $config|Creates an empty cart and quote for a specified customer if customer does not have a cart yet.|POST|/V1/carts/mine|
-|carts-mine|    Hash $config|Returns information for the cart for a specified customer.|GET|/V1/carts/mine|
-|carts-mine-update|    Hash $config,<br/>    Hash :$data!|Save quote|PUT|/V1/carts/mine|
-|carts-mine-billing-address|    Hash $config|Returns the billing address for a specified quote.|GET|/V1/carts/mine/billing-address|
-|carts-mine-billing-address|    Hash $config,<br/>    Hash :$data!|Assigns a specified billing address to a specified cart.|POST|/V1/carts/mine/billing-address|
-|carts-mine-collect-totals|    Hash $config,<br/>    Hash :$data!|Set shipping/billing methods and additional data for cart and collect totals.|PUT|/V1/carts/mine/collect-totals|
-|carts-mine-coupons|    Hash $config|Returns information for a coupon in a specified cart.|GET|/V1/carts/mine/coupons|
-|carts-mine-coupons|    Hash $config,<br/>    Str  :$coupon_code!,<br/>    Hash :$data!|Adds a coupon by code to a specified cart.|PUT|/V1/carts/mine/coupons/:couponCode|
-|carts-mine-coupons-delete|    Hash $config|Deletes a coupon from a specified cart.|DELETE|/V1/carts/mine/coupons|
-|carts-mine-estimate-shipping-methods|    Hash $config,<br/>    Hash :$data!|Estimate shipping by address and return list of available shipping methods|POST|/V1/carts/mine/estimate-shipping-methods|
-|carts-mine-estimate-shipping-methods-by-address-id|    Hash $config,<br/>    Hash :$data!|Estimate shipping|POST|/V1/carts/mine/estimate-shipping-methods-by-address-id|
-|carts-mine-items|    Hash $config|Lists items that are assigned to a specified cart.|GET|/V1/carts/mine/items|
-|carts-mine-items|    Hash $config,<br/>    Hash :$data!|Add/update the specified cart item.|POST|/V1/carts/mine/items|
-|carts-mine-items|    Hash $config,<br/>    Int  :$item_id!,<br/>    Hash :$data!|Add/update the specified cart item.|PUT|/V1/carts/mine/items/:itemId|
-|carts-mine-items-delete|    Hash $config,<br/>    Int  :$item_id!|Removes the specified item from the specified cart.|DELETE|/V1/carts/mine/items/:itemId|
-|carts-mine-order|    Hash $config,<br/>    Hash :$data!|Places an order for a specified cart.|PUT|/V1/carts/mine/order|
-|carts-mine-payment-methods|    Hash $config|Lists available payment methods for a specified shopping cart. This call returns an array of objects, but detailed information about each object’s attributes might not be included.  See http://devdocs.magento.com/codelinks/attributes.html#PaymentMethodManagementInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/carts/mine/payment-methods|
-|carts-mine-selected-payment-method|    Hash $config|Returns the payment method for a specified shopping cart.|GET|/V1/carts/mine/selected-payment-method|
-|carts-mine-selected-payment-method|    Hash $config,<br/>    Hash :$data!|Adds a specified payment method to a specified shopping cart.|PUT|/V1/carts/mine/selected-payment-method|
-|carts-mine-shipping-methods|    Hash $config|Lists applicable shipping methods for a specified quote.|GET|/V1/carts/mine/shipping-methods|
-|carts-mine-totals|    Hash $config|Returns quote totals data for a specified cart.|GET|/V1/carts/mine/totals|
-|carts-order|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Places an order for a specified cart.|PUT|/V1/carts/:cartId/order|
-|carts-payment-methods|    Hash $config,<br/>    Int  :$cart_id!|Lists available payment methods for a specified shopping cart. This call returns an array of objects, but detailed information about each object’s attributes might not be included.  See http://devdocs.magento.com/codelinks/attributes.html#PaymentMethodManagementInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/carts/:cartId/payment-methods|
-|carts-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Enables administrative users to list carts that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included.  See http://devdocs.magento.com/codelinks/attributes.html#CartRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/carts/search|
-|carts-selected-payment-method|    Hash $config,<br/>    Int  :$cart_id!|Returns the payment method for a specified shopping cart.|GET|/V1/carts/:cartId/selected-payment-method|
-|carts-selected-payment-method|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Adds a specified payment method to a specified shopping cart.|PUT|/V1/carts/:cartId/selected-payment-method|
-|carts-shipping-methods|    Hash $config,<br/>    Int  :$cart_id!|Lists applicable shipping methods for a specified quote.|GET|/V1/carts/:cartId/shipping-methods|
-|carts-totals|    Hash $config,<br/>    Int  :$cart_id!|Returns quote totals data for a specified cart.|GET|/V1/carts/:cartId/totals|
-|customers-carts|    Hash $config,<br/>    Int  :$customer_id!|Creates an empty cart and quote for a specified customer if customer does not have a cart yet.|POST|/V1/customers/:customerId/carts|
-|guest-carts|    Hash $config,<br/>    Str  :$cart_id!|Enable a guest user to return information for a specified cart.|GET|/V1/guest-carts/:cartId|
-|guest-carts|    Hash $config|Enable an customer or guest user to create an empty cart and quote for an anonymous customer.|POST|/V1/guest-carts|
-|guest-carts|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Assign a specified customer to a specified shopping cart.|PUT|/V1/guest-carts/:cartId|
-|guest-carts-billing-address|    Hash $config,<br/>    Str  :$cart_id!|Return the billing address for a specified quote.|GET|/V1/guest-carts/:cartId/billing-address|
-|guest-carts-billing-address|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Assign a specified billing address to a specified cart.|POST|/V1/guest-carts/:cartId/billing-address|
-|guest-carts-collect-totals|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Set shipping/billing methods and additional data for cart and collect totals for guest.|PUT|/V1/guest-carts/:cartId/collect-totals|
-|guest-carts-coupons|    Hash $config,<br/>    Str  :$cart_id!|Return information for a coupon in a specified cart.|GET|/V1/guest-carts/:cartId/coupons|
-|guest-carts-coupons|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Str  :$coupon_code!|Add a coupon by code to a specified cart.|PUT|/V1/guest-carts/:cartId/coupons/:couponCode|
-|guest-carts-coupons-delete|    Hash $config,<br/>    Str  :$cart_id!|Delete a coupon from a specified cart.|DELETE|/V1/guest-carts/:cartId/coupons|
-|guest-carts-estimate-shipping-methods|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Estimate shipping by address and return list of available shipping methods|POST|/V1/guest-carts/:cartId/estimate-shipping-methods|
-|guest-carts-items|    Hash $config,<br/>    Str  :$cart_id!|List items that are assigned to a specified cart.|GET|/V1/guest-carts/:cartId/items|
-|guest-carts-items|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Add/update the specified cart item.|POST|/V1/guest-carts/:cartId/items|
-|guest-carts-items|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!|Add/update the specified cart item.|PUT|/V1/guest-carts/:cartId/items/:itemId|
-|guest-carts-items-delete|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Int  :$item_id!|Remove the specified item from the specified cart.|DELETE|/V1/guest-carts/:cartId/items/:itemId|
-|guest-carts-order|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Place an order for a specified cart.|PUT|/V1/guest-carts/:cartId/order|
-|guest-carts-payment-methods|    Hash $config,<br/>    Str  :$cart_id!|List available payment methods for a specified shopping cart. This call returns an array of objects, but detailed information about each object’s attributes might not be included.  See http://devdocs.magento.com/codelinks/attributes.html#GuestPaymentMethodManagementInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/guest-carts/:cartId/payment-methods|
-|guest-carts-selected-payment-method|    Hash $config,<br/>    Str  :$cart_id!|Return the payment method for a specified shopping cart.|GET|/V1/guest-carts/:cartId/selected-payment-method|
-|guest-carts-selected-payment-method|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Add a specified payment method to a specified shopping cart.|PUT|/V1/guest-carts/:cartId/selected-payment-method|
-|guest-carts-shipping-methods|    Hash $config,<br/>    Str  :$cart_id!|List applicable shipping methods for a specified quote.|GET|/V1/guest-carts/:cartId/shipping-methods|
-|guest-carts-totals|    Hash $config,<br/>    Str  :$cart_id!|Return quote totals data for a specified cart.|GET|/V1/guest-carts/:cartId/totals|
+|<div style='white-space: nowrap;'>carts</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Enables an administrative user to return information for a specified cart.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId</div>|
+|<div style='white-space: nowrap;'>carts</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Creates an empty cart and quote for a guest.|POST|<div style='white-space: nowrap;'>/V1/carts/</div>|
+|<div style='white-space: nowrap;'>carts</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Assigns a specified customer to a specified shopping cart.|PUT|<div style='white-space: nowrap;'>/V1/carts/:cartId</div>|
+|<div style='white-space: nowrap;'>carts-billing-address</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Returns the billing address for a specified quote.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/billing-address</div>|
+|<div style='white-space: nowrap;'>carts-billing-address</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Assigns a specified billing address to a specified cart.|POST|<div style='white-space: nowrap;'>/V1/carts/:cartId/billing-address</div>|
+|<div style='white-space: nowrap;'>carts-coupons</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Returns information for a coupon in a specified cart.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/coupons</div>|
+|<div style='white-space: nowrap;'>carts-coupons</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Str  :$coupon_code!</div>|Adds a coupon by code to a specified cart.|PUT|<div style='white-space: nowrap;'>/V1/carts/:cartId/coupons/:couponCode</div>|
+|<div style='white-space: nowrap;'>carts-coupons-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Deletes a coupon from a specified cart.|DELETE|<div style='white-space: nowrap;'>/V1/carts/:cartId/coupons</div>|
+|<div style='white-space: nowrap;'>carts-estimate-shipping-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Estimate shipping by address and return list of available shipping methods|POST|<div style='white-space: nowrap;'>/V1/carts/:cartId/estimate-shipping-methods</div>|
+|<div style='white-space: nowrap;'>carts-estimate-shipping-methods-by-address-id</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Estimate shipping|POST|<div style='white-space: nowrap;'>/V1/carts/:cartId/estimate-shipping-methods-by-address-id</div>|
+|<div style='white-space: nowrap;'>carts-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Lists items that are assigned to a specified cart.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/items</div>|
+|<div style='white-space: nowrap;'>carts-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$quote_id!,<br/>    Hash :$data!</div>|Add/update the specified cart item.|POST|<div style='white-space: nowrap;'>/V1/carts/:quoteId/items</div>|
+|<div style='white-space: nowrap;'>carts-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!</div>|Add/update the specified cart item.|PUT|<div style='white-space: nowrap;'>/V1/carts/:cartId/items/:itemId</div>|
+|<div style='white-space: nowrap;'>carts-items-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!</div>|Removes the specified item from the specified cart.|DELETE|<div style='white-space: nowrap;'>/V1/carts/:cartId/items/:itemId</div>|
+|<div style='white-space: nowrap;'>carts-mine-new</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Creates an empty cart and quote for a specified customer if customer does not have a cart yet.|POST|<div style='white-space: nowrap;'>/V1/carts/mine</div>|
+|<div style='white-space: nowrap;'>carts-mine</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Returns information for the cart for a specified customer.|GET|<div style='white-space: nowrap;'>/V1/carts/mine</div>|
+|<div style='white-space: nowrap;'>carts-mine-update</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save quote|PUT|<div style='white-space: nowrap;'>/V1/carts/mine</div>|
+|<div style='white-space: nowrap;'>carts-mine-billing-address</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Returns the billing address for a specified quote.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/billing-address</div>|
+|<div style='white-space: nowrap;'>carts-mine-billing-address</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Assigns a specified billing address to a specified cart.|POST|<div style='white-space: nowrap;'>/V1/carts/mine/billing-address</div>|
+|<div style='white-space: nowrap;'>carts-mine-collect-totals</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Set shipping/billing methods and additional data for cart and collect totals.|PUT|<div style='white-space: nowrap;'>/V1/carts/mine/collect-totals</div>|
+|<div style='white-space: nowrap;'>carts-mine-coupons</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Returns information for a coupon in a specified cart.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/coupons</div>|
+|<div style='white-space: nowrap;'>carts-mine-coupons</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$coupon_code!,<br/>    Hash :$data!</div>|Adds a coupon by code to a specified cart.|PUT|<div style='white-space: nowrap;'>/V1/carts/mine/coupons/:couponCode</div>|
+|<div style='white-space: nowrap;'>carts-mine-coupons-delete</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Deletes a coupon from a specified cart.|DELETE|<div style='white-space: nowrap;'>/V1/carts/mine/coupons</div>|
+|<div style='white-space: nowrap;'>carts-mine-estimate-shipping-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Estimate shipping by address and return list of available shipping methods|POST|<div style='white-space: nowrap;'>/V1/carts/mine/estimate-shipping-methods</div>|
+|<div style='white-space: nowrap;'>carts-mine-estimate-shipping-methods-by-address-id</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Estimate shipping|POST|<div style='white-space: nowrap;'>/V1/carts/mine/estimate-shipping-methods-by-address-id</div>|
+|<div style='white-space: nowrap;'>carts-mine-items</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists items that are assigned to a specified cart.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/items</div>|
+|<div style='white-space: nowrap;'>carts-mine-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Add/update the specified cart item.|POST|<div style='white-space: nowrap;'>/V1/carts/mine/items</div>|
+|<div style='white-space: nowrap;'>carts-mine-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$item_id!,<br/>    Hash :$data!</div>|Add/update the specified cart item.|PUT|<div style='white-space: nowrap;'>/V1/carts/mine/items/:itemId</div>|
+|<div style='white-space: nowrap;'>carts-mine-items-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$item_id!</div>|Removes the specified item from the specified cart.|DELETE|<div style='white-space: nowrap;'>/V1/carts/mine/items/:itemId</div>|
+|<div style='white-space: nowrap;'>carts-mine-order</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Places an order for a specified cart.|PUT|<div style='white-space: nowrap;'>/V1/carts/mine/order</div>|
+|<div style='white-space: nowrap;'>carts-mine-payment-methods</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists available payment methods for a specified shopping cart. This call returns an array of objects, but detailed information about each object’s attributes might not be included.  See http://devdocs.magento.com/codelinks/attributes.html#PaymentMethodManagementInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/payment-methods</div>|
+|<div style='white-space: nowrap;'>carts-mine-selected-payment-method</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Returns the payment method for a specified shopping cart.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/selected-payment-method</div>|
+|<div style='white-space: nowrap;'>carts-mine-selected-payment-method</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Adds a specified payment method to a specified shopping cart.|PUT|<div style='white-space: nowrap;'>/V1/carts/mine/selected-payment-method</div>|
+|<div style='white-space: nowrap;'>carts-mine-shipping-methods</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists applicable shipping methods for a specified quote.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/shipping-methods</div>|
+|<div style='white-space: nowrap;'>carts-mine-totals</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Returns quote totals data for a specified cart.|GET|<div style='white-space: nowrap;'>/V1/carts/mine/totals</div>|
+|<div style='white-space: nowrap;'>carts-order</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Places an order for a specified cart.|PUT|<div style='white-space: nowrap;'>/V1/carts/:cartId/order</div>|
+|<div style='white-space: nowrap;'>carts-payment-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Lists available payment methods for a specified shopping cart. This call returns an array of objects, but detailed information about each object’s attributes might not be included.  See http://devdocs.magento.com/codelinks/attributes.html#PaymentMethodManagementInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/payment-methods</div>|
+|<div style='white-space: nowrap;'>carts-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Enables administrative users to list carts that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included.  See http://devdocs.magento.com/codelinks/attributes.html#CartRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/carts/search</div>|
+|<div style='white-space: nowrap;'>carts-selected-payment-method</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Returns the payment method for a specified shopping cart.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/selected-payment-method</div>|
+|<div style='white-space: nowrap;'>carts-selected-payment-method</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!</div>|Adds a specified payment method to a specified shopping cart.|PUT|<div style='white-space: nowrap;'>/V1/carts/:cartId/selected-payment-method</div>|
+|<div style='white-space: nowrap;'>carts-shipping-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Lists applicable shipping methods for a specified quote.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/shipping-methods</div>|
+|<div style='white-space: nowrap;'>carts-totals</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$cart_id!</div>|Returns quote totals data for a specified cart.|GET|<div style='white-space: nowrap;'>/V1/carts/:cartId/totals</div>|
+|<div style='white-space: nowrap;'>customers-carts</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$customer_id!</div>|Creates an empty cart and quote for a specified customer if customer does not have a cart yet.|POST|<div style='white-space: nowrap;'>/V1/customers/:customerId/carts</div>|
+|<div style='white-space: nowrap;'>guest-carts</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|Enable a guest user to return information for a specified cart.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId</div>|
+|<div style='white-space: nowrap;'>guest-carts</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Enable an customer or guest user to create an empty cart and quote for an anonymous customer.|POST|<div style='white-space: nowrap;'>/V1/guest-carts</div>|
+|<div style='white-space: nowrap;'>guest-carts</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Assign a specified customer to a specified shopping cart.|PUT|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId</div>|
+|<div style='white-space: nowrap;'>guest-carts-billing-address</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|Return the billing address for a specified quote.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/billing-address</div>|
+|<div style='white-space: nowrap;'>guest-carts-billing-address</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Assign a specified billing address to a specified cart.|POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/billing-address</div>|
+|<div style='white-space: nowrap;'>guest-carts-collect-totals</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Set shipping/billing methods and additional data for cart and collect totals for guest.|PUT|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/collect-totals</div>|
+|<div style='white-space: nowrap;'>guest-carts-coupons</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|Return information for a coupon in a specified cart.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/coupons</div>|
+|<div style='white-space: nowrap;'>guest-carts-coupons</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Str  :$coupon_code!</div>|Add a coupon by code to a specified cart.|PUT|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/coupons/:couponCode</div>|
+|<div style='white-space: nowrap;'>guest-carts-coupons-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|Delete a coupon from a specified cart.|DELETE|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/coupons</div>|
+|<div style='white-space: nowrap;'>guest-carts-estimate-shipping-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Estimate shipping by address and return list of available shipping methods|POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/estimate-shipping-methods</div>|
+|<div style='white-space: nowrap;'>guest-carts-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|List items that are assigned to a specified cart.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/items</div>|
+|<div style='white-space: nowrap;'>guest-carts-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Add/update the specified cart item.|POST|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/items</div>|
+|<div style='white-space: nowrap;'>guest-carts-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!</div>|Add/update the specified cart item.|PUT|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/items/:itemId</div>|
+|<div style='white-space: nowrap;'>guest-carts-items-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Int  :$item_id!</div>|Remove the specified item from the specified cart.|DELETE|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/items/:itemId</div>|
+|<div style='white-space: nowrap;'>guest-carts-order</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Place an order for a specified cart.|PUT|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/order</div>|
+|<div style='white-space: nowrap;'>guest-carts-payment-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|List available payment methods for a specified shopping cart. This call returns an array of objects, but detailed information about each object’s attributes might not be included.  See http://devdocs.magento.com/codelinks/attributes.html#GuestPaymentMethodManagementInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/payment-methods</div>|
+|<div style='white-space: nowrap;'>guest-carts-selected-payment-method</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|Return the payment method for a specified shopping cart.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/selected-payment-method</div>|
+|<div style='white-space: nowrap;'>guest-carts-selected-payment-method</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!</div>|Add a specified payment method to a specified shopping cart.|PUT|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/selected-payment-method</div>|
+|<div style='white-space: nowrap;'>guest-carts-shipping-methods</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|List applicable shipping methods for a specified quote.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/shipping-methods</div>|
+|<div style='white-space: nowrap;'>guest-carts-totals</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$cart_id!</div>|Return quote totals data for a specified cart.|GET|<div style='white-space: nowrap;'>/V1/guest-carts/:cartId/totals</div>|
 ## Magento::Reward
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|reward-mine-use-reward|    Hash $config,<br/>    Hash :$data!|Set reward points to quote|POST|/V1/reward/mine/use-reward|
+|<div style='white-space: nowrap;'>reward-mine-use-reward</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Set reward points to quote|POST|<div style='white-space: nowrap;'>/V1/reward/mine/use-reward</div>|
 ## Magento::Rma
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|returns|    Hash $config,<br/>    Str  :$id!|Return data object for specified RMA id|GET|/V1/returns/:id|
-|returns-delete|    Hash $config,<br/>    Str  :$id!|Delete RMA|DELETE|/V1/returns/:id|
-|returns|    Hash $config,<br/>    Hash :$data!|Save RMA|POST|/V1/returns|
-|returns|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Save RMA|PUT|/V1/returns/:id|
-|returns|    Hash $config|Return list of rma data objects based on search criteria|GET|/V1/returns|
-|returns-attribute-metadata|    Hash $config,<br/>    Str  :$attribute_code!|Retrieve attribute metadata.|GET|/V1/returnsAttributeMetadata/:attributeCode|
-|returns-attribute-metadata|    Hash $config|Get all attribute metadata.|GET|/V1/returnsAttributeMetadata|
-|returns-attribute-metadata-custom|    Hash $config|Get custom attribute metadata for the given Data object's attribute set|GET|/V1/returnsAttributeMetadata/custom|
-|returns-attribute-metadata-form|    Hash $config,<br/>    Str  :$form_code!|Retrieve all attributes filtered by form code|GET|/V1/returnsAttributeMetadata/form/:formCode|
-|returns-comments|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Add comment|POST|/V1/returns/:id/comments|
-|returns-comments|    Hash $config,<br/>    Str  :$id!|Comments list|GET|/V1/returns/:id/comments|
-|returns-labels|    Hash $config,<br/>    Str  :$id!|Get shipping label int the PDF format|GET|/V1/returns/:id/labels|
-|returns-tracking-numbers|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Add track|POST|/V1/returns/:id/tracking-numbers|
-|returns-tracking-numbers-delete|    Hash $config,<br/>    Str  :$id!,<br/>    Int  :$track_id!|Remove track by id|DELETE|/V1/returns/:id/tracking-numbers/:trackId|
-|returns-tracking-numbers|    Hash $config,<br/>    Str  :$id!|Get track list|GET|/V1/returns/:id/tracking-numbers|
+|<div style='white-space: nowrap;'>returns</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Return data object for specified RMA id|GET|<div style='white-space: nowrap;'>/V1/returns/:id</div>|
+|<div style='white-space: nowrap;'>returns-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Delete RMA|DELETE|<div style='white-space: nowrap;'>/V1/returns/:id</div>|
+|<div style='white-space: nowrap;'>returns</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save RMA|POST|<div style='white-space: nowrap;'>/V1/returns</div>|
+|<div style='white-space: nowrap;'>returns</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Save RMA|PUT|<div style='white-space: nowrap;'>/V1/returns/:id</div>|
+|<div style='white-space: nowrap;'>returns</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Return list of rma data objects based on search criteria|GET|<div style='white-space: nowrap;'>/V1/returns</div>|
+|<div style='white-space: nowrap;'>returns-attribute-metadata</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$attribute_code!</div>|Retrieve attribute metadata.|GET|<div style='white-space: nowrap;'>/V1/returnsAttributeMetadata/:attributeCode</div>|
+|<div style='white-space: nowrap;'>returns-attribute-metadata</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get all attribute metadata.|GET|<div style='white-space: nowrap;'>/V1/returnsAttributeMetadata</div>|
+|<div style='white-space: nowrap;'>returns-attribute-metadata-custom</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Get custom attribute metadata for the given Data object's attribute set|GET|<div style='white-space: nowrap;'>/V1/returnsAttributeMetadata/custom</div>|
+|<div style='white-space: nowrap;'>returns-attribute-metadata-form</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$form_code!</div>|Retrieve all attributes filtered by form code|GET|<div style='white-space: nowrap;'>/V1/returnsAttributeMetadata/form/:formCode</div>|
+|<div style='white-space: nowrap;'>returns-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Add comment|POST|<div style='white-space: nowrap;'>/V1/returns/:id/comments</div>|
+|<div style='white-space: nowrap;'>returns-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Comments list|GET|<div style='white-space: nowrap;'>/V1/returns/:id/comments</div>|
+|<div style='white-space: nowrap;'>returns-labels</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Get shipping label int the PDF format|GET|<div style='white-space: nowrap;'>/V1/returns/:id/labels</div>|
+|<div style='white-space: nowrap;'>returns-tracking-numbers</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Add track|POST|<div style='white-space: nowrap;'>/V1/returns/:id/tracking-numbers</div>|
+|<div style='white-space: nowrap;'>returns-tracking-numbers-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Int  :$track_id!</div>|Remove track by id|DELETE|<div style='white-space: nowrap;'>/V1/returns/:id/tracking-numbers/:trackId</div>|
+|<div style='white-space: nowrap;'>returns-tracking-numbers</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Get track list|GET|<div style='white-space: nowrap;'>/V1/returns/:id/tracking-numbers</div>|
 ## Magento::Sales
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|orders|    Hash $config,<br/>    Str  :$id!|Loads a specified order.|GET|/V1/orders/:id|
-|orders|    Hash $config|Lists orders that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#OrderRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/orders|
-|orders-statuses|    Hash $config,<br/>    Str  :$id!|Gets the status for a specified order.|GET|/V1/orders/:id/statuses|
-|orders-cancel|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Cancels a specified order.|POST|/V1/orders/:id/cancel|
-|orders-emails|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Emails a user a specified order.|POST|/V1/orders/:id/emails|
-|orders-hold|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Holds a specified order.|POST|/V1/orders/:id/hold|
-|orders-unhold|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Releases a specified order from hold status.|POST|/V1/orders/:id/unhold|
-|orders-comments|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Adds a comment to a specified order.|POST|/V1/orders/:id/comments|
-|orders-comments|    Hash $config,<br/>    Str  :$id!|Lists comments for a specified order.|GET|/V1/orders/:id/comments|
-|orders-create|    Hash $config,<br/>    Hash :$data!|Performs persist operations for a specified order.|PUT|/V1/orders/create|
-|orders|    Hash $config,<br/>    Str  :$parent_id!,<br/>    Hash :$data!|Performs persist operations for a specified order address.|PUT|/V1/orders/:parent_id|
-|orders-items|    Hash $config,<br/>    Str  :$id!|Loads a specified order item.|GET|/V1/orders/items/:id|
-|orders-items|    Hash $config|Lists order items that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#OrderItemRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/orders/items|
-|invoices|    Hash $config,<br/>    Str  :$id!|Loads a specified invoice.|GET|/V1/invoices/:id|
-|invoices|    Hash $config|Lists invoices that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#InvoiceRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/invoices|
-|invoices-comments|    Hash $config,<br/>    Str  :$id!|Lists comments for a specified invoice.|GET|/V1/invoices/:id/comments|
-|invoices-emails|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Emails a user a specified invoice.|POST|/V1/invoices/:id/emails|
-|invoices-void|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Voids a specified invoice.|POST|/V1/invoices/:id/void|
-|invoices-capture|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Sets invoice capture.|POST|/V1/invoices/:id/capture|
-|invoices-comments|    Hash $config,<br/>    Hash :$data!|Performs persist operations for a specified invoice comment.|POST|/V1/invoices/comments|
-|invoices|    Hash $config,<br/>    Hash :$data!|Performs persist operations for a specified invoice.|POST|/V1/invoices/|
-|creditmemo-comments|    Hash $config,<br/>    Str  :$id!|Lists comments for a specified credit memo.|GET|/V1/creditmemo/:id/comments|
-|creditmemos|    Hash $config|Lists credit memos that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#CreditmemoRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/creditmemos|
-|creditmemo|    Hash $config,<br/>    Str  :$id!|Loads a specified credit memo.|GET|/V1/creditmemo/:id|
-|creditmemo|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Cancels a specified credit memo.|PUT|/V1/creditmemo/:id|
-|creditmemo-emails|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Emails a user a specified credit memo.|POST|/V1/creditmemo/:id/emails|
-|creditmemo-comments|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Performs persist operations for a specified entity.|POST|/V1/creditmemo/:id/comments|
-|creditmemo|    Hash $config,<br/>    Hash :$data!|Performs persist operations for a specified credit memo.|POST|/V1/creditmemo|
-|shipment|    Hash $config,<br/>    Str  :$id!|Loads a specified shipment.|GET|/V1/shipment/:id|
-|shipments|    Hash $config|Lists shipments that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#ShipmentRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/shipments|
-|shipment-comments|    Hash $config,<br/>    Str  :$id!|Lists comments for a specified shipment.|GET|/V1/shipment/:id/comments|
-|shipment-comments|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Performs persist operations for a specified shipment comment.|POST|/V1/shipment/:id/comments|
-|shipment-emails|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Emails user a specified shipment.|POST|/V1/shipment/:id/emails|
-|shipment-track|    Hash $config,<br/>    Hash :$data!|Performs persist operations for a specified shipment track.|POST|/V1/shipment/track|
-|shipment-track-delete|    Hash $config,<br/>    Str  :$id!|Deletes a specified shipment track by ID.|DELETE|/V1/shipment/track/:id|
-|shipment|    Hash $config,<br/>    Hash :$data!|Performs persist operations for a specified shipment.|POST|/V1/shipment/|
-|shipment-label|    Hash $config,<br/>    Str  :$id!|Gets a specified shipment label.|GET|/V1/shipment/:id/label|
-|orders|    Hash $config,<br/>    Hash :$data!|Performs persist operations for a specified order.|POST|/V1/orders/|
-|transactions|    Hash $config,<br/>    Str  :$id!|Loads a specified transaction.|GET|/V1/transactions/:id|
-|transactions|    Hash $config|Lists transactions that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#TransactionRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/transactions|
-|order-invoice|    Hash $config,<br/>    Int  :$order_id!,<br/>    Hash :$data!||POST|/V1/order/:orderId/invoice|
-|order-ship|    Hash $config,<br/>    Int  :$order_id!,<br/>    Hash :$data!|Creates new Shipment for given Order.|POST|/V1/order/:orderId/ship|
-|invoice-refund|    Hash $config,<br/>    Int  :$invoice_id!,<br/>    Hash :$data!|Create refund for invoice|POST|/V1/invoice/:invoiceId/refund|
-|order-refund|    Hash $config,<br/>    Int  :$order_id!,<br/>    Hash :$data!|Create offline refund for order|POST|/V1/order/:orderId/refund|
+|<div style='white-space: nowrap;'>orders</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Loads a specified order.|GET|<div style='white-space: nowrap;'>/V1/orders/:id</div>|
+|<div style='white-space: nowrap;'>orders</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists orders that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#OrderRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/orders</div>|
+|<div style='white-space: nowrap;'>orders-statuses</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Gets the status for a specified order.|GET|<div style='white-space: nowrap;'>/V1/orders/:id/statuses</div>|
+|<div style='white-space: nowrap;'>orders-cancel</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Cancels a specified order.|POST|<div style='white-space: nowrap;'>/V1/orders/:id/cancel</div>|
+|<div style='white-space: nowrap;'>orders-emails</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Emails a user a specified order.|POST|<div style='white-space: nowrap;'>/V1/orders/:id/emails</div>|
+|<div style='white-space: nowrap;'>orders-hold</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Holds a specified order.|POST|<div style='white-space: nowrap;'>/V1/orders/:id/hold</div>|
+|<div style='white-space: nowrap;'>orders-unhold</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Releases a specified order from hold status.|POST|<div style='white-space: nowrap;'>/V1/orders/:id/unhold</div>|
+|<div style='white-space: nowrap;'>orders-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Adds a comment to a specified order.|POST|<div style='white-space: nowrap;'>/V1/orders/:id/comments</div>|
+|<div style='white-space: nowrap;'>orders-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Lists comments for a specified order.|GET|<div style='white-space: nowrap;'>/V1/orders/:id/comments</div>|
+|<div style='white-space: nowrap;'>orders-create</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Performs persist operations for a specified order.|PUT|<div style='white-space: nowrap;'>/V1/orders/create</div>|
+|<div style='white-space: nowrap;'>orders</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$parent_id!,<br/>    Hash :$data!</div>|Performs persist operations for a specified order address.|PUT|<div style='white-space: nowrap;'>/V1/orders/:parent_id</div>|
+|<div style='white-space: nowrap;'>orders-items</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Loads a specified order item.|GET|<div style='white-space: nowrap;'>/V1/orders/items/:id</div>|
+|<div style='white-space: nowrap;'>orders-items</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists order items that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#OrderItemRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/orders/items</div>|
+|<div style='white-space: nowrap;'>invoices</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Loads a specified invoice.|GET|<div style='white-space: nowrap;'>/V1/invoices/:id</div>|
+|<div style='white-space: nowrap;'>invoices</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists invoices that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#InvoiceRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/invoices</div>|
+|<div style='white-space: nowrap;'>invoices-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Lists comments for a specified invoice.|GET|<div style='white-space: nowrap;'>/V1/invoices/:id/comments</div>|
+|<div style='white-space: nowrap;'>invoices-emails</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Emails a user a specified invoice.|POST|<div style='white-space: nowrap;'>/V1/invoices/:id/emails</div>|
+|<div style='white-space: nowrap;'>invoices-void</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Voids a specified invoice.|POST|<div style='white-space: nowrap;'>/V1/invoices/:id/void</div>|
+|<div style='white-space: nowrap;'>invoices-capture</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Sets invoice capture.|POST|<div style='white-space: nowrap;'>/V1/invoices/:id/capture</div>|
+|<div style='white-space: nowrap;'>invoices-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Performs persist operations for a specified invoice comment.|POST|<div style='white-space: nowrap;'>/V1/invoices/comments</div>|
+|<div style='white-space: nowrap;'>invoices</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Performs persist operations for a specified invoice.|POST|<div style='white-space: nowrap;'>/V1/invoices/</div>|
+|<div style='white-space: nowrap;'>creditmemo-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Lists comments for a specified credit memo.|GET|<div style='white-space: nowrap;'>/V1/creditmemo/:id/comments</div>|
+|<div style='white-space: nowrap;'>creditmemos</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists credit memos that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#CreditmemoRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/creditmemos</div>|
+|<div style='white-space: nowrap;'>creditmemo</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Loads a specified credit memo.|GET|<div style='white-space: nowrap;'>/V1/creditmemo/:id</div>|
+|<div style='white-space: nowrap;'>creditmemo</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Cancels a specified credit memo.|PUT|<div style='white-space: nowrap;'>/V1/creditmemo/:id</div>|
+|<div style='white-space: nowrap;'>creditmemo-emails</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Emails a user a specified credit memo.|POST|<div style='white-space: nowrap;'>/V1/creditmemo/:id/emails</div>|
+|<div style='white-space: nowrap;'>creditmemo-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Performs persist operations for a specified entity.|POST|<div style='white-space: nowrap;'>/V1/creditmemo/:id/comments</div>|
+|<div style='white-space: nowrap;'>creditmemo</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Performs persist operations for a specified credit memo.|POST|<div style='white-space: nowrap;'>/V1/creditmemo</div>|
+|<div style='white-space: nowrap;'>shipment</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Loads a specified shipment.|GET|<div style='white-space: nowrap;'>/V1/shipment/:id</div>|
+|<div style='white-space: nowrap;'>shipments</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists shipments that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#ShipmentRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/shipments</div>|
+|<div style='white-space: nowrap;'>shipment-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Lists comments for a specified shipment.|GET|<div style='white-space: nowrap;'>/V1/shipment/:id/comments</div>|
+|<div style='white-space: nowrap;'>shipment-comments</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Performs persist operations for a specified shipment comment.|POST|<div style='white-space: nowrap;'>/V1/shipment/:id/comments</div>|
+|<div style='white-space: nowrap;'>shipment-emails</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!</div>|Emails user a specified shipment.|POST|<div style='white-space: nowrap;'>/V1/shipment/:id/emails</div>|
+|<div style='white-space: nowrap;'>shipment-track</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Performs persist operations for a specified shipment track.|POST|<div style='white-space: nowrap;'>/V1/shipment/track</div>|
+|<div style='white-space: nowrap;'>shipment-track-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Deletes a specified shipment track by ID.|DELETE|<div style='white-space: nowrap;'>/V1/shipment/track/:id</div>|
+|<div style='white-space: nowrap;'>shipment</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Performs persist operations for a specified shipment.|POST|<div style='white-space: nowrap;'>/V1/shipment/</div>|
+|<div style='white-space: nowrap;'>shipment-label</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Gets a specified shipment label.|GET|<div style='white-space: nowrap;'>/V1/shipment/:id/label</div>|
+|<div style='white-space: nowrap;'>orders</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Performs persist operations for a specified order.|POST|<div style='white-space: nowrap;'>/V1/orders/</div>|
+|<div style='white-space: nowrap;'>transactions</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$id!</div>|Loads a specified transaction.|GET|<div style='white-space: nowrap;'>/V1/transactions/:id</div>|
+|<div style='white-space: nowrap;'>transactions</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Lists transactions that match specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#TransactionRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/transactions</div>|
+|<div style='white-space: nowrap;'>order-invoice</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$order_id!,<br/>    Hash :$data!</div>||POST|<div style='white-space: nowrap;'>/V1/order/:orderId/invoice</div>|
+|<div style='white-space: nowrap;'>order-ship</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$order_id!,<br/>    Hash :$data!</div>|Creates new Shipment for given Order.|POST|<div style='white-space: nowrap;'>/V1/order/:orderId/ship</div>|
+|<div style='white-space: nowrap;'>invoice-refund</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$invoice_id!,<br/>    Hash :$data!</div>|Create refund for invoice|POST|<div style='white-space: nowrap;'>/V1/invoice/:invoiceId/refund</div>|
+|<div style='white-space: nowrap;'>order-refund</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$order_id!,<br/>    Hash :$data!</div>|Create offline refund for order|POST|<div style='white-space: nowrap;'>/V1/order/:orderId/refund</div>|
 ## Magento::SalesRule
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|coupons|    Hash $config,<br/>    Int  :$coupon_id!|Get coupon by coupon id.|GET|/V1/coupons/:couponId|
-|coupons|    Hash $config,<br/>    Hash :$data!|Save a coupon.|POST|/V1/coupons|
-|coupons|    Hash $config,<br/>    Int  :$coupon_id!,<br/>    Hash :$data!|Save a coupon.|PUT|/V1/coupons/:couponId|
-|coupons-delete|    Hash $config,<br/>    Int  :$coupon_id!|Delete coupon by coupon id.|DELETE|/V1/coupons/:couponId|
-|coupons-delete-by-codes|    Hash $config,<br/>    Hash :$data!|Delete coupon by coupon codes.|POST|/V1/coupons/deleteByCodes|
-|coupons-delete-by-ids|    Hash $config,<br/>    Hash :$data!|Delete coupon by coupon ids.|POST|/V1/coupons/deleteByIds|
-|coupons-generate|    Hash $config,<br/>    Hash :$data!|Generate coupon for a rule|POST|/V1/coupons/generate|
-|coupons-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve a coupon using the specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#CouponRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/coupons/search|
-|sales-rules|    Hash $config,<br/>    Int  :$rule_id!|Get rule by ID.|GET|/V1/salesRules/:ruleId|
-|sales-rules|    Hash $config,<br/>    Hash :$data!|Save sales rule.|POST|/V1/salesRules|
-|sales-rules|    Hash $config,<br/>    Int  :$rule_id!,<br/>    Hash :$data!|Save sales rule.|PUT|/V1/salesRules/:ruleId|
-|sales-rules-delete|    Hash $config,<br/>    Int  :$rule_id!|Delete rule by ID.|DELETE|/V1/salesRules/:ruleId|
-|sales-rules-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve sales rules that match te specified criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#RuleRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/salesRules/search|
+|<div style='white-space: nowrap;'>coupons</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$coupon_id!</div>|Get coupon by coupon id.|GET|<div style='white-space: nowrap;'>/V1/coupons/:couponId</div>|
+|<div style='white-space: nowrap;'>coupons</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save a coupon.|POST|<div style='white-space: nowrap;'>/V1/coupons</div>|
+|<div style='white-space: nowrap;'>coupons</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$coupon_id!,<br/>    Hash :$data!</div>|Save a coupon.|PUT|<div style='white-space: nowrap;'>/V1/coupons/:couponId</div>|
+|<div style='white-space: nowrap;'>coupons-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$coupon_id!</div>|Delete coupon by coupon id.|DELETE|<div style='white-space: nowrap;'>/V1/coupons/:couponId</div>|
+|<div style='white-space: nowrap;'>coupons-delete-by-codes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Delete coupon by coupon codes.|POST|<div style='white-space: nowrap;'>/V1/coupons/deleteByCodes</div>|
+|<div style='white-space: nowrap;'>coupons-delete-by-ids</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Delete coupon by coupon ids.|POST|<div style='white-space: nowrap;'>/V1/coupons/deleteByIds</div>|
+|<div style='white-space: nowrap;'>coupons-generate</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Generate coupon for a rule|POST|<div style='white-space: nowrap;'>/V1/coupons/generate</div>|
+|<div style='white-space: nowrap;'>coupons-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Retrieve a coupon using the specified search criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#CouponRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/coupons/search</div>|
+|<div style='white-space: nowrap;'>sales-rules</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$rule_id!</div>|Get rule by ID.|GET|<div style='white-space: nowrap;'>/V1/salesRules/:ruleId</div>|
+|<div style='white-space: nowrap;'>sales-rules</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save sales rule.|POST|<div style='white-space: nowrap;'>/V1/salesRules</div>|
+|<div style='white-space: nowrap;'>sales-rules</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$rule_id!,<br/>    Hash :$data!</div>|Save sales rule.|PUT|<div style='white-space: nowrap;'>/V1/salesRules/:ruleId</div>|
+|<div style='white-space: nowrap;'>sales-rules-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$rule_id!</div>|Delete rule by ID.|DELETE|<div style='white-space: nowrap;'>/V1/salesRules/:ruleId</div>|
+|<div style='white-space: nowrap;'>sales-rules-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Retrieve sales rules that match te specified criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#RuleRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/salesRules/search</div>|
 ## Magento::Search
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Make Full Text Search and return found Documents|GET|/V1/search|
+|<div style='white-space: nowrap;'>search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Make Full Text Search and return found Documents|GET|<div style='white-space: nowrap;'>/V1/search</div>|
 ## Magento::Store
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|store-store-views|    Hash $config|Retrieve list of all stores|GET|/V1/store/storeViews|
-|store-store-groups|    Hash $config|Retrieve list of all groups|GET|/V1/store/storeGroups|
-|store-websites|    Hash $config|Retrieve list of all websites|GET|/V1/store/websites|
-|store-store-configs|    Hash $config||GET|/V1/store/storeConfigs|
+|<div style='white-space: nowrap;'>store-store-views</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieve list of all stores|GET|<div style='white-space: nowrap;'>/V1/store/storeViews</div>|
+|<div style='white-space: nowrap;'>store-store-groups</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieve list of all groups|GET|<div style='white-space: nowrap;'>/V1/store/storeGroups</div>|
+|<div style='white-space: nowrap;'>store-websites</div>|<div style='white-space: nowrap;'>    Hash $config</div>|Retrieve list of all websites|GET|<div style='white-space: nowrap;'>/V1/store/websites</div>|
+|<div style='white-space: nowrap;'>store-store-configs</div>|<div style='white-space: nowrap;'>    Hash $config</div>||GET|<div style='white-space: nowrap;'>/V1/store/storeConfigs</div>|
 ## Magento::Tax
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|tax-rates|    Hash $config,<br/>    Hash :$data!|Create or update tax rate|POST|/V1/taxRates|
-|tax-rates|    Hash $config,<br/>    Int  :$rate_id!|Get tax rate|GET|/V1/taxRates/:rateId|
-|tax-rates|    Hash $config,<br/>    Hash :$data!|Create or update tax rate|PUT|/V1/taxRates|
-|tax-rates-delete|    Hash $config,<br/>    Int  :$rate_id!|Delete tax rate|DELETE|/V1/taxRates/:rateId|
-|tax-rates-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Search TaxRates This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#TaxRateRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/taxRates/search|
-|tax-rules|    Hash $config,<br/>    Hash :$data!|Save TaxRule|POST|/V1/taxRules|
-|tax-rules|    Hash $config,<br/>    Hash :$data!|Save TaxRule|PUT|/V1/taxRules|
-|tax-rules-delete|    Hash $config,<br/>    Int  :$rule_id!|Delete TaxRule|DELETE|/V1/taxRules/:ruleId|
-|tax-rules|    Hash $config,<br/>    Int  :$rule_id!|Get TaxRule|GET|/V1/taxRules/:ruleId|
-|tax-rules-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Search TaxRules This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#TaxRuleRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/taxRules/search|
-|tax-classes|    Hash $config,<br/>    Hash :$data!|Create a Tax Class|POST|/V1/taxClasses|
-|tax-classes|    Hash $config,<br/>    Int  :$tax_class_id!|Get a tax class with the given tax class id.|GET|/V1/taxClasses/:taxClassId|
-|tax-classes|    Hash $config,<br/>    Int  :$class_id!,<br/>    Hash :$data!|Create a Tax Class|PUT|/V1/taxClasses/:classId|
-|tax-classes-delete|    Hash $config,<br/>    Int  :$tax_class_id!|Delete a tax class with the given tax class id.|DELETE|/V1/taxClasses/:taxClassId|
-|tax-classes-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve tax classes which match a specific criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#TaxClassRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/taxClasses/search|
+|<div style='white-space: nowrap;'>tax-rates</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create or update tax rate|POST|<div style='white-space: nowrap;'>/V1/taxRates</div>|
+|<div style='white-space: nowrap;'>tax-rates</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$rate_id!</div>|Get tax rate|GET|<div style='white-space: nowrap;'>/V1/taxRates/:rateId</div>|
+|<div style='white-space: nowrap;'>tax-rates</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create or update tax rate|PUT|<div style='white-space: nowrap;'>/V1/taxRates</div>|
+|<div style='white-space: nowrap;'>tax-rates-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$rate_id!</div>|Delete tax rate|DELETE|<div style='white-space: nowrap;'>/V1/taxRates/:rateId</div>|
+|<div style='white-space: nowrap;'>tax-rates-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Search TaxRates This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#TaxRateRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/taxRates/search</div>|
+|<div style='white-space: nowrap;'>tax-rules</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save TaxRule|POST|<div style='white-space: nowrap;'>/V1/taxRules</div>|
+|<div style='white-space: nowrap;'>tax-rules</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Save TaxRule|PUT|<div style='white-space: nowrap;'>/V1/taxRules</div>|
+|<div style='white-space: nowrap;'>tax-rules-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$rule_id!</div>|Delete TaxRule|DELETE|<div style='white-space: nowrap;'>/V1/taxRules/:ruleId</div>|
+|<div style='white-space: nowrap;'>tax-rules</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$rule_id!</div>|Get TaxRule|GET|<div style='white-space: nowrap;'>/V1/taxRules/:ruleId</div>|
+|<div style='white-space: nowrap;'>tax-rules-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Search TaxRules This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#TaxRuleRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/taxRules/search</div>|
+|<div style='white-space: nowrap;'>tax-classes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$data!</div>|Create a Tax Class|POST|<div style='white-space: nowrap;'>/V1/taxClasses</div>|
+|<div style='white-space: nowrap;'>tax-classes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$tax_class_id!</div>|Get a tax class with the given tax class id.|GET|<div style='white-space: nowrap;'>/V1/taxClasses/:taxClassId</div>|
+|<div style='white-space: nowrap;'>tax-classes</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$class_id!,<br/>    Hash :$data!</div>|Create a Tax Class|PUT|<div style='white-space: nowrap;'>/V1/taxClasses/:classId</div>|
+|<div style='white-space: nowrap;'>tax-classes-delete</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Int  :$tax_class_id!</div>|Delete a tax class with the given tax class id.|DELETE|<div style='white-space: nowrap;'>/V1/taxClasses/:taxClassId</div>|
+|<div style='white-space: nowrap;'>tax-classes-search</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Hash :$search_criteria = %{}</div>|Retrieve tax classes which match a specific criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#TaxClassRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|<div style='white-space: nowrap;'>/V1/taxClasses/search</div>|
