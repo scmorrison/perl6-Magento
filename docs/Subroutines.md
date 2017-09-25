@@ -1,8 +1,8 @@
-## Backend
+## Magento::Backend
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |modules|    Hash $config|Returns an array of enabled modules|GET|/V1/modules|
-## Bundle
+## Magento::Bundle
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |bundle-products-links|    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!,<br/>    Hash :$data!|Add child product to specified Bundle option by product sku|POST|/V1/bundle-products/:sku/links/:optionId|
@@ -15,7 +15,7 @@
 |bundle-products-options-add|    Hash $config,<br/>    Hash :$data!|Add new option for bundle product|POST|/V1/bundle-products/options/add|
 |bundle-products-options|    Hash $config,<br/>    Int  :$option_id!,<br/>    Hash :$data!|Add new option for bundle product|PUT|/V1/bundle-products/options/:optionId|
 |bundle-products-options-delete|    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$option_id!|Remove bundle option|DELETE|/V1/bundle-products/:sku/options/:optionId|
-## Catalog
+## Magento::Catalog
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |products|    Hash $config,<br/>    Hash :$search_criteria = %{}|Get product list|GET|/V1/products|
@@ -46,14 +46,14 @@
 |products-links|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Assign a product link to another product|POST|/V1/products/:sku/links|
 |products-links-update|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Save product link|PUT|/V1/products/:sku/links|
 |products-links-delete|    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$type!,<br/>    Str  :$linked_product_sku!||DELETE|/V1/products/:sku/links/:type/:linkedProductSku|
-## CatalogInventory
+## Magento::CatalogInventory
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |products-stock-items|    Hash $config,<br/>    Str  :$sku!,<br/>    Int  :$item_id!,<br/>    Hash :$data!||PUT|/V1/products/:productSku/stockItems/:itemId|
 |stock-items|    Hash $config,<br/>    Str  :$sku!||GET|/V1/stockItems/:productSku|
 |stock-items-low-stock|    Hash $config|Retrieves a list of SKU's with low inventory qty|GET|/V1/stockItems/lowStock/|
 |stock-statuses|    Hash $config,<br/>    Str  :$sku!||GET|/V1/stockStatuses/:productSku|
-## Checkout
+## Magento::Checkout
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |carts-mine-payment-information|    Hash $config,<br/>    Hash :$data!|Set payment information and place order for a specified cart.|POST|/V1/carts/mine/payment-information|
@@ -68,11 +68,11 @@
 |guest-carts-set-payment-information|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Set payment information for a specified cart.|POST|/V1/guest-carts/:cartId/set-payment-information|
 |guest-carts-shipping-information|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!||POST|/V1/guest-carts/:cartId/shipping-information|
 |guest-carts-totals-information|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Calculate quote totals based on address and shipping method.|POST|/V1/guest-carts/:cartId/totals-information|
-## CheckoutAgreements
+## Magento::CheckoutAgreements
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |carts-licence|    Hash $config|Lists active checkout agreements.|GET|/V1/carts/licence|
-## Cms
+## Magento::Cms
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |cms-page|    Hash $config,<br/>    Int  :$page_id!|Retrieve page.|GET|/V1/cmsPage/:pageId|
@@ -85,7 +85,7 @@
 |cms-block|    Hash $config,<br/>    Hash :$data!|Save block.|POST|/V1/cmsBlock|
 |cms-block|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Save block.|PUT|/V1/cmsBlock/:id|
 |cms-block-delete|    Hash $config,<br/>    Int  :$block_id!|Delete block by ID.|DELETE|/V1/cmsBlock/:blockId|
-## Customer
+## Magento::Customer
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |customer-groups|    Hash $config,<br/>    Int  :$id|Get customer group by group ID.|GET|/V1/customerGroups/:id|
@@ -126,17 +126,17 @@
 |customers-addresses-billing|    Hash $config,<br/>    Int  :$id|Retrieve default billing address for the given customerId.|GET|/V1/customers/:customerId/billingAddress|
 |customers-addresses-shipping|    Hash $config,<br/>    Int  :$id|Retrieve default shipping address for the given customerId.|GET|/V1/customers/:customerId/shippingAddress|
 |customers-addresses-delete|    Hash $config,<br/>    Int  :$address_id|Delete customer address by ID.|DELETE|/V1/addresses/:addressId|
-## CustomerBalance
+## Magento::CustomerBalance
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |carts-mine-balance-apply|    Hash $config,<br/>    Hash :$data!|Apply store credit|POST|/V1/carts/mine/balance/apply|
-## Directory
+## Magento::Directory
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |directory-currency|    Hash $config|Get currency information for the store.|GET|/V1/directory/currency|
 |directory-countries|    Hash $config|Get all countries and regions information for the store.|GET|/V1/directory/countries|
 |directory-countries|    Hash $config,<br/>    Int  :$country_id!|Get country and region information for the store.|GET|/V1/directory/countries/:countryId|
-## Downloadable
+## Magento::Downloadable
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |products-downloadable-links|    Hash $config,<br/>    Str  :$sku!|List of links with associated samples|GET|/V1/products/:sku/downloadable-links|
@@ -147,7 +147,7 @@
 |products-downloadable-links-samples|    Hash $config,<br/>    Str  :$sku!,<br/>    Hash :$data!|Update downloadable sample of the given product|POST|/V1/products/:sku/downloadable-links/samples|
 |products-downloadable-links-samples|    Hash $config,<br/>    Str  :$sku!,<br/>    Str  :$id!,<br/>    Hash :$data!|Update downloadable sample of the given product|PUT|/V1/products/:sku/downloadable-links/samples/:id|
 |products-downloadable-links-samples-delete|    Hash $config,<br/>    Str  :$id!|Delete downloadable sample|DELETE|/V1/products/downloadable-links/samples/:id|
-## Eav
+## Magento::Eav
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |eav-attribute-sets-list|    Hash $config|Retrieve list of Attribute Sets This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#AttributeSetRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/eav/attribute-sets/list|
@@ -155,7 +155,7 @@
 |eav-attribute-sets-delete|    Hash $config,<br/>    Int  :$attribute_set_id!|Remove attribute set by given ID|DELETE|/V1/eav/attribute-sets/:attributeSetId|
 |eav-attribute-sets|    Hash $config,<br/>    Hash :$data!|Create attribute set from data|POST|/V1/eav/attribute-sets|
 |eav-attribute-sets|    Hash $config,<br/>    Int  :$attribute_set_id!,<br/>    Hash :$data!|Save attribute set data|PUT|/V1/eav/attribute-sets/:attributeSetId|
-## GiftCardAccount
+## Magento::GiftCardAccount
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |carts-giftCards|    Hash $config,<br/>    Int  :$quote_id!|Return GiftCard Account cards|GET|/V1/carts/:quoteId/giftCards|
@@ -164,7 +164,7 @@
 |carts-guest-carts-giftCards|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!||POST|/V1/carts/guest-carts/:cartId/giftCards|
 |carts-guest-carts-checkGiftCard|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Str  :$gift_card_code!||GET|/V1/carts/guest-carts/:cartId/checkGiftCard/:giftCardCode|
 |carts-mine-checkGiftCard|    Hash $config,<br/>    Str  :$gift_card_code!||GET|/V1/carts/mine/checkGiftCard/:giftCardCode|
-## GiftMessage
+## Magento::GiftMessage
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!|Return the gift message for a specified order.|GET|/V1/carts/:cartId/gift-message|
@@ -179,12 +179,12 @@
 |guest-carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!|Return the gift message for a specified item in a specified shopping cart.|GET|/V1/guest-carts/:cartId/gift-message/:itemId|
 |guest-carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Set the gift message for an entire order.|POST|/V1/guest-carts/:cartId/gift-message|
 |guest-carts-gift-message|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Int  :$item_id!,<br/>    Hash :$data!|Set the gift message for a specified item in a specified shopping cart.|POST|/V1/guest-carts/:cartId/gift-message/:itemId|
-## GiftRegistry
+## Magento::GiftRegistry
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |giftregistry-mine-estimate-shipping-methods|    Hash $config,<br/>    Hash :$data!|Estimate shipping|POST|/V1/giftregistry/mine/estimate-shipping-methods|
 |guest-giftregistry-estimate-shipping-methods|    Hash $config,<br/>    Int  :$cart_id!,<br/>    Hash :$data!|Estimate shipping|POST|/V1/guest-giftregistry/:cartId/estimate-shipping-methods|
-## GiftWrapping
+## Magento::GiftWrapping
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |gift-wrappings|    Hash $config,<br/>    Str  :$id!|Return data object for specified wrapping ID and store.|GET|/V1/gift-wrappings/:id|
@@ -192,12 +192,12 @@
 |gift-wrappings|    Hash $config,<br/>    Int  :$wrapping_id!,<br/>    Hash :$data!|Create/Update new gift wrapping with data object values|PUT|/V1/gift-wrappings/:wrappingId|
 |gift-wrappings|    Hash $config|Return list of gift wrapping data objects based on search criteria|GET|/V1/gift-wrappings|
 |gift-wrappings-delete|    Hash $config,<br/>    Str  :$id!|Delete gift wrapping|DELETE|/V1/gift-wrappings/:id|
-## Integration
+## Magento::Integration
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |integration-admin-token|    Hash $config,<br/>    Hash :$data!|Create access token for admin given the admin credentials.|POST|/V1/integration/admin/token|
 |integration-customer-token|    Hash $config,<br/>    Hash :$data!|Create access token for admin given the customer credentials.|POST|/V1/integration/customer/token|
-## Quote
+## Magento::Quote
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |carts|    Hash $config,<br/>    Int  :$cart_id!|Enables an administrative user to return information for a specified cart.|GET|/V1/carts/:cartId|
@@ -263,11 +263,11 @@
 |guest-carts-selected-payment-method|    Hash $config,<br/>    Str  :$cart_id!,<br/>    Hash :$data!|Add a specified payment method to a specified shopping cart.|PUT|/V1/guest-carts/:cartId/selected-payment-method|
 |guest-carts-shipping-methods|    Hash $config,<br/>    Str  :$cart_id!|List applicable shipping methods for a specified quote.|GET|/V1/guest-carts/:cartId/shipping-methods|
 |guest-carts-totals|    Hash $config,<br/>    Str  :$cart_id!|Return quote totals data for a specified cart.|GET|/V1/guest-carts/:cartId/totals|
-## Reward
+## Magento::Reward
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |reward-mine-use-reward|    Hash $config,<br/>    Hash :$data!|Set reward points to quote|POST|/V1/reward/mine/use-reward|
-## Rma
+## Magento::Rma
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |returns|    Hash $config,<br/>    Str  :$id!|Return data object for specified RMA id|GET|/V1/returns/:id|
@@ -285,7 +285,7 @@
 |returns-tracking-numbers|    Hash $config,<br/>    Str  :$id!,<br/>    Hash :$data!|Add track|POST|/V1/returns/:id/tracking-numbers|
 |returns-tracking-numbers-delete|    Hash $config,<br/>    Str  :$id!,<br/>    Int  :$track_id!|Remove track by id|DELETE|/V1/returns/:id/tracking-numbers/:trackId|
 |returns-tracking-numbers|    Hash $config,<br/>    Str  :$id!|Get track list|GET|/V1/returns/:id/tracking-numbers|
-## Sales
+## Magento::Sales
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |orders|    Hash $config,<br/>    Str  :$id!|Loads a specified order.|GET|/V1/orders/:id|
@@ -332,7 +332,7 @@
 |order-ship|    Hash $config,<br/>    Int  :$order_id!,<br/>    Hash :$data!|Creates new Shipment for given Order.|POST|/V1/order/:orderId/ship|
 |invoice-refund|    Hash $config,<br/>    Int  :$invoice_id!,<br/>    Hash :$data!|Create refund for invoice|POST|/V1/invoice/:invoiceId/refund|
 |order-refund|    Hash $config,<br/>    Int  :$order_id!,<br/>    Hash :$data!|Create offline refund for order|POST|/V1/order/:orderId/refund|
-## SalesRule
+## Magento::SalesRule
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |coupons|    Hash $config,<br/>    Int  :$coupon_id!|Get coupon by coupon id.|GET|/V1/coupons/:couponId|
@@ -348,17 +348,17 @@
 |sales-rules|    Hash $config,<br/>    Int  :$rule_id!,<br/>    Hash :$data!|Save sales rule.|PUT|/V1/salesRules/:ruleId|
 |sales-rules-delete|    Hash $config,<br/>    Int  :$rule_id!|Delete rule by ID.|DELETE|/V1/salesRules/:ruleId|
 |sales-rules-search|    Hash $config,<br/>    Hash :$search_criteria = %{}|Retrieve sales rules that match te specified criteria. This call returns an array of objects, but detailed information about each object’s attributes might not be included. See http://devdocs.magento.com/codelinks/attributes.html#RuleRepositoryInterface to determine which call to use to get detailed information about all attributes for an object.|GET|/V1/salesRules/search|
-## Search
+## Magento::Search
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-## Store
+## Magento::Store
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |store-store-views|    Hash $config|Retrieve list of all stores|GET|/V1/store/storeViews|
 |store-store-groups|    Hash $config|Retrieve list of all groups|GET|/V1/store/storeGroups|
 |store-websites|    Hash $config|Retrieve list of all websites|GET|/V1/store/websites|
 |store-store-configs|    Hash $config||GET|/V1/store/storeConfigs|
-## Tax
+## Magento::Tax
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
 |tax-rates|    Hash $config,<br/>    Hash :$data!|Create or update tax rate|POST|/V1/taxRates|
