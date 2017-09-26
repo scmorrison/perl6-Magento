@@ -33,7 +33,7 @@ sub MAIN($mod_name) {
     for sort({ tokenize($^a) gt tokenize($^b) }, lines $routes) -> $line {
         my ($http_method, $route) = ~<< $line.match: / ^ ('GET'|'PUT'|'POST'|'DELETE') \s* (\S*) $ /;
         my @params = $route.split('/')[2..*].grep({ $_ ~~ /':'/});
-        push @params, 'search_criteria = %()' when $route ~~ /'search'/;
+        push @params, 'search_criteria = %{}' when $route ~~ /'search'/;
 
         # Base subroutine name
         my $sub_name = decamelize (S/'-'$// given $route.split('/')[2..*].grep({ $_ !~~ /':'/}).join('-')), '-';

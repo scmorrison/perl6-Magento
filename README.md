@@ -51,6 +51,8 @@ access_token: ********************************
 Module Usage
 ============
 
+All subroutines are documented in [docs/Subroutines.md](docs/Subroutines.md).
+
 Using long-use Integration Access Token from `~/.6mag/config.yml`:
 
 ```perl
