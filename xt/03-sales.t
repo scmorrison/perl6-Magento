@@ -14,6 +14,7 @@ use Sales;
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
 my $customer_email = 'p6magento@fakeemail.com';
 my $customer_quote_id;
+my $customer_invoice_id;
 
 subtest {
 
@@ -35,6 +36,7 @@ subtest {
             page_size    => 10
         }
     }
+
     my %t1_results = orders %config;
     $customer_quote_id = %t1_results<items>.head<quote_id>;
     my $quote_parent_id = %t1_results<items>.head<parent_id>;
@@ -58,39 +60,50 @@ subtest {
             parent_id => $parent_id,
             data      => %t3_data;
     is %t3_results<message>, 'Could not save order address', 'orders update';
-#
-#    # POST   /V1/orders/
-#    my %t4_data = Sales::orders();
-#
-#    my $t4_results =
-#        orders 
-#            %config,
-#            data => %t4_data;
-#    is True, True, 'orders new';
+
+    # POST   /V1/orders/
+    # not yet implemented, revisit
+    #my %t4_data = %{
+    #    entity => %{
+    #        base_grand_total => %t2_results<base_grand_total>
+    #    }
+    #}
+
+    #my $t4_results =
+    #    orders 
+    #        %config,
+    #        data => %t4_data;
+    #is True, True, 'orders new';
 
 }, 'Orders';
 
-#subtest {
-#
-#    # POST   /V1/orders/:id/comments
-#    my %t1_data = Sales::orders-comments();
-#
-#    my $t1_results =
-#        orders-comments 
-#            %config,
-#            id   => '',
-#        data => %t1_data;
-#    is True, True, 'orders comments new';
-#
-#    # GET    /V1/orders/:id/comments
-#    my $t2_results =
-#        orders-comments 
-#            %config,
-#            id => '';
-#    is True, True, 'orders comments by id';
-#
-#}, 'Orders comments';
-#
+subtest {
+
+    # POST   /V1/orders/:id/comments
+    my %t1_data = %{
+        statusHistory => %{
+            comment              => "Delete me comment",
+            is_customer_notified => 0,
+            is_visible_on_front  => 1
+        }
+    }
+
+    my $t1_results =
+        orders-comments 
+            %config,
+            id   => $customer_quote_id,
+            data => %t1_data;
+    is $t1_results, True, 'orders comments new';
+
+    # GET    /V1/orders/:id/comments
+    my $t2_results =
+        orders-comments 
+            %config,
+            id => $customer_quote_id;
+    is $t2_results<items>.head<comment>, 'Delete me comment', 'orders comments by id';
+
+}, 'Orders comments';
+
 #subtest {
 #
 #    # PUT    /V1/orders/create
@@ -146,33 +159,48 @@ subtest {
 #
 #}, 'Orders hold';
 #
-#subtest {
-#
-#    # GET    /V1/orders/items/:id
-#    my $t1_results =
-#        orders-items 
-#            %config,
-#            id => '';
-#    is True, True, 'orders items by id';
-#
-#    # GET    /V1/orders/items
-#    my $t2_results =
-#        orders-items %config;
-#    is True, True, 'orders items all';
-#
-#}, 'Orders items';
-#
-#subtest {
-#
-#    # GET    /V1/orders/:id/statuses
-#    my $t1_results =
-#        orders-statuses 
-#            %config,
-#            id => '';
-#    is True, True, 'orders statuses by id';
-#
-#}, 'Orders statuses';
-#
+subtest {
+
+    # GET    /V1/orders/items
+    my %t1_search_criteria = %{
+        searchCriteria => %{
+            filterGroups => [
+                {
+                    filters => [
+                        {
+                            field => 'sku',
+                            value => 'P6-TEST-DELETE',
+                            condition_type =>  'eq'
+                        },
+                    ]
+                },
+            ],
+            current_page => 1,
+            page_size    => 10
+        }
+    }
+
+    my $t1_results = orders-items %config, search_criteria => %t1_search_criteria;
+    is $t1_results<items>.head<sku>, 'P6-TEST-DELETE', 'orders items all';
+    my $quote_item_id = $t1_results<items>.tail<item_id>.Int;
+
+    # GET    /V1/orders/items/:id
+    my $t2_results = orders-items %config, id => $quote_item_id;
+    is $t2_results<sku>, 'P6-TEST-DELETE', 'orders items by item id';
+
+}, 'Orders items';
+
+subtest {
+
+    # GET    /V1/orders/:id/statuses
+    my $t1_results =
+        orders-statuses 
+            %config,
+            id => $customer_quote_id;
+    is $t1_results, [], 'orders statuses by order id';
+
+}, 'Orders statuses';
+
 #subtest {
 #
 #    # POST   /V1/orders/:id/unhold
@@ -201,31 +229,35 @@ subtest {
 #
 #}, 'Order invoice';
 #
-#subtest {
-#
-#    # GET    /V1/invoices/:id
-#    my $t1_results =
-#        invoices 
-#            %config,
-#            id => '';
-#    is True, True, 'invoices by id';
-#
-#    # GET    /V1/invoices
-#    my $t2_results =
-#        invoices %config;
-#    is True, True, 'invoices all';
-#
-#    # POST   /V1/invoices/
-#    my %t3_data = Sales::invoices();
-#
-#    my $t3_results =
-#        invoices 
-#            %config,
-#            data => %t3_data;
-#    is True, True, 'invoices new';
-#
-#}, 'Invoices';
-#
+subtest {
+
+    # GET    /V1/invoices
+    my $t1_results = invoices %config;
+    is $t1_results<items>.tail<base_currency_code>, 'USD', 'invoices all';
+    $customer_invoice_id = $t1_results<items>.tail<entity_id>.Int;
+
+    # GET    /V1/invoices/:id
+    my $t2_results =
+        invoices 
+            %config,
+            id => $customer_invoice_id;
+    is $t2_results<base_currency_code>, 'USD', 'invoices by invoice id';
+    my $increment_id = $t2_results<increment_id>.Int; 
+
+    # POST   /V1/invoices/
+    my %t3_data = entity => %{
+        order_id => $customer_quote_id,
+        base_currency_code => 'USD'
+    }
+
+    my $t3_results =
+        invoices 
+            %config,
+            data => %t3_data;
+    is $t3_results<increment_id>.Int > $increment_id, True, 'invoices update';
+
+}, 'Invoices';
+
 #subtest {
 #
 #    # POST   /V1/invoices/:id/capture
@@ -239,27 +271,34 @@ subtest {
 #    is True, True, 'invoices capture new';
 #
 #}, 'Invoices capture';
-#
-#subtest {
-#
-#    # GET    /V1/invoices/:id/comments
-#    my $t1_results =
-#        invoices-comments 
-#            %config,
-#            id => '';
-#    is True, True, 'invoices comments by id';
-#
-#    # POST   /V1/invoices/comments
-#    my %t2_data = Sales::invoices-comments();
-#
-#    my $t2_results =
-#        invoices-comments 
-#            %config,
-#            data => %t2_data;
-#    is True, True, 'invoices comments new';
-#
-#}, 'Invoices comments';
-#
+
+subtest {
+
+   # POST   /V1/invoices/comments
+    my %t1_data = %{
+        entity => %{
+            parent_id           => $customer_invoice_id,
+            comment              => "Delete me comment",
+            is_customer_notified => 0,
+            is_visible_on_front  => 1
+        }
+    }
+
+   my $t1_results =
+       invoices-comments 
+           %config,
+           data => %t1_data;
+   is $t1_results<comment>, 'Delete me comment', 'invoices comments new';
+
+    # GET    /V1/invoices/:id/comments
+    my $t2_results =
+        invoices-comments 
+            %config,
+            id => $customer_invoice_id;
+    is $t2_results<items>.head<comment>, 'Delete me comment', 'invoices comments by invoice id';
+
+}, 'Invoices comments';
+
 #subtest {
 #
 #    # POST   /V1/invoices/:id/emails
