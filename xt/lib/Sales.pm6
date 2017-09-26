@@ -56,6 +56,27 @@ our sub orders {
     %();
 }
 
+our sub orders-address-update(
+    Int :$entity_id,
+    Int :$parent_id
+) {
+    entity => %{
+        entityId      => $entity_id,
+        parentId      => $parent_id,
+        customerAddressId => 1,
+        #customerId    => $customer_id,
+        firstname     => 'Camelia',
+        lastname      => 'Butterfly',
+        postcode      => '90211',
+        city          => 'Beverly Hills',
+        street        => ['Zoe Ave'],
+        regionId      => 12,
+        countryId     => 'US',
+        telephone     => '555-555-5555'
+        #useForShipping => 'true'
+    }
+}
+
 our sub orders-cancel {
     %();
 }

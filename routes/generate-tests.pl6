@@ -62,7 +62,7 @@ sub MAIN($mod_name) {
         print "\n    # $line";
         print "\n    my \%t{$this_sub_index}_data = {$mod_name}::{$sub_name}();\n" when $http_method ~~ 'POST'|'PUT';
         print "\n    my \$t{$this_sub_index}_results =\n";
-        print "        {$sub_name} ";
+        print "        {$sub_name}{'-delete' when $http_method ~~ 'DELETE'} ";
         print "\n            " when @params.elems > 0 || $http_method ~~ 'POST'|'PUT';
         print "\%config{@params.elems > 0 || $http_method ~~ 'POST'|'PUT' ?? ',' !! ''}";
         my $param_max_length =

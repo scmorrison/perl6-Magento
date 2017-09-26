@@ -10,7 +10,7 @@ proto sub orders(|) is export {*}
 # GET    /V1/orders/:id
 our multi orders(
     Hash $config,
-    Str  :$id!
+    Int  :$id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -20,18 +20,33 @@ our multi orders(
 
 # GET    /V1/orders
 our multi orders(
-    Hash $config
+    Hash $config,
+    Hash :$search_criteria = %{}
 ) {
+    my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/orders";
+        uri     => "rest/V1/orders?$query_string";
+}
+
+# PUT    /V1/orders/:parent_id
+our multi orders(
+    Hash $config,
+    Int  :$parent_id!,
+    Hash :$data!
+) {
+    Magento::HTTP::request
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/orders/$parent_id",
+        content => to-json $data;
 }
 
 # GET    /V1/orders/:id/statuses
 our sub orders-statuses(
     Hash $config,
-    Str  :$id!
+    Int  :$id!
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
@@ -125,19 +140,6 @@ our sub orders-create(
         method  => 'PUT',
         config  => $config,
         uri     => "rest/V1/orders/create",
-        content => to-json $data;
-}
-
-# PUT    /V1/orders/:parent_id
-our multi orders(
-    Hash $config,
-    Str  :$parent_id!,
-    Hash :$data!
-) {
-    Magento::HTTP::request
-        method  => 'PUT',
-        config  => $config,
-        uri     => "rest/V1/orders/$parent_id",
         content => to-json $data;
 }
 

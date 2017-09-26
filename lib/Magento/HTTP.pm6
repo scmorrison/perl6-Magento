@@ -64,7 +64,7 @@ our sub request(
             %{
                 message    => from-json(%res<content>)<message>,
                 status     => %res<status>,
-                parameters => %res<parameters>||%{};
+                parameters => from-json(%res<content>)<parameters>||%{};
             }
         }
     }
