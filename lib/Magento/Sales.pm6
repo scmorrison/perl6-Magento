@@ -83,27 +83,25 @@ our sub orders-emails(
 # POST   /V1/orders/:id/hold
 our sub orders-hold(
     Hash $config,
-    Int  :$id!,
-    Hash :$data!
+    Int  :$id!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/orders/$id/hold",
-        content => to-json $data;
+        content => to-json '';
 }
 
 # POST   /V1/orders/:id/unhold
 our sub orders-unhold(
     Hash $config,
-    Int  :$id!,
-    Hash :$data!
+    Int  :$id!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/orders/$id/unhold",
-        content => to-json $data;
+        content => '';
 }
 
 proto sub orders-comments(|) is export {*}
@@ -222,14 +220,13 @@ our multi invoices-comments(
 # POST   /V1/invoices/:id/emails
 our sub invoices-emails(
     Hash $config,
-    Int  :$id!,
-    Hash :$data!
+    Int  :$id!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/invoices/$id/emails",
-        content => to-json $data;
+        content => '';
 }
 
 # POST   /V1/invoices/:id/void
@@ -248,14 +245,13 @@ our sub invoices-void(
 # POST   /V1/invoices/:id/capture
 our sub invoices-capture(
     Hash $config,
-    Int  :$id!,
-    Hash :$data!
+    Int  :$id!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/invoices/$id/capture",
-        content => to-json $data;
+        content => '';
 }
 
 # POST   /V1/invoices/comments
@@ -284,12 +280,14 @@ our multi creditmemo-comments(
 
 # GET    /V1/creditmemos
 our sub creditmemos(
-    Hash $config
+    Hash $config,
+    Hash :$search_criteria = %{}
 ) is export {
+    my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/creditmemos";
+        uri     => "rest/V1/creditmemos?$query_string";
 }
 
 proto sub creditmemo(|) is export {*}
@@ -320,14 +318,13 @@ our multi creditmemo(
 # POST   /V1/creditmemo/:id/emails
 our sub creditmemo-emails(
     Hash $config,
-    Int  :$id!,
-    Hash :$data!
+    Int  :$id!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/creditmemo/$id/emails",
-        content => to-json $data;
+        content => '';
 }
 
 # POST   /V1/creditmemo/:id/comments
@@ -369,12 +366,14 @@ our multi shipment(
 
 # GET    /V1/shipments
 our sub shipments(
-    Hash $config
+    Hash $config,
+    Hash :$search_criteria = %{}
 ) is export {
+    my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/shipments";
+        uri     => "rest/V1/shipments?$query_string";
 }
 
 proto sub shipment-comments(|) is export {*}
@@ -405,14 +404,13 @@ our multi shipment-comments(
 # POST   /V1/shipment/:id/emails
 our sub shipment-emails(
     Hash $config,
-    Int  :$id!,
-    Hash :$data!
+    Int  :$id!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/shipment/$id/emails",
-        content => to-json $data;
+        content => '';
 }
 
 proto sub shipment-track(|) is export {*}
@@ -432,18 +430,19 @@ our multi shipment-track(
 our sub shipment-track-delete(
     Hash $config,
     Int  :$id!
-) {
-    Magento::HTTP::request
+) is export {
+    my $response = Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
         uri     => "rest/V1/shipment/track/$id";
+    return $response.Int||$response;
 }
 
 # POST   /V1/shipment/
 our multi shipment(
     Hash $config,
     Hash :$data!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
@@ -488,12 +487,14 @@ our multi transactions(
 
 # GET    /V1/transactions
 our multi transactions(
-    Hash $config
+    Hash $config,
+    Hash :$search_criteria = %{}
 ) {
+    my $query_string = search-criteria-to-query-string $search_criteria;
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/transactions";
+        uri     => "rest/V1/transactions?$query_string";
 }
 
 # POST /V1/order/:orderId/invoice
@@ -502,11 +503,12 @@ our sub order-invoice(
     Int  :$order_id!,
     Hash :$data!
 ) is export {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/order/$order_id/invoice",
         content => to-json $data;
+    return $results.Int||$results;
 }
 
 # POST /V1/order/:orderId/ship
