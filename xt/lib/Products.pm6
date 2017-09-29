@@ -101,13 +101,6 @@ our sub downloadable() {
                 },
             },
         ],
-        tierPrices => [
-          %{
-            customerGroupId => 1,
-            qty             => 10,
-            value           => 5.00
-           }
-        ]
     }
 }
 

@@ -101,7 +101,7 @@ subtest {
     plan 8;
 
     my %t1_results = products-attribute-sets %config;
-    is %t1_results<items>.head<attribute_set_name>, 'Default', 'products attribute sets all';
+    is %t1_results<items>.elems > 0, True,'products attribute sets all';
 
     my %t2_data = Products::products-attribute-set();
     my %t2_results = products-attribute-sets %config, data => %t2_data;

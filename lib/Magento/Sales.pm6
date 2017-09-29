@@ -70,14 +70,13 @@ our sub orders-cancel(
 # POST   /V1/orders/:id/emails
 our sub orders-emails(
     Hash $config,
-    Int  :$id!,
-    Hash :$data!
+    Int  :$id!
 ) is export {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/orders/$id/emails",
-        content => to-json $data;
+        content => '';
 }
 
 # POST   /V1/orders/:id/hold

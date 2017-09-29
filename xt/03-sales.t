@@ -28,8 +28,8 @@ subtest {
                 {
                     filters => [
                         {
-                            field => 'email',
-                            value => $customer_email,
+                            field => 'status',
+                            value => 'pending',
                             condition_type =>  'eq'
                         },
                     ]
@@ -40,7 +40,8 @@ subtest {
         }
     }
 
-    my %t1_results = orders %config;
+    my %t1_results = orders %config; #, search_criteria => %t1_search_criteria;
+    note %t1_results;
     $customer_quote_id  = %t1_results<items>.head<quote_id>;
     my $quote_parent_id = %t1_results<items>.head<parent_id>;
     $customer_item_id   = %t1_results<items>.head<items>.head<item_id>.Int;
@@ -66,19 +67,21 @@ subtest {
     is %t3_results<message>, 'Could not save order address', 'orders update';
 
     # POST   /V1/orders/
-    # not yet implemented, revisit
-    #my %t4_data = %{
-    #    entity => %{
-    #        base_grand_total => %t2_results<base_grand_total>
-    #    }
-    #}
+    my %t4_order = orders %config, id => $customer_quote_id;
+    my %filtered_order = %t4_order.grep({
+        $_.key !~~ 'payment'|'state'|'status'|'status_histories'|'quote_id'|'order_id'|'extension_attributes'
+    });
 
-    #my $t4_results =
-    #    orders 
-    #        %config,
-    #        data => %t4_data;
-    #is True, True, 'orders new';
+    my %t4_order_new = %{
+        entity => %filtered_order
+    }
 
+    my $t4_results =
+        orders 
+            %config,
+            data => %t4_order_new;
+    is $t4_results<base_currency_code>, 'USD', 'orders persist operation';
+    
 }, 'Orders';
 
 subtest {
@@ -108,46 +111,35 @@ subtest {
 
 }, 'Orders comments';
 
-#subtest {
-#
-#    # PUT    /V1/orders/create
-#    my %t1_data = Sales::orders-create();
-#
-#    my $t1_results =
-#        orders-create 
-#            %config,
-#            data => %t1_data;
-#    is True, True, 'orders create update';
-#
-#}, 'Orders create';
-#
-#subtest {
-#
-#    # POST   /V1/orders/:id/emails
-#    my %t1_data = Sales::orders-emails();
-#
-#    my $t1_results =
-#        orders-emails 
-#            %config,
-#            id   => '',
-#        data => %t1_data;
-#    is True, True, 'orders emails new';
-#
-#}, 'Orders emails';
-#
-#subtest {
-#
-#    # POST /V1/order/:orderId/ship
-#    my %t1_data = Sales::order-ship();
-#
-#    my $t1_results =
-#        order-ship 
-#            %config,
-#            order_id => '',
-#        data    => %t1_data;
-#    is True, True, 'order ship new';
-#
-#}, 'Order ship';
+subtest {
+
+    # POST   /V1/orders/:id/emails
+    my $t1_results =
+        orders-emails 
+            %config,
+            id => $customer_quote_id;
+    is $t1_results, True, 'orders emails new';
+
+}, 'Orders emails';
+
+subtest {
+
+    # PUT    /V1/orders/create
+    my %t1_order = orders %config, id => $customer_quote_id;
+    my %t1_order_new = %t1_order.grep({ $_.key !~~ 'payment'|'status_histories' });
+
+    my %t1_data = %{
+        entity => %t1_order_new;
+    }
+
+    my $t1_results =
+        orders-create 
+            %config,
+            data => %t1_data;
+    is $t1_results<base_currency_code>, 'USD', 'orders create update';
+    $customer_quote_id = $t1_results<quote_id>;
+
+}, 'Orders create';
 
 subtest {
 
@@ -156,14 +148,14 @@ subtest {
         orders-hold 
             %config,
             id => $customer_quote_id;
-    is $t1_results, True, 'orders hold new';
+    is $t1_results<message>, 'A hold action is not available.', 'orders hold new';
 
     # POST   /V1/orders/:id/unhold
     my $t2_results =
         orders-unhold 
             %config,
             id => $customer_quote_id;
-    is $t2_results, True, 'orders unhold new';
+    is $t2_results<message>, 'You cannot remove the hold.', 'orders unhold new';
 
 }, 'Orders hold / unhold';
 
@@ -198,6 +190,32 @@ subtest {
 
 }, 'Orders items';
 
+#subtest {
+#
+#    # POST /V1/order/:orderId/ship
+#    my %t1_data = %{
+#        entity => %{
+#            order_id       => $customer_quote_id,
+#            shipping_label => 'Shipment Label Delete Me',
+#            items => [
+#                %{
+#                    order_item_id => $customer_item_id,
+#                    qty => 1
+#                },
+#            ]
+#        }
+#    }
+#
+#    my $t1_results =
+#        order-ship 
+#            %config,
+#            order_id => $customer_quote_id,
+#            data    => %t1_data;
+#            note $t1_results;
+#    is True, True, 'order ship new';
+#
+#}, 'Order ship';
+
 subtest {
 
     # GET    /V1/orders/:id/statuses
@@ -205,7 +223,7 @@ subtest {
         orders-statuses 
             %config,
             id => $customer_quote_id;
-    is $t1_results, [], 'orders statuses by order id';
+    is $t1_results, '', 'orders statuses by order id';
 
 }, 'Orders statuses';
 
