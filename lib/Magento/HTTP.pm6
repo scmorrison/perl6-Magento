@@ -56,7 +56,7 @@ our sub request(
                     %res<content>;
                 }
                 default {
-                    from-json %res<content>||False;
+                    from-json(%res<content>)||False;
                 }
             }
         }
