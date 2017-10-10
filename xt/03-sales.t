@@ -41,7 +41,6 @@ subtest {
     }
 
     my %t1_results = orders %config; #, search_criteria => %t1_search_criteria;
-    note %t1_results;
     $customer_quote_id  = %t1_results<items>.head<quote_id>;
     my $quote_parent_id = %t1_results<items>.head<parent_id>;
     $customer_item_id   = %t1_results<items>.head<items>.head<item_id>.Int;

@@ -10,9 +10,10 @@ unit module Magento::Backend;
 our sub modules(
     Hash $config
 ) is export {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'GET',
         config  => $config,
         uri     => "rest/V1/modules";
+    return $results.List||$results;
 }
 
