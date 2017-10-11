@@ -9,4 +9,4 @@ GET    /V1/guest-carts/:cartId/payment-information
 POST   /V1/carts/mine/payment-information
 GET    /V1/carts/mine/payment-information
 POST   /V1/guest-carts/:cartId/set-payment-information
-POST   /V1/carts/mine/set-payment-information
+POST   /V1/carts/mine/set-payment-information<Paste>
