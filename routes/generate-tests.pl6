@@ -42,7 +42,7 @@ sub MAIN($mod_name) {
     for sort({ tokenize($^a) gt tokenize($^b) }, lines $routes) -> $line {
         my ($http_method, $route) = ~<< $line.match: / ^ ('GET'|'PUT'|'POST'|'DELETE') \s* (\S*) $ /;
         my @params = $route.split('/')[2..*].grep({ $_ ~~ /':'/});
-        push @params, 'query_string' when $route ~~ /'search'/;
+        push @params, 'search_criteria' when $route ~~ /'search'/;
 
         # Base subroutine name
         my $sub_name = decamelize (S/'-'$// given $route.split('/')[2..*].grep({ $_ !~~ /':'/}).join('-')), '-';
@@ -51,7 +51,6 @@ sub MAIN($mod_name) {
         my $sub_name_count = @sub_names.grep(/^ $sub_name $/).elems;
 
         # Use proto for multis with same name
-        #if $sub_name_count > 1 && @processed_multis !(cont) $sub_name {
         if $this_sub_index eq 1 {
             push @processed_multis, $sub_name;
             # Start a new subtest

@@ -63,7 +63,7 @@ sub MAIN($mod_name) {
         # Loop params and format
         @params.map({
             '    ' ~ \
-            do (if $_ ~~ /'Id'$/ {
+            do (if $_ ~~ /<[Ii]>'d'$/ {
                 "Int ";
             } elsif $_ ~~ /'search_criteria'/ {
                 "Hash";
