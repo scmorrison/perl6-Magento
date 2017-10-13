@@ -6,16 +6,6 @@ use JSON::Fast;
 
 unit module Magento::Eav;
 
-# GET    /V1/eav/attribute-sets/list
-our sub eav-attribute-sets-list(
-    Hash $config
-) is export {
-    Magento::HTTP::request
-        method  => 'GET',
-        config  => $config,
-        uri     => "rest/V1/eav/attribute-sets/list";
-}
-
 proto sub eav-attribute-sets(|) is export {*}
 # GET    /V1/eav/attribute-sets/:attributeSetId
 our multi eav-attribute-sets(
@@ -32,7 +22,7 @@ our multi eav-attribute-sets(
 our sub eav-attribute-sets-delete(
     Hash $config,
     Int  :$attribute_set_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
@@ -62,5 +52,17 @@ our multi eav-attribute-sets(
         config  => $config,
         uri     => "rest/V1/eav/attribute-sets/$attribute_set_id",
         content => to-json $data;
+}
+
+# GET    /V1/eav/attribute-sets/list
+our sub eav-attribute-sets-list(
+    Hash $config,
+    Hash :$search_criteria = %{}
+) is export {
+    my $query_string = search-criteria-to-query-string $search_criteria;
+    Magento::HTTP::request
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/eav/attribute-sets/list?$query_string";
 }
 
