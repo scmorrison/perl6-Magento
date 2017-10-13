@@ -18,6 +18,46 @@ our multi products-downloadable-links(
         uri     => "rest/V1/products/$sku/downloadable-links";
 }
 
+# POST   /V1/products/:sku/downloadable-links
+our multi products-downloadable-links(
+    Hash $config,
+    Str  :$sku!,
+    Hash :$data!
+) {
+    my $results = Magento::HTTP::request
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/products/$sku/downloadable-links",
+        content => to-json $data;
+    return $results.Int||$results;
+}
+
+# PUT    /V1/products/:sku/downloadable-links/:id
+our multi products-downloadable-links(
+    Hash $config,
+    Str  :$sku!,
+    Int  :$id!,
+    Hash :$data!
+) {
+    my $results = Magento::HTTP::request
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/products/$sku/downloadable-links/$id",
+        content => to-json $data;
+    return $results.Int||$results;
+}
+
+# DELETE /V1/products/downloadable-links/:id
+our sub products-downloadable-links-delete(
+    Hash $config,
+    Int  :$id!
+) is export {
+    Magento::HTTP::request
+        method  => 'DELETE',
+        config  => $config,
+        uri     => "rest/V1/products/downloadable-links/$id";
+}
+
 proto sub products-downloadable-links-samples(|) is export {*}
 # GET    /V1/products/:sku/downloadable-links/samples
 our multi products-downloadable-links-samples(
@@ -30,79 +70,44 @@ our multi products-downloadable-links-samples(
         uri     => "rest/V1/products/$sku/downloadable-links/samples";
 }
 
-# POST   /V1/products/:sku/downloadable-links
-our multi products-downloadable-links(
-    Hash $config,
-    Str  :$sku!,
-    Hash :$data!
-) {
-    Magento::HTTP::request
-        method  => 'POST',
-        config  => $config,
-        uri     => "rest/V1/products/$sku/downloadable-links",
-        content => to-json $data;
-}
-
-# PUT    /V1/products/:sku/downloadable-links/:id
-our multi products-downloadable-links(
-    Hash $config,
-    Str  :$sku!,
-    Str  :$id!,
-    Hash :$data!
-) {
-    Magento::HTTP::request
-        method  => 'PUT',
-        config  => $config,
-        uri     => "rest/V1/products/$sku/downloadable-links/$id",
-        content => to-json $data;
-}
-
-# DELETE /V1/products/downloadable-links/:id
-our sub products-downloadable-links-delete(
-    Hash $config,
-    Str  :$id!
-) {
-    Magento::HTTP::request
-        method  => 'DELETE',
-        config  => $config,
-        uri     => "rest/V1/products/downloadable-links/$id";
-}
-
 # POST   /V1/products/:sku/downloadable-links/samples
 our multi products-downloadable-links-samples(
     Hash $config,
     Str  :$sku!,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/products/$sku/downloadable-links/samples",
         content => to-json $data;
+    return $results.Int||$results;
 }
 
 # PUT    /V1/products/:sku/downloadable-links/samples/:id
 our multi products-downloadable-links-samples(
     Hash $config,
     Str  :$sku!,
-    Str  :$id!,
+    Int  :$id!,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
         uri     => "rest/V1/products/$sku/downloadable-links/samples/$id",
         content => to-json $data;
+    return $results.Int||$results;
 }
 
 # DELETE /V1/products/downloadable-links/samples/:id
 our sub products-downloadable-links-samples-delete(
     Hash $config,
-    Str  :$id!
-) {
-    Magento::HTTP::request
+    Int  :$id!
+) is export {
+    my $results = Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
         uri     => "rest/V1/products/downloadable-links/samples/$id";
+    return $results.Int||$results;
 }
 
