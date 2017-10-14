@@ -74,7 +74,7 @@ sub MAIN(:$ver = '2.2') {
 			my $description = %endpoint<description>;
 
             # Print row
-			say "|{nowrap S:g/'-'/&#8209;/ given $subname}" ~ \
+			say "|{nowrap $subname}" ~ \
 				"|{nowrap S:g/\n/<br\/>/ given $signature}" ~ \
 				"|{$description}" ~ \
 				"|{$http_method}" ~ \

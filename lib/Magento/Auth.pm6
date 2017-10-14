@@ -1,6 +1,7 @@
 use v6;
 
 use Magento::HTTP;
+use Magento::Integration;
 
 unit module Magento::Auth;
 
@@ -12,13 +13,14 @@ our sub request-access-token(
     Str      :$host
     --> Str
 ) is export {
-    my $uri     = "/rest/V1/integration/$user_type/token";
-    my $content = qq:to/EOF/;
-    \{
-        "username":"{$username}",
-        "password":"{$password}"
-    \}
-    EOF
-    my $access_token = Magento::HTTP::request method => 'POST', :$host, :$uri, :$content;
+    #my $uri     = "/rest/V1/integration/$user_type/token";
+    my %credentials = %{
+        username => $username,
+        password => $password
+    }
+
+    my $access_token = integration-token %( :$host ), :$user_type, data => %credentials;
+    
+    #Magento::HTTP::request method => 'POST', :$host, :$uri, :$content;
     return S:g/<["]>// given $access_token;
 }
