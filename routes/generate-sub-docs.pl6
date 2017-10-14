@@ -83,7 +83,7 @@ sub MAIN(:$ver = '2.2') {
 
 			$path = do given $subname {
                 when 'integration-token' {
-                    '/V1/integration/{admin|customer}/token'
+                    '/V1/integration/[admin|customer]/token'
                 }
                 default {
                     %endpoint<description>
