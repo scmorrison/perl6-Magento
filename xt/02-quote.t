@@ -86,8 +86,8 @@ subtest {
     my %t1_results =
         carts-items
             %config,
-            quote_id => $cart_id,
-            data     => %t1_data;
+            cart_id => $cart_id,
+            data    => %t1_data;
     is %t1_results<sku>, 'P6-TEST-DELETE', 'carts items new';
     $cart_item_id = %t1_results<item_id>;
 

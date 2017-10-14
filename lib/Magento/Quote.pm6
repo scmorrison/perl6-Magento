@@ -146,13 +146,13 @@ our multi carts-items(
 # POST   /V1/carts/:quoteId/items
 our multi carts-items(
     Hash $config,
-    Int  :$quote_id!,
+    Int  :$cart_id!,
     Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/$quote_id/items",
+        uri     => "rest/V1/carts/$cart_id/items",
         content => to-json $data;
 }
 

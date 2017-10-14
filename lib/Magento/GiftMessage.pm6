@@ -108,7 +108,7 @@ proto sub guest-carts-gift-message(|) is export {*}
 # GET    /V1/guest-carts/:cartId/gift-message
 our multi guest-carts-gift-message(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',
@@ -119,7 +119,7 @@ our multi guest-carts-gift-message(
 # GET    /V1/guest-carts/:cartId/gift-message/:itemId
 our multi guest-carts-gift-message(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Int  :$item_id!
 ) {
     Magento::HTTP::request
@@ -131,7 +131,7 @@ our multi guest-carts-gift-message(
 # POST   /V1/guest-carts/:cartId/gift-message
 our multi guest-carts-gift-message(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) {
     Magento::HTTP::request
@@ -144,7 +144,7 @@ our multi guest-carts-gift-message(
 # POST   /V1/guest-carts/:cartId/gift-message/:itemId
 our multi guest-carts-gift-message(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Int  :$item_id!,
     Hash :$data!
 ) {
