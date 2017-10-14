@@ -195,7 +195,7 @@
 ## Magento::Integration
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
-|<div style='white-space: nowrap;'>integration-token</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$user_type!,<br/>    Hash :$data!</div>|Create access token user given the admin / customer credentials.|POST|<div style='white-space: nowrap;'>/V1/integration/[admin|customer]/token</div>|
+|<div style='white-space: nowrap;'>integration-token</div>|<div style='white-space: nowrap;'>    Hash $config,<br/>    Str  :$user_type!,<br/>    Hash :$data!</div>|Create access token user given the admin / customer credentials.|POST|<div style='white-space: nowrap;'>/V1/integration/[admin\|customer]/token</div>|
 ## Magento::Quote
 |Subroutine|Parameters|Description|HTTP<br/>Method|Path|
 |:---|:---|:---|:---|:---|
