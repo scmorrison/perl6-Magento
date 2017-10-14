@@ -86,7 +86,7 @@ sub MAIN(:$ver = '2.2') {
                     '/V1/integration/[admin|customer]/token'
                 }
                 default {
-                    %endpoint<description>
+                    $path
                 }
             }
 
