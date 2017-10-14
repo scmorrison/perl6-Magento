@@ -55,9 +55,7 @@ our sub customer-id() {
     }
 
     # Customer search
-    %config
-    ==> customers-search(search_criteria => %customer_search_criteria)
-    ==> my %customer_search_results;
+    my %customer_search_results = customers-search %config, search_criteria => %customer_search_criteria;
 
     # No customer found, create new and return
     return customers(%config, data => %customer_data)<id> when %customer_search_results<items>.elems eq 0;

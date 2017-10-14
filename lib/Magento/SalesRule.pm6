@@ -47,7 +47,7 @@ our multi coupons(
 our sub coupons-delete(
     Hash $config,
     Int  :$coupon_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
@@ -143,7 +143,7 @@ our multi sales-rules(
 our sub sales-rules-delete(
     Hash $config,
     Int  :$rule_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
