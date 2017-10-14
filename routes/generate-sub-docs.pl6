@@ -71,7 +71,24 @@ sub MAIN(:$ver = '2.2') {
             next unless %path_data && %path_data{$http_method.lc};
 
 			my %endpoint = %path_data{$http_method.lc};
-			my $description = %endpoint<description>;
+
+			my $description = do given $subname {
+                when 'integration-token' {
+                    'Create access token user given the admin / customer credentials.'
+                }
+                default {
+                    %endpoint<description>
+                }
+            }
+
+			$path = do given $subname {
+                when 'integration-token' {
+                    '/V1/integration/{admin|customer}/token'
+                }
+                default {
+                    %endpoint<description>
+                }
+            }
 
             # Print row
 			say "|{nowrap $subname}" ~ \
