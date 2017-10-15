@@ -169,10 +169,13 @@ subtest {
         email      => 'camelia1@p6magentofakemail.com',
         websiteId  => 1
     }
+
     # Customer send verification email
     #
     # This will only work if Stores > Configuration > Customer Configuration 
     # > Create New Account Options > Require Emails Confirmation = Yes
+    # ./bin/magento config:set customer/create_account/confirm true
+
     my %t3_results = customers-confirm %config, data => %t3_data;
     # This should return the following message:
     is %t3_results<message>, 'No confirmation needed.', 'customer confirm email';
@@ -216,13 +219,20 @@ subtest {
         template   => 'email_reset',
         websiteId  => 1
     }
+
     # Customer password
     #
     # This will only work if Stores > Configuration > Customer Configuration 
     # > Password Options > Max Number of Password Reset Requests = 0
+    #
+    # ./bin/magento config:set customer/password/max_number_password_reset_requests 0
+    #
     # and:
+    #
     # Stores > Configuration > Customer Configuration > Password Options
     # > Min Time Between Password Reset Requests = 0
+    # ./bin/magento config:set customer/password/min_time_between_password_reset_requests 0
+
     my $t7_results = customers-password %config, data => %t7_data;
     is $t7_results, True, 'customer password';
 
