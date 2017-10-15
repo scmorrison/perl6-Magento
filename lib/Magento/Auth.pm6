@@ -13,14 +13,12 @@ our sub request-access-token(
     Str      :$host
     --> Str
 ) is export {
-    #my $uri     = "/rest/V1/integration/$user_type/token";
+
     my %credentials = %{
         username => $username,
         password => $password
     }
 
     my $access_token = integration-token %( :$host ), :$user_type, data => %credentials;
-    
-    #Magento::HTTP::request method => 'POST', :$host, :$uri, :$content;
     return S:g/<["]>// given $access_token;
 }
