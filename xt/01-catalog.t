@@ -32,10 +32,10 @@ subtest {
     my $t3_product_sku = %t3_results<sku>;
 
     my %t4_data = Products::configurable();
-    my %t4_results = products %config, data => %t4_data;
-    is %t4_results<name>, 'Configurable Product Test', 'products new [configurable]';
-    my $t4_product_id  = %t4_results<id>;
-    my $t4_product_sku = %t4_results<sku>;
+    my $t4_results = products %config, data => %t4_data;
+    is $t4_results<name>, 'Configurable Product Test', 'products new [configurable]';
+    my $t4_product_id  = $t4_results<id>;
+    my $t4_product_sku = $t4_results<sku>;
 
     my %t5_data = Products::downloadable-modified();
     my %t5_results = products %config, sku => 'P6-TEST-0001', data => %t5_data;

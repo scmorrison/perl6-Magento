@@ -35,13 +35,13 @@ subtest {
 subtest {
 
     # POST   /V1/carts/mine/set-payment-information<Paste>
-    my %t1_data = Checkout::carts-mine-set-payment-information<paste>();
+    my %t1_data = Checkout::carts-mine-set-payment-information();
 
     my $t1_results =
-        carts-mine-set-payment-information<paste> 
+        carts-mine-set-payment-information
             %config,
             data => %t1_data;
-    is True, True, 'carts mine-set-payment-information<paste> new';
+    is True, True, 'carts mine-set-payment-information new';
 
 }, 'Carts mine-set-payment-information<paste>';
 

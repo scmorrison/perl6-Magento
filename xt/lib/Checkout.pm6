@@ -7,7 +7,7 @@ our sub carts-mine-payment-information {
     %();
 }
 
-our sub carts-mine-set-payment-information<paste> {
+our sub carts-mine-set-payment-information {
     %();
 }
 

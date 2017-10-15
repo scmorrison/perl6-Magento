@@ -95,8 +95,8 @@ subtest {
     is $t3_results.head<attribute_code>, 'created_at', 'customer metadata form';
 
     # Customer Metadata custom
-    my @t4_results = customer-metadata-custom %config;
-    is @t4_results, (), 'customer metadata custom';
+    my $t4_results = customer-metadata-custom %config;
+    is $t4_results, False, 'customer metadata custom';
 
     # Customer Metadata address attribute
     my %t5_results = customer-address-attribute %config, attribute_code => 'postcode';
@@ -111,8 +111,8 @@ subtest {
     is $t7_results.head<store_label>, 'Prefix', 'customer metadata address';
 
     # Customer Metadata address custom
-    my @t8_results = customer-address-custom %config;
-    is @t8_results, (), 'customer metadata address custom';
+    my $t8_results = customer-address-custom %config;
+    is $t8_results, False, 'customer metadata address custom';
 
 
 }, 'Customer metadata';

@@ -125,7 +125,6 @@ our sub customer-metadata-form(
 #GET    /V1/attributeMetadata/customer
 our sub customer-metadata(
     Hash $config
-    --> Array
 ) is export {
     Magento::HTTP::request
         method  => 'GET',
@@ -136,7 +135,6 @@ our sub customer-metadata(
 #GET    /V1/attributeMetadata/customer/custom
 our sub customer-metadata-custom(
     Hash $config
-    --> Array
 ) is export {
     Magento::HTTP::request
         method  => 'GET',

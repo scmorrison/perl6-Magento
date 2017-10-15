@@ -13,7 +13,7 @@ use Magento::Catalog;
 use Downloadable;
 
 my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
-#my $downloadable = products %config, data => %( Downloadable::downloadable() );
+my $downloadable = products %config, data => %( Downloadable::downloadable() );
 
 
 subtest {
@@ -50,7 +50,7 @@ subtest {
     my $t4_results =
         products-downloadable-links-delete 
             %config,
-            id => $t2_results.Int;
+            id => $t2_results;
     is $t4_results, True, 'products downloadable-links delete';
 
 }, 'Products downloadable-links';
@@ -93,5 +93,8 @@ subtest {
     is $t3_results ~~ Int, True, 'products downloadable-links-samples delete';
 
 }, 'Products downloadable-links-samples';
+
+# Cleanup
+products-delete %config, sku => 'P6-DOWNLOADABLE-0001';
 
 done-testing;

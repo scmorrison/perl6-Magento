@@ -222,7 +222,7 @@ subtest {
         orders-statuses 
             %config,
             id => $customer_quote_id;
-    is $t1_results, '', 'orders statuses by order id';
+    is $t1_results, False, 'orders statuses by order id';
 
 }, 'Orders statuses';
 

@@ -131,6 +131,10 @@ subtest {
             option_id => $option_id;
     is $t2_results, True, 'bundle products-options delete';
 
+    for ['P6-BUNDLE-0001', 'P6-SIMPLE-0001', 'P6-SIMPLE-0002'] {
+        products-delete %config, sku => $_
+    }
+
 }, 'Cleanup';
 
 done-testing;

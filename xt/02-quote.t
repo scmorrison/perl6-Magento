@@ -256,8 +256,8 @@ subtest {
     is %t1_results<message>, 'Shipping address is not set', 'carts selected-payment-method update';
 
     # GET    /V1/carts/:cartId/selected-payment-method
-    my @t2_results = carts-selected-payment-method %config, :$cart_id;
-    is @t2_results, [], 'carts selected-payment-method by id';
+    my $t2_results = carts-selected-payment-method %config, :$cart_id;
+    is $t2_results, False, 'carts selected-payment-method by id';
 
 
 }, 'Carts selected-payment-method';
@@ -520,7 +520,7 @@ subtest {
 
     # GET    /V1/guest-carts/:cartId/coupons
     my $t18_results = guest-carts-coupons %config, cart_id => $t1_cart_id;
-    is $t18_results, [], 'guest carts-coupons all by cart_id';
+    is $t18_results, False, 'guest carts-coupons all by cart_id';
 
     # DELETE /V1/guest-carts/:cartId/coupons
     my $t19_results = guest-carts-coupons-delete %config, cart_id => $t1_cart_id;
@@ -595,15 +595,11 @@ if %*ENV<P6MAGENTOMINE> {
         is %t2_results<customer_is_guest>, False, 'carts mine by access_token';
 
         # PUT    /V1/carts/mine
-        my %t3_data = customerId => $customer_id,
-                      storeId    => 1,
-                      quote      => $customer_cart_id;
-
         my $t3_results =
             carts-mine-update
                 %mine_config,
-                data => %t3_data;
-        is $t3_results, '', 'carts mine update';
+                data => %( quote => %t2_results );
+        is $t3_results, False, 'carts mine update';
 
     }, 'Carts mine';
 

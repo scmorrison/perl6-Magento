@@ -124,4 +124,7 @@ subtest {
 
 }, 'Configurable products-variation';
 
+# Cleanup
+products-delete %config, sku => 'P6-CONFIGURABLE-0001';
+
 done-testing;
