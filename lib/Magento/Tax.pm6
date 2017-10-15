@@ -6,6 +6,68 @@ use JSON::Fast;
 
 unit module Magento::Tax;
 
+proto sub tax-classes(|) is export {*}
+# POST   /V1/taxClasses
+our multi tax-classes(
+    Hash $config,
+    Hash :$data!
+) {
+    my $results = Magento::HTTP::request
+        method  => 'POST',
+        config  => $config,
+        uri     => "rest/V1/taxClasses",
+        content => to-json $data;
+    return $results.Int||$results;
+}
+
+# GET    /V1/taxClasses/:taxClassId
+our multi tax-classes(
+    Hash $config,
+    Int  :$tax_class_id!
+) {
+    Magento::HTTP::request
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/taxClasses/$tax_class_id";
+}
+
+# PUT    /V1/taxClasses/:classId
+our multi tax-classes(
+    Hash $config,
+    Int  :$class_id!,
+    Hash :$data!
+) {
+    my $results = Magento::HTTP::request
+        method  => 'PUT',
+        config  => $config,
+        uri     => "rest/V1/taxClasses/$class_id",
+        content => to-json $data;
+    return $results.Int||$results;
+}
+
+# DELETE /V1/taxClasses/:taxClassId
+our sub tax-classes-delete(
+    Hash $config,
+    Int  :$tax_class_id!
+) is export {
+    Magento::HTTP::request
+        method  => 'DELETE',
+        config  => $config,
+        uri     => "rest/V1/taxClasses/$tax_class_id";
+}
+
+# GET    /V1/taxClasses/search
+our sub tax-classes-search(
+    Hash $config,
+    Hash :$search_criteria = %{}
+) is export {
+    my $query_string = search-criteria-to-query-string $search_criteria;
+    Magento::HTTP::request
+        method  => 'GET',
+        config  => $config,
+        uri     => "rest/V1/taxClasses/search?$query_string";
+}
+
 proto sub tax-rates(|) is export {*}
 # POST   /V1/taxRates
 our multi tax-rates(
@@ -46,7 +108,7 @@ our multi tax-rates(
 our sub tax-rates-delete(
     Hash $config,
     Int  :$rate_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
@@ -94,7 +156,7 @@ our multi tax-rules(
 our sub tax-rules-delete(
     Hash $config,
     Int  :$rule_id!
-) {
+) is export {
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
@@ -122,65 +184,5 @@ our sub tax-rules-search(
         method  => 'GET',
         config  => $config,
         uri     => "rest/V1/taxRules/search?$query_string";
-}
-
-proto sub tax-classes(|) is export {*}
-# POST   /V1/taxClasses
-our multi tax-classes(
-    Hash $config,
-    Hash :$data!
-) {
-    Magento::HTTP::request
-        method  => 'POST',
-        config  => $config,
-        uri     => "rest/V1/taxClasses",
-        content => to-json $data;
-}
-
-# GET    /V1/taxClasses/:taxClassId
-our multi tax-classes(
-    Hash $config,
-    Int  :$tax_class_id!
-) {
-    Magento::HTTP::request
-        method  => 'GET',
-        config  => $config,
-        uri     => "rest/V1/taxClasses/$tax_class_id";
-}
-
-# PUT    /V1/taxClasses/:classId
-our multi tax-classes(
-    Hash $config,
-    Int  :$class_id!,
-    Hash :$data!
-) {
-    Magento::HTTP::request
-        method  => 'PUT',
-        config  => $config,
-        uri     => "rest/V1/taxClasses/$class_id",
-        content => to-json $data;
-}
-
-# DELETE /V1/taxClasses/:taxClassId
-our sub tax-classes-delete(
-    Hash $config,
-    Int  :$tax_class_id!
-) {
-    Magento::HTTP::request
-        method  => 'DELETE',
-        config  => $config,
-        uri     => "rest/V1/taxClasses/$tax_class_id";
-}
-
-# GET    /V1/taxClasses/search
-our sub tax-classes-search(
-    Hash $config,
-    Hash :$search_criteria = %{}
-) is export {
-    my $query_string = search-criteria-to-query-string $search_criteria;
-    Magento::HTTP::request
-        method  => 'GET',
-        config  => $config,
-        uri     => "rest/V1/taxClasses/search?$query_string";
 }
 
