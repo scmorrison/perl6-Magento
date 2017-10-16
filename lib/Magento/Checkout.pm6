@@ -14,11 +14,13 @@ our multi carts-mine-payment-information(
     Hash $config,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/carts/mine/payment-information",
         content => to-json $data;
+    return $results.Int||$results;
+
 }
 
 # GET    /V1/carts/mine/payment-information
@@ -97,20 +99,21 @@ proto sub guest-carts-payment-information(|) is export {*}
 # POST   /V1/guest-carts/:cartId/payment-information
 our multi guest-carts-payment-information(
     Hash $config,
-    Int  :$cart_id!,
+    Str  :$cart_id!,
     Hash :$data!
 ) {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/guest-carts/$cart_id/payment-information",
         content => to-json $data;
+    return $results.Int||$results;
 }
 
 # GET    /V1/guest-carts/:cartId/payment-information
 our multi guest-carts-payment-information(
     Hash $config,
-    Int  :$cart_id!
+    Str  :$cart_id!
 ) {
     Magento::HTTP::request
         method  => 'GET',

@@ -3,43 +3,47 @@ use Base64;
 
 unit module Checkout;
 
-our sub carts-mine-payment-information {
-    %();
+our sub simple() {
+    product => %{
+        sku            => 'P6-SIMPLE-0001',
+        name           => 'Simple Product Test',
+        attributeSetId => 4,
+        price          => 19.95,
+        status         => 1,
+        visibility     => 1,
+        weight         => 1.5,
+        extensionAttributes => %{
+            stockItem => %{
+                qty                      => 100,
+                isInStock                => 'true',
+                isQtyDecimal             => 'true',
+                useConfigMinQty          => 'true',
+                minQty                   => 10,
+                useConfigMinSaleQty      => 1,
+                minSaleQty               => 1,
+                useConfigMaxSaleQty      => 'true',
+                maxSaleQty               => 5,
+                useConfigBackorders      => 'true',
+                backorders               => 0,
+                useConfigNotifyStockQty  => 'true',
+                notifyStockQty           => 0,
+                useConfigQtyIncrements   => 'true',
+                qtyIncrements            => 0,
+                useConfigEnableQtyInc    => 'true',
+                enableQtyIncrements      => 'true',
+                useConfigManageStock     => 'true',
+                manageStock              => 'true'
+            },
+        },
+    }
 }
 
-our sub carts-mine-set-payment-information {
-    %();
+our sub carts-items(
+    :$quote_id
+) {
+    cartItem  => %{
+        sku => 'P6-SIMPLE-0001',
+        qty => 1,
+        quoteId => "$quote_id"
+    }
 }
-
-our sub carts-mine-shipping-information {
-    %();
-}
-
-our sub carts-mine-totals-information {
-    %();
-}
-
-our sub carts-shipping-information {
-    %();
-}
-
-our sub carts-totals-information {
-    %();
-}
-
-our sub guest-carts-payment-information {
-    %();
-}
-
-our sub guest-carts-set-payment-information {
-    %();
-}
-
-our sub guest-carts-shipping-information {
-    %();
-}
-
-our sub guest-carts-totals-information {
-    %();
-}
-
