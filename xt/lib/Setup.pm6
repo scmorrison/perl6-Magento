@@ -2,6 +2,7 @@
 
 use v6;
 
+use Magento::Auth;
 use Magento::Catalog;
 use Magento::CatalogInventory;
 use Magento::Config;
@@ -11,7 +12,13 @@ use Products;
 
 unit module Setup;
 
-my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
+my $host   = 'http://localhost';
+my %config = %{
+    host         => $host,
+    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
+    store        => 'default'
+}
+
 
 our sub customer-id() {
     my %customer_data = %{

@@ -7,12 +7,18 @@ use v6;
 use Test;
 use lib 'lib', 'xt'.IO.child('lib');
 
+use Magento::Auth;
 use Magento::Config;
 use Magento::ConfigurableProduct;
 use Magento::Catalog;
 use ConfigurableProduct;
 
-my %config       = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
+my $host   = 'http://localhost';
+my %config = %{
+    host         => $host,
+    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
+    store        => 'default'
+}
 my $configurable = products %config, data => %( ConfigurableProduct::configurable() );
 my $simple       = products %config, data => %( ConfigurableProduct::simple() );
 my $option_id;
