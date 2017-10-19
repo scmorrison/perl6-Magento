@@ -17,6 +17,7 @@ my %config = %{
     access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
     store        => 'default'
 }
+my $tax_rate_ids;
 
 subtest {
 
@@ -130,6 +131,7 @@ subtest {
         tax-rates-search 
             %config;
     is $t1_results<items>.elems > 0, True, 'tax rates-search all';
+    $tax_rate_ids = gather $t1_results<items>.map({take $_<id>});
 
 }, 'Tax rates-search';
 
@@ -143,7 +145,7 @@ subtest {
             priority               => 0,
             product_tax_class_ids  => [2],
             customer_tax_class_ids => [3],
-            tax_rate_ids           => [3]
+            tax_rate_ids           => $tax_rate_ids
         }
     }
             
@@ -162,7 +164,7 @@ subtest {
             priority               => 0,
             product_tax_class_ids  => [2],
             customer_tax_class_ids => [3],
-            tax_rate_ids           => [3]
+            tax_rate_ids           => $tax_rate_ids
         }
     }
             

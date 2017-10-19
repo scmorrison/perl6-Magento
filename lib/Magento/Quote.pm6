@@ -368,6 +368,7 @@ our sub carts-mine-order(
         config  => $config,
         uri     => "rest/V1/carts/mine/order",
         content => to-json $data;
+        note $response;
     return $response.Int||$response;
 }
 

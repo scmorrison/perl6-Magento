@@ -433,17 +433,21 @@ our sub products-attribute-set-modified() {
     }
 }
 
-our sub products-attribute-group() {
+our sub products-attribute-group(
+    :$attribute_set_id = 4
+) {
     group => {
         attributeGroupName => 'Delete Me',
-        attributeSetId     => 4
+        attributeSetId     => $attribute_set_id
     }
 }
 
-our sub products-attribute-group-save() {
+our sub products-attribute-group-save(
+    :$attribute_set_id = 4
+) {
     group => {
         attributeGroupName => 'Delete Me Too',
-        attributeSetId     => 4
+        attributeSetId     => $attribute_set_id
     }
 }
 

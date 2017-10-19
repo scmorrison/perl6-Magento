@@ -56,7 +56,7 @@ subtest {
 
     # GET    /V1/salesRules/search
     my $t1_results = sales-rules-search %config;
-    is so $t1_results<items>.grep({$_<coupon_type> ~~ 'NO_COUPON'}), True, 'sales rules-search all';
+    is so $t1_results<items>.grep({$_<name> ~~ 'DeleteMeSalesRuleTest'}), True, 'sales rules-search all';
 
 }, 'Sales rules-search';
 
