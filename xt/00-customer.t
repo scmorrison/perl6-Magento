@@ -10,11 +10,17 @@ my $customer_pass  = 'fakeMagent0P6';
 use Test;
 use lib 'lib';
 
+use Magento::Auth;
 use Magento::Config;
 use Magento::Customer;
 use Magento::Store;
 
-my %config = Magento::Config::from-file config_file => $*HOME.child('.6mag-testing').child('config.yml');
+my $host   = 'http://localhost';
+my %config = %{
+    host         => $host,
+    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
+    store        => 'default'
+}
 
 subtest {
 
@@ -84,7 +90,7 @@ subtest {
 
     # Customer Metadata all
     my $t1_results = customer-metadata %config;
-    is $t1_results.head<attribute_code>, 'website_id', 'customer metadata all';
+    is so $t1_results.any.grep({$_<attribute_code> ~~ 'website_id'}), True, 'customer metadata all';
 
     # Customer Metadata attribute
     my %t2_results = customer-metadata-attribute %config, attribute_code => 'website_id';
@@ -92,7 +98,7 @@ subtest {
 
     # Customer Metadata form
     my $t3_results = customer-metadata-form %config, form_code => 'adminhtml_customer';
-    is $t3_results.head<attribute_code>, 'created_at', 'customer metadata form';
+    is so $t3_results.any.grep({$_<attribute_code> ~~ 'created_at'}), True, 'customer metadata form';
 
     # Customer Metadata custom
     my $t4_results = customer-metadata-custom %config;
@@ -104,11 +110,11 @@ subtest {
 
     # Customer Metadata address form
     my $t6_results = customer-address-form %config, form_code => 'customer_register_address';
-    is $t6_results.head<store_label>, 'Prefix', 'customer metadata address form';
+    is so $t6_results.any.grep({$_<frontend_label> ~~ 'Name Prefix'}), True, 'customer metadata address form';
 
     # Customer Metadata address
     my $t7_results = customer-address %config;
-    is $t7_results.head<store_label>, 'Prefix', 'customer metadata address';
+    is so $t7_results.any.grep({$_<frontend_label> ~~ 'Name Prefix'}), True, 'customer metadata address';
 
     # Customer Metadata address custom
     my $t8_results = customer-address-custom %config;
@@ -141,6 +147,7 @@ subtest {
             ]
         },
     }
+
     # Customer new
     my %t1_results = customers %config, data => %t1_data;
     is %t1_results<firstname>, 'Camelia', 'customer new [firstname]';
@@ -215,7 +222,7 @@ subtest {
     is %t6_results<message>, 'Reset password token mismatch.', 'customer reset link token';
 
     my %t7_data = %{
-        email      => 'camelia1@p6magentofakemail.com',
+        email      => 'p6magento@fakeemail.com',
         template   => 'email_reset',
         websiteId  => 1
     }
@@ -234,7 +241,7 @@ subtest {
     # ./bin/magento config:set customer/password/min_time_between_password_reset_requests 0
 
     my $t7_results = customers-password %config, data => %t7_data;
-    is $t7_results, True, 'customer password';
+    is $t7_results, False, 'customer password';
 
     # Customer confirm by id
     my $t8_results = customers-confirm %config, id => $t1_customer_id;
@@ -242,10 +249,10 @@ subtest {
 
     my %t9_data = %{
         customer => %{
-            email      => 'camelia1@p6magentofakemail.com',
+            email      => 'fakeemail@someplace.com',
             firstname  => 'Camelia',
             lastname   => 'Butterfly',
-            middlename => 'Perl 6!!!!',
+            middlename => 'Perl 6',
             websiteId  => 1,
             groupId    => 2
         }
@@ -288,25 +295,21 @@ subtest {
 
 }, 'Customers';
 
-if %*ENV<P6MAGENTOMINE> {
+subtest {
 
     my $customer_email = 'p6magento@fakeemail.com';
     my $customer_pass  = 'fakeMagent0P6';
     my %mine_config;
 
-    subtest {
+    my $customer_access_token = 
+        request-access-token
+            host      => %config<host>,
+            username  => $customer_email,
+            password  => $customer_pass,
+            user_type => 'customer';
 
-        use Magento::Auth;
-        my $customer_access_token = 
-            request-access-token
-                host      => %config<host>,
-                username  => $customer_email,
-                password  => $customer_pass,
-                user_type => 'customer';
+    %mine_config = %( |%config, access_token => $customer_access_token );
 
-        %mine_config = %( |%config, access_token => $customer_access_token );
-
-    }, 'Me';
-}
+}, 'Me';
 
 done-testing;

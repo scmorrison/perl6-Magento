@@ -22,7 +22,7 @@ my %config = %{
 
 my %attribute_set    = ConfigurableProduct::attribute-set();
 my $attribute_set_results = products-attribute-sets %config, data => %attribute_set;
-my $attribute_set_id = 35; #$attribute_set_results<attribute_set_id>.Int;
+my $attribute_set_id = $attribute_set_results<attribute_set_id>.Int;
 my %search_criteria = %{
     searchCriteria => %{
         filterGroups => [
@@ -161,5 +161,6 @@ subtest {
 # Cleanup
 products-delete %config, sku => 'P6-CONFIGURABLE-0001';
 products-delete %config, sku => 'P6-SIMPLE-0001';
+products-attribute-sets-delete %config, :$attribute_set_id;
 
 done-testing;

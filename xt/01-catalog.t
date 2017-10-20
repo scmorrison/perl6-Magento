@@ -16,6 +16,8 @@ my %config = %{
     store        => 'default'
 }
 
+my $customer_emai = 'p6magento@fakeemail.com';
+
 subtest {
     plan 8;
 

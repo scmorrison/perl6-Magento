@@ -75,13 +75,13 @@ subtest {
 
 }, 'Carts gift-message';
 
-if %*ENV<P6MAGENTOMINE> {
+
+subtest {
 
     my $customer_email = 'p6magento@fakeemail.com';
     my $customer_pass  = 'fakeMagent0P6';
     my %mine_config;
 
-    use Magento::Auth;
     my $customer_access_token = 
         request-access-token
             host      => %config<host>,
@@ -92,48 +92,44 @@ if %*ENV<P6MAGENTOMINE> {
     %mine_config     = %( |%config, access_token => $customer_access_token );
     my $mine_cart_id = carts-mine-new %mine_config;
 
-    subtest {
+    # Add product to Cart
+    my %t1_cart_items_data = GiftMessage::carts-items(quote_id => $mine_cart_id);
 
-        # Add product to Cart
-        my %t1_cart_items_data = GiftMessage::carts-items(quote_id => $mine_cart_id);
+    my %mine_cart =
+        carts-mine-items
+            %mine_config,
+            data => %t1_cart_items_data;
 
-        my %mine_cart =
-            carts-mine-items
-                %mine_config,
-                data => %t1_cart_items_data;
+    # POST   /V1/carts/mine/gift-message
+    my %t1_data = GiftMessage::gift-message();
 
-        # POST   /V1/carts/mine/gift-message
-        my %t1_data = GiftMessage::gift-message();
-    
-        my $t1_results =
-            carts-mine-gift-message 
-                %mine_config,
-                data => %t1_data;
-        is $t1_results, True, 'carts mine-gift-message new';
-    
-        # GET    /V1/carts/mine/gift-message
-        my $t2_results =
-            carts-mine-gift-message %mine_config;
-        is $t2_results<message>, 'Delete me message', 'carts mine-gift-message all';
+    my $t1_results =
+        carts-mine-gift-message 
+            %mine_config,
+            data => %t1_data;
+    is $t1_results, True, 'carts mine-gift-message new';
 
-        # POST   /V1/carts/mine/gift-message/:itemId
-        my $t3_results =
-            carts-mine-gift-message 
-                %mine_config,
-                item_id => %mine_cart<item_id>.Int,
-                data    => %t1_data;
-        is $t3_results, True, 'carts mine-gift-message cart item message new';
+    # GET    /V1/carts/mine/gift-message
+    my $t2_results =
+        carts-mine-gift-message %mine_config;
+    is $t2_results<message>, 'Delete me message', 'carts mine-gift-message all';
 
-        # GET    /V1/carts/mine/gift-message/:itemId
-        my $t4_results =
-            carts-mine-gift-message 
-                %mine_config,
-                item_id => %mine_cart<item_id>.Int;
-        is $t4_results<message>, 'Delete me message', 'carts mine-gift-message by cart item id';
-    
-    }, 'Carts mine-gift-message';
+    # POST   /V1/carts/mine/gift-message/:itemId
+    my $t3_results =
+        carts-mine-gift-message 
+            %mine_config,
+            item_id => %mine_cart<item_id>.Int,
+            data    => %t1_data;
+    is $t3_results, True, 'carts mine-gift-message cart item message new';
 
-}
+    # GET    /V1/carts/mine/gift-message/:itemId
+    my $t4_results =
+        carts-mine-gift-message 
+            %mine_config,
+            item_id => %mine_cart<item_id>.Int;
+    is $t4_results<message>, 'Delete me message', 'carts mine-gift-message by cart item id';
+
+}, 'Carts mine-gift-message';
 
 subtest {
 

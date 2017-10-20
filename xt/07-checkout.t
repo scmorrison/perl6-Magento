@@ -24,7 +24,7 @@ my %config = %{
 my $simple_prod = products %config, data => %( Checkout::simple() );
 my $customer_email = 'p6magento@fakeemail.com';
 
-if %*ENV<P6MAGENTOMINE> {
+subtest {
 
     my $customer_pass  = 'fakeMagent0P6';
     my %mine_config;
@@ -46,67 +46,65 @@ if %*ENV<P6MAGENTOMINE> {
             %mine_config,
             data    => %t1_cart_items_data;
 
-    subtest {
-    
-        # POST   /V1/carts/mine/shipping-information
-        my %t1_data = addressInformation => %{
-            shipping_address => %{
-                firstname     => 'Camelia',
-                lastname      => 'Butterfly',
-                postcode      => '90210',
-                city          => 'Beverly Hills',
-                street        => ['Zoe Ave'],
-                regionId      => 12,
-                countryId     => 'US',
-                telephone     => '555-555-5555',
-                email         => $customer_email
-            },
-            billing_address => %{
-                firstname     => 'Camelia',
-                lastname      => 'Butterfly',
-                postcode      => '90210',
-                city          => 'Beverly Hills',
-                street        => ['Zoe Ave'],
-                regionId      => 12,
-                countryId     => 'US',
-                telephone     => '555-555-5555',
-                email         => $customer_email
-            },
-            shippingCarrierCode => 'flatrate', 
-            shippingMethodCode  => 'flatrate'
+    # POST   /V1/carts/mine/shipping-information
+    my %t1_data = addressInformation => %{
+        shipping_address => %{
+            firstname     => 'Camelia',
+            lastname      => 'Butterfly',
+            postcode      => '90210',
+            city          => 'Beverly Hills',
+            street        => ['Zoe Ave'],
+            regionId      => 12,
+            countryId     => 'US',
+            telephone     => '555-555-5555',
+            email         => $customer_email
+        },
+        billing_address => %{
+            firstname     => 'Camelia',
+            lastname      => 'Butterfly',
+            postcode      => '90210',
+            city          => 'Beverly Hills',
+            street        => ['Zoe Ave'],
+            regionId      => 12,
+            countryId     => 'US',
+            telephone     => '555-555-5555',
+            email         => $customer_email
+        },
+        shippingCarrierCode => 'flatrate', 
+        shippingMethodCode  => 'flatrate'
+    }
+
+    my $t1_results =
+        carts-mine-shipping-information 
+            %mine_config,
+            data => %t1_data;
+    is $t1_results<totals><base_currency_code>, 'USD', 'carts mine-shipping-information new';
+
+    # POST   /V1/carts/mine/payment-information
+    my %t2_data = %{
+        email         => $customer_email,
+        paymentMethod => %{
+            method => 'banktransfer'
+        },
+        billingAddress => %{
+            firstname     => 'Camelia',
+            lastname      => 'Butterfly',
+            postcode      => '90210',
+            city          => 'Beverly Hills',
+            street        => ['Zoe Ave'],
+            regionId      => 12,
+            countryId     => 'US',
+            telephone     => '555-555-5555',
+            sameAsBilling => 1
         }
-    
-        my $t1_results =
-            carts-mine-shipping-information 
-                %mine_config,
-                data => %t1_data;
-        is $t1_results<totals><base_currency_code>, 'USD', 'carts mine-shipping-information new';
-    
-        # POST   /V1/carts/mine/payment-information
-        my %t2_data = %{
-            email         => $customer_email,
-            paymentMethod => %{
-                method => 'banktransfer'
-            },
-            billingAddress => %{
-                firstname     => 'Camelia',
-                lastname      => 'Butterfly',
-                postcode      => '90210',
-                city          => 'Beverly Hills',
-                street        => ['Zoe Ave'],
-                regionId      => 12,
-                countryId     => 'US',
-                telephone     => '555-555-5555',
-                sameAsBilling => 1
-            }
-        }
-            
-        my $t2_results =
-            carts-mine-payment-information 
-                %mine_config,
-                data => %t2_data;
-        is $t2_results ~~ Int, True, 'carts mine-payment-information new';
-    
+    }
+        
+    my $t2_results =
+        carts-mine-payment-information 
+            %mine_config,
+            data => %t2_data;
+    is $t2_results ~~ Int, True, 'carts mine-payment-information new';
+
 # revisit, these three are currently not working correctly.
 # https://github.com/magento/magento2/issues/7299
 #
@@ -146,9 +144,8 @@ if %*ENV<P6MAGENTOMINE> {
 #                data => %t5_data;
 #                note $t5_results;
 #        is True, True, 'carts mine-totals-information';
-    
-    }, 'Carts mine';
-}
+
+}, 'Carts mine';
 
 subtest {
 
