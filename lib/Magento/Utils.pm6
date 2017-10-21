@@ -81,7 +81,7 @@ multi sub search-criteria-to-query-string(
 }
 
 multi sub search-criteria-to-query-string(
-    Hash $data where $data ~~ %()
+    Hash $data where $data ~~ Empty
 ) {
     'searchCriteria';
 }
