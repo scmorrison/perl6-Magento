@@ -22,7 +22,7 @@ use Quote;
 use Setup;
 use TestLogin;
 
-my %config = TestLogin::admin_config;
+my %config         = TestLogin::admin_config;
 my $customer_id    = Setup::customer-id();
 my $customer_email = 'p6magento@fakeemail.com';
 my $customer_pass  = 'fakeMagent0P6';
@@ -37,11 +37,7 @@ subtest {
     $cart_id = $t1_results;
 
     # GET    /V1/carts/:cartId
-    %config
-    ==> carts(
-        cart_id => $cart_id
-    )
-    ==> my %t2_results;
+    my %t2_results = carts %config, :$cart_id;
     is %t2_results<customer_is_guest>, False, 'carts by id';
 
     # PUT    /V1/carts/:cartId
