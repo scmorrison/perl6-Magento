@@ -12,14 +12,9 @@ use Magento::Config;
 use Magento::ConfigurableProduct;
 use Magento::Catalog;
 use ConfigurableProduct;
+use TestLogin;
 
-my $host   = 'http://localhost';
-my %config = %{
-    host         => $host,
-    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
-    store        => 'default'
-}
-
+my %config = TestLogin::admin_config;
 my %attribute_set    = ConfigurableProduct::attribute-set();
 my $attribute_set_results = products-attribute-sets %config, data => %attribute_set;
 my $attribute_set_id = $attribute_set_results<attribute_set_id>.Int;

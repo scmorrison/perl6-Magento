@@ -12,14 +12,9 @@ use Magento::Config;
 use Magento::CatalogInventory;
 use Magento::Catalog;
 use CatalogInventory;
+use TestLogin;
 
-my $host   = 'http://localhost';
-my %config = %{
-    host         => $host,
-    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
-    store        => 'default'
-}
-
+my %config = TestLogin::admin_config;
 my $simple_product = products %config, data => %( CatalogInventory::simple() );
 my $item_id;
 

@@ -12,14 +12,9 @@ use Magento::Config;
 use Magento::Bundle;
 use Magento::Catalog;
 use Bundle;
+use TestLogin;
 
-my $host   = 'http://localhost';
-my %config = %{
-    host         => $host,
-    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
-    store        => 'default'
-}
-
+my %config = TestLogin::admin_config;
 my $simple_product  = products %config, data => %( Bundle::simple() );
 my $simple_product2 = products %config, data => %( Bundle::simple sku => 'P6-SIMPLE-0002' );
 my $bundle_product  = products %config, data => %( Bundle::bundle() );

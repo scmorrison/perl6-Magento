@@ -12,13 +12,9 @@ use Magento::Config;
 use Magento::Downloadable;
 use Magento::Catalog;
 use Downloadable;
+use TestLogin;
 
-my $host   = 'http://localhost';
-my %config = %{
-    host         => $host,
-    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
-    store        => 'default'
-}
+my %config = TestLogin::admin_config;
 my $downloadable = products %config, data => %( Downloadable::downloadable() );
 
 

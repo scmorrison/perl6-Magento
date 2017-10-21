@@ -8,19 +8,15 @@ my $customer_email = '';
 my $customer_pass  = 'fakeMagent0P6';
 
 use Test;
-use lib 'lib';
+use lib 'lib', 'xt'.IO.child('lib');
 
 use Magento::Auth;
 use Magento::Config;
 use Magento::Customer;
 use Magento::Store;
+use TestLogin;
 
-my $host   = 'http://localhost';
-my %config = %{
-    host         => $host,
-    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
-    store        => 'default'
-}
+my %config = TestLogin::admin_config;
 
 subtest {
 

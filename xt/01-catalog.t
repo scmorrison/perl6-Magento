@@ -6,15 +6,11 @@ use Magento::Auth;
 use Magento::Catalog;
 use Magento::Config;
 use Products;
+use TestLogin;
+
+my %config = TestLogin::admin_config;
 
 plan 14;
-
-my $host   = 'http://localhost';
-my %config = %{
-    host         => $host,
-    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
-    store        => 'default'
-}
 
 my $customer_emai = 'p6magento@fakeemail.com';
 

@@ -10,13 +10,9 @@ use lib 'lib', 'xt'.IO.child('lib');
 use Magento::Auth;
 use Magento::Config;
 use Magento::Search;
+use TestLogin;
 
-my $host   = 'http://localhost';
-my %config = %{
-    host         => $host,
-    access_token => request-access-token(username => 'admin', password => 'fakeMagent0P6', :$host),
-    store        => 'default'
-}
+my %config = TestLogin::admin_config;
 
 subtest {
 
