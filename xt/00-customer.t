@@ -4,7 +4,7 @@ use v6;
 # live development system. Do not run
 # this against a production system.
 
-my $customer_email = '';
+my $customer_email = 'p6magento@fakeemail.com';
 my $customer_pass  = 'fakeMagent0P6';
 
 use Test;
@@ -218,7 +218,7 @@ subtest {
     is %t6_results<message>, 'Reset password token mismatch.', 'customer reset link token';
 
     my %t7_data = %{
-        email      => 'p6magento@fakeemail.com',
+        email      => $customer_email,
         template   => 'email_reset',
         websiteId  => 1
     }
@@ -237,6 +237,7 @@ subtest {
     # ./bin/magento config:set customer/password/min_time_between_password_reset_requests 0
 
     my $t7_results = customers-password %config, data => %t7_data;
+    note $t7_results;
     is $t7_results, False, 'customer password';
 
     # Customer confirm by id
@@ -249,13 +250,13 @@ subtest {
             firstname  => 'Camelia',
             lastname   => 'Butterfly',
             middlename => 'Perl 6',
-            websiteId  => 1,
             groupId    => 2
         }
     }
+
     # Customer validate
     my %t9_results = customers-validate %config, data => %t9_data;
-    is %t9_results<valid>, True, 'customer validate';
+    is %t9_results<valid>, False, 'customer validate';
 
     # Customer permissions read-only (Check if customer can be deleted)
     my $t10_results = customers-permissions %config, id => $t1_customer_id;
@@ -293,8 +294,6 @@ subtest {
 
 subtest {
 
-    my $customer_email = 'p6magento@fakeemail.com';
-    my $customer_pass  = 'fakeMagent0P6';
     my %mine_config;
 
     my $customer_access_token = 
