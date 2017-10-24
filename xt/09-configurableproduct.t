@@ -126,7 +126,6 @@ subtest {
             sku  => 'P6-CONFIGURABLE-0001',
             id   => $option_id,
             data => %t3_data;
-            note $t3_results;
     is $t3_results ~~ Int, True, 'configurable products-options update';
 
     # DELETE /V1/configurable-products/:sku/options/:id

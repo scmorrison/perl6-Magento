@@ -237,7 +237,6 @@ subtest {
     # ./bin/magento config:set customer/password/min_time_between_password_reset_requests 0
 
     my $t7_results = customers-password %config, data => %t7_data;
-    note $t7_results;
     is $t7_results, False, 'customer password';
 
     # Customer confirm by id

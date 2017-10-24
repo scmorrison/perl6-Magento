@@ -582,7 +582,6 @@ our multi products-custom-options(
     Int  :$option_id!,
     Hash :$data!
 ) {
-    note "UPDATING";
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
