@@ -516,11 +516,12 @@ our sub order-ship(
     Int  :$order_id!,
     Hash :$data!
 ) is export {
-    Magento::HTTP::request
+    my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "rest/V1/order/$order_id/ship",
         content => to-json $data;
+    return $results.Int||$results;
 }
 
 # POST /V1/invoice/:invoiceId/refund

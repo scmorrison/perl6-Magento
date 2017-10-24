@@ -208,35 +208,6 @@ subtest {
 
 subtest {
 
-    # GET    /V1/carts/search
-    my %t1_search_criteria = %{
-        searchCriteria => %{ 
-            filterGroups => [
-                {
-                    filters => [
-                        {
-                            field => 'is_active',
-                            value => 'true',
-                            condition_type => 'eq'
-                        },
-                    ]
-                },
-            ],
-        }
-    }
-
-    my %t1_results =
-        carts-search
-            %config,
-            search_criteria => %t1_search_criteria;
-    is so %t1_results<items>.any.grep({
-        $_<billing_address><email> ~~ $customer_email
-    }), True, 'carts search all';
-
-}, 'Carts search';
-
-subtest {
-
     # Cannot complete order without shipping address
     # assigned to cart. Confirm endpoint returns 
     # expected shipping address message.
@@ -333,6 +304,35 @@ subtest {
     like %t1_results<message>, / 'Please check the shipping address information' /, 'carts order update';
 
 }, 'Carts order';
+
+subtest {
+
+    # GET    /V1/carts/search
+    my %t1_search_criteria = %{
+        searchCriteria => %{ 
+            filterGroups => [
+                {
+                    filters => [
+                        {
+                            field => 'is_active',
+                            value => 'true',
+                            condition_type => 'eq'
+                        },
+                    ]
+                },
+            ],
+        }
+    }
+
+    my %t1_results =
+        carts-search
+            %config,
+            search_criteria => %t1_search_criteria;
+    is so %t1_results<items>.any.grep({
+        $_<billing_address><email> ~~ $customer_email
+    }), True, 'carts search all';
+
+}, 'Carts search';
 
 
 subtest {

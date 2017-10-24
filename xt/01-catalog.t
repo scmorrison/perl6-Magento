@@ -10,12 +10,9 @@ use TestLogin;
 
 my %config = TestLogin::admin_config;
 
-plan 14;
-
 my $customer_emai = 'p6magento@fakeemail.com';
 
 subtest {
-    plan 8;
 
     my %t1_data = Products::downloadable();
     my %t1_results = products %config, data => %t1_data;
@@ -61,7 +58,6 @@ subtest {
 }, 'Products';
 
 subtest {
-    plan 5;
 
     my @t1_results = products-attributes-types %config;
     is @t1_results.elems > 0, True, 'products attributes types';
@@ -88,8 +84,6 @@ subtest {
 
 subtest {
 
-    plan 3;
-
     my %t1_results = categories-attributes %config, attribute_code => 'name';
     is %t1_results<default_frontend_label>, 'Name', 'categories attributes by attribute code';
 
@@ -102,7 +96,6 @@ subtest {
 }, 'Category attributes';
 
 subtest {
-    plan 8;
 
     my %t1_results = products-attribute-sets %config;
     is %t1_results<items>.elems > 0, True,'products attribute sets all';
@@ -218,7 +211,6 @@ subtest {
 }, 'Product attribute groups';
 
 subtest {
-    plan 3;
 
     # Get options
     my $t1_results = products-attributes-options %config, attribute_code => 'shipment_type';
@@ -245,7 +237,6 @@ subtest {
 }, 'Product attribute options';
 
 subtest {
-    plan 5;
 
     my %t1_attribute_set = Products::products-attribute-set();
     my %t1_attribute_set_results = products-attribute-sets %config, data => %t1_attribute_set;
@@ -274,7 +265,6 @@ subtest {
 }, 'Product media';
 
 subtest {
-    plan 3;
 
     my $t1_results =
         products-tier-prices
@@ -299,7 +289,6 @@ subtest {
 }, 'Product tier prices';
 
 subtest {
-    plan 6;
 
     my %t1_results = categories %config;
     is %t1_results<children_data>.head<name>, 'Default Category', 'categories all';
@@ -329,7 +318,6 @@ subtest {
 }, 'Categories';
 
 subtest {
-    plan 4;
 
     my $t1_results = products-options-types %config;
     is $t1_results.grep({$_<code> ~~ 'date'}).head<label>, 'Date', 'products custom options types';
@@ -354,7 +342,6 @@ subtest {
 }, 'Product custom options';
 
 subtest {
-    plan 5;
 
     my $t1_results = products-links-types %config;
     is $t1_results.head<name>, 'related', 'products links types all';
@@ -376,7 +363,6 @@ subtest {
 }, 'Product links';
 
 subtest {
-    plan 4;
 
     my %t1_data = Products::categories-products();
     my $t1_results = categories-products %config, category_id => 2, data => %t1_data;
@@ -395,7 +381,6 @@ subtest {
 }, 'Categories products';
 
 subtest {
-    plan 3;
 
     my %t1_data = productWebsiteLink => %{
         sku       => 'P6-TEST-0001',
