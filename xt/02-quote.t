@@ -307,36 +307,6 @@ subtest {
 
 subtest {
 
-    # GET    /V1/carts/search
-    my %t1_search_criteria = %{
-        searchCriteria => %{ 
-            filterGroups => [
-                {
-                    filters => [
-                        {
-                            field => 'is_active',
-                            value => 'true',
-                            condition_type => 'eq'
-                        },
-                    ]
-                },
-            ],
-        }
-    }
-
-    my %t1_results =
-        carts-search
-            %config,
-            search_criteria => %t1_search_criteria;
-    is so %t1_results<items>.any.grep({
-        $_<billing_address><email> ~~ $customer_email
-    }), True, 'carts search all';
-
-}, 'Carts search';
-
-
-subtest {
-
     # POST   /V1/guest-carts
     my $t1_results = guest-carts %config;
     is $t1_results.chars, 32, 'guest carts new';
@@ -864,5 +834,34 @@ subtest {
     is $t1_results ~~ Int, True, 'carts-mine-order place order';
 
 }, 'Carts mine order';
+
+subtest {
+
+    # GET    /V1/carts/search
+    my %t1_search_criteria = %{
+        searchCriteria => %{ 
+            filterGroups => [
+                {
+                    filters => [
+                        {
+                            field => 'is_active',
+                            value => 'true',
+                            condition_type => 'eq'
+                        },
+                    ]
+                },
+            ],
+        }
+    }
+
+    my %t1_results =
+        carts-search
+            %config,
+            search_criteria => %t1_search_criteria;
+    is so %t1_results<items>.any.grep({
+        $_<billing_address><email> ~~ $customer_email
+    }), True, 'carts search all';
+
+}, 'Carts search';
 
 done-testing;
