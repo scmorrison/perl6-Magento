@@ -9,6 +9,7 @@ install:
   - sudo apt-get update
   - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --assume-yes --allow-unauthenticated install docker-engine
   - sudo usermod -a -G docker $USER
+  - sudo systemctl start docker
   - docker version
   # Update docker-compose via pip
   - sudo pip install docker-compose
