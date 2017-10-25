@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker exec -i -t perl6magento2_rakudo_1 /bin/bash -c " \
+    cd /opt/; \
+    git clone https://github.com/scmorrison/perl6-Magento.git; \
+    cd perl6-Magento/; \
+    zef install --force --deps-only --\test .; \
+    P6MAGHOST=http://web/ prove -ve 'perl6 -Ilib' xt/";
