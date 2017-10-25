@@ -11,14 +11,16 @@ install:
   - docker version
   # Update docker-compose via pip
   - sudo pip install docker-compose
-  - sudo docker-compose version
+  - sudo usermod -a -G docker $USER
+  - which docker-compose
+  - docker-compose version
 
 before_script:
-  - sudo docker-compose up --build -d
+  - docker-compose up --build -d
 
 script:
-  - sudo ./scripts/magento-post-configuration
-  - sudo ./scripts/perl6-Magento-tests 
+  - ./scripts/magento-post-configuration
+  - ./scripts/perl6-Magento-tests 
 
 after_script:
-  - sudo docker-compose down
+  - docker-compose down
