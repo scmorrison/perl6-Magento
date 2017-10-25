@@ -8,10 +8,10 @@ install:
   - echo "deb https://apt.dockerproject.org/repo ubuntu-precise main" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update
   - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --assume-yes --allow-unauthenticated install docker-engine
+  - sudo usermod -a -G docker $USER
   - docker version
   # Update docker-compose via pip
   - sudo pip install docker-compose
-  - sudo usermod -a -G docker $USER
   - which docker-compose
   - docker-compose version
 
