@@ -20,3 +20,5 @@ services:
       - web
     stdin_open: true
     tty: true
+    volumes:
+      - ./:/app
