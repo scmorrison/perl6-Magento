@@ -540,7 +540,7 @@ subtest {
             %config,
             cart_id => $t1_cart_id,
             item_id => %t6_results<item_id>;
-    is True, True, 'guest carts-items delete';
+    is $t21_results, True, 'guest carts-items delete';
 
     my %t22_data = Quote::guest-carts-items cart_id => $t1_cart_id;
 
@@ -808,7 +808,7 @@ subtest {
         carts-mine-items-delete
             %mine_config,
             item_id => $customer_item_id;
-    is True, True, 'carts-mine-items delete';
+    is $t1_results, True, 'carts-mine-items delete';
 
     my %t2_data = Quote::carts-mine-items cart_id => $customer_cart_id;
 

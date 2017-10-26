@@ -15,7 +15,7 @@ our multi orders(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/orders/$id";
+        uri     => "orders/$id";
 }
 
 # GET    /V1/orders
@@ -27,7 +27,7 @@ our multi orders(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/orders?$query_string";
+        uri     => "orders?$query_string";
 }
 
 # PUT    /V1/orders/:parent_id
@@ -39,7 +39,7 @@ our multi orders(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/orders/$parent_id",
+        uri     => "orders/$parent_id",
         content => to-json $data;
 }
 
@@ -51,7 +51,7 @@ our sub orders-statuses(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/orders/$id/statuses";
+        uri     => "orders/$id/statuses";
 }
 
 # POST   /V1/orders/:id/cancel
@@ -63,7 +63,7 @@ our sub orders-cancel(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/orders/$id/cancel",
+        uri     => "orders/$id/cancel",
         content => to-json $data;
 }
 
@@ -75,7 +75,7 @@ our sub orders-emails(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/orders/$id/emails",
+        uri     => "orders/$id/emails",
         content => '';
 }
 
@@ -87,7 +87,7 @@ our sub orders-hold(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/orders/$id/hold",
+        uri     => "orders/$id/hold",
         content => to-json '';
 }
 
@@ -99,7 +99,7 @@ our sub orders-unhold(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/orders/$id/unhold",
+        uri     => "orders/$id/unhold",
         content => '';
 }
 
@@ -113,7 +113,7 @@ our multi orders-comments(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/orders/$id/comments",
+        uri     => "orders/$id/comments",
         content => to-json $data;
 }
 
@@ -127,7 +127,7 @@ our multi orders-comments(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/orders/$id/comments?$query_string";
+        uri     => "orders/$id/comments?$query_string";
 }
 
 # PUT    /V1/orders/create
@@ -138,7 +138,7 @@ our sub orders-create(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/orders/create",
+        uri     => "orders/create",
         content => to-json $data;
 }
 
@@ -151,7 +151,7 @@ our multi orders-items(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/orders/items/$id";
+        uri     => "orders/items/$id";
 }
 
 # GET    /V1/orders/items
@@ -163,7 +163,7 @@ our multi orders-items(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/orders/items?$query_string";
+        uri     => "orders/items?$query_string";
 }
 
 proto sub invoices(|) is export {*}
@@ -175,7 +175,7 @@ our multi invoices(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/invoices/$id";
+        uri     => "invoices/$id";
 }
 
 # GET    /V1/invoices
@@ -187,7 +187,7 @@ our multi invoices(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/invoices?$query_string";
+        uri     => "invoices?$query_string";
 }
 
 # POST   /V1/invoices/
@@ -198,7 +198,7 @@ our multi invoices(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/invoices/",
+        uri     => "invoices/",
         content => to-json $data;
 }
 
@@ -213,7 +213,7 @@ our multi invoices-comments(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/invoices/$id/comments?$query_string";
+        uri     => "invoices/$id/comments?$query_string";
 }
 
 # POST   /V1/invoices/:id/emails
@@ -224,7 +224,7 @@ our sub invoices-emails(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/invoices/$id/emails",
+        uri     => "invoices/$id/emails",
         content => '';
 }
 
@@ -237,7 +237,7 @@ our sub invoices-void(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/invoices/$id/void",
+        uri     => "invoices/$id/void",
         content => to-json $data;
 }
 
@@ -249,7 +249,7 @@ our sub invoices-capture(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/invoices/$id/capture",
+        uri     => "invoices/$id/capture",
         content => '';
 }
 
@@ -261,7 +261,7 @@ our multi invoices-comments(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/invoices/comments",
+        uri     => "invoices/comments",
         content => to-json $data;
 }
 
@@ -274,7 +274,7 @@ our multi creditmemo-comments(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/creditmemo/$id/comments";
+        uri     => "creditmemo/$id/comments";
 }
 
 # GET    /V1/creditmemos
@@ -286,7 +286,7 @@ our sub creditmemos(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/creditmemos?$query_string";
+        uri     => "creditmemos?$query_string";
 }
 
 proto sub creditmemo(|) is export {*}
@@ -298,7 +298,7 @@ our multi creditmemo(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/creditmemo/$id";
+        uri     => "creditmemo/$id";
 }
 
 # PUT    /V1/creditmemo/:id
@@ -310,7 +310,7 @@ our multi creditmemo(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/creditmemo/$id",
+        uri     => "creditmemo/$id",
         content => to-json $data;
 }
 
@@ -322,7 +322,7 @@ our sub creditmemo-emails(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/creditmemo/$id/emails",
+        uri     => "creditmemo/$id/emails",
         content => '';
 }
 
@@ -335,7 +335,7 @@ our multi creditmemo-comments(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/creditmemo/$id/comments",
+        uri     => "creditmemo/$id/comments",
         content => to-json $data;
 }
 
@@ -347,7 +347,7 @@ our multi creditmemo(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/creditmemo",
+        uri     => "creditmemo",
         content => to-json $data;
 }
 
@@ -360,7 +360,7 @@ our multi shipment(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/shipment/$id";
+        uri     => "shipment/$id";
 }
 
 # GET    /V1/shipments
@@ -372,7 +372,7 @@ our sub shipments(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/shipments?$query_string";
+        uri     => "shipments?$query_string";
 }
 
 proto sub shipment-comments(|) is export {*}
@@ -384,7 +384,7 @@ our multi shipment-comments(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/shipment/$id/comments";
+        uri     => "shipment/$id/comments";
 }
 
 # POST   /V1/shipment/:id/comments
@@ -396,7 +396,7 @@ our multi shipment-comments(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/shipment/$id/comments",
+        uri     => "shipment/$id/comments",
         content => to-json $data;
 }
 
@@ -408,7 +408,7 @@ our sub shipment-emails(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/shipment/$id/emails",
+        uri     => "shipment/$id/emails",
         content => '';
 }
 
@@ -421,7 +421,7 @@ our multi shipment-track(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/shipment/track",
+        uri     => "shipment/track",
         content => to-json $data;
 }
 
@@ -433,7 +433,7 @@ our sub shipment-track-delete(
     my $response = Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/shipment/track/$id";
+        uri     => "shipment/track/$id";
     return $response.Int||$response;
 }
 
@@ -445,7 +445,7 @@ our multi shipment(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/shipment/",
+        uri     => "shipment/",
         content => to-json $data;
 }
 
@@ -457,7 +457,7 @@ our sub shipment-label(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/shipment/$id/label";
+        uri     => "shipment/$id/label";
 }
 
 # POST   /V1/orders/
@@ -468,7 +468,7 @@ our multi orders(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/orders/",
+        uri     => "orders/",
         content => to-json $data;
 }
 
@@ -481,7 +481,7 @@ our multi transactions(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/transactions/$id";
+        uri     => "transactions/$id";
 }
 
 # GET    /V1/transactions
@@ -493,7 +493,7 @@ our multi transactions(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/transactions?$query_string";
+        uri     => "transactions?$query_string";
 }
 
 # POST /V1/order/:orderId/invoice
@@ -505,7 +505,7 @@ our sub order-invoice(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/order/$order_id/invoice",
+        uri     => "order/$order_id/invoice",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -519,7 +519,7 @@ our sub order-ship(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/order/$order_id/ship",
+        uri     => "order/$order_id/ship",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -533,7 +533,7 @@ our sub invoice-refund(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/invoice/$invoice_id/refund",
+        uri     => "invoice/$invoice_id/refund",
         content => to-json $data;
 }
 
@@ -546,7 +546,7 @@ our sub order-refund(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/order/$order_id/refund",
+        uri     => "order/$order_id/refund",
         content => to-json $data;
 }
 

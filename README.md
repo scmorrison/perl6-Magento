@@ -10,6 +10,7 @@ Perl 6 Magento 2 API client module.
   * [Error messages](#error-messages)
   * [Search critera](#search-criteria)
   * [Custom API endpoints](#custom-api-endpoints)
+  * [Custom API endpoints](#custom-api-endpoints)
 - [CLI usage](#cli-usage)
 - [Config](#config)
   * [Config variables](#config-variables)
@@ -189,13 +190,13 @@ use JSON::Fast;
 # GET
 Magento::HTTP::request
     method  => 'GET',
-    config  => %confg,
+    config  => %config,
     uri     => "rest/V1/myCustom/endpoint/123";
 
 # POST/PUT/DELETE
 Magento::HTTP::request
     method  => 'POST', # or PUT / DELETE
-    config  => %confg,
+    config  => %config,
     uri     => "rest/V1/myCustom/endpoint",
     content => to-json %content-hash;
 ```
@@ -227,19 +228,24 @@ Each project has its own `config.yml` which uses the following format:
 host: "https://my.magento"
 store: default
 access_token: ********************************
+format: json
+version: V1
 ```
 
 ### Config variables
 
 Config variables are defined in `config.yml`:
 
+#### Required
+
 * `host`: Magento base URL
-* `store`: Store identifier (e.g. default)
 * `access_token`: Magento access token. For long-use configurations, integrations, use an Integration Access Token.
 
-Optional:
+#### Optional
 
 * `format`: By default all results are returned as `Perl 6` variables. You can specify `json` or `xml` with this variable to return the raw response body in either format.
+* `store`: Store identifier, defaults to `default`.
+* `version`: Magento API version, defaults to `V1`.
 
 Installation
 ============

@@ -15,7 +15,7 @@ our sub configurable-products-child(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/configurable-products/$sku/child",
+        uri     => "configurable-products/$sku/child",
         content => to-json $data;
 }
 
@@ -28,7 +28,7 @@ our multi configurable-products-children(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/configurable-products/$sku/children";
+        uri     => "configurable-products/$sku/children";
 }
 
 # DELETE /V1/configurable-products/:sku/children/:childSku
@@ -40,7 +40,7 @@ our sub configurable-products-children-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/configurable-products/$sku/children/$child_sku";
+        uri     => "configurable-products/$sku/children/$child_sku";
 }
 
 proto sub configurable-products-options(|) is export {*}
@@ -53,7 +53,7 @@ our multi configurable-products-options(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/configurable-products/$sku/options/$id";
+        uri     => "configurable-products/$sku/options/$id";
 }
 
 # POST   /V1/configurable-products/:sku/options
@@ -65,7 +65,7 @@ our multi configurable-products-options(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/configurable-products/$sku/options",
+        uri     => "configurable-products/$sku/options",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -80,7 +80,7 @@ our multi configurable-products-options(
     my $results = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/configurable-products/$sku/options/$id",
+        uri     => "configurable-products/$sku/options/$id",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -94,7 +94,7 @@ our sub configurable-products-options-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/configurable-products/$sku/options/$id";
+        uri     => "configurable-products/$sku/options/$id";
 }
 
 # GET    /V1/configurable-products/:sku/options/all
@@ -105,7 +105,7 @@ our sub configurable-products-options-all(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/configurable-products/$sku/options/all";
+        uri     => "configurable-products/$sku/options/all";
 }
 
 # PUT    /V1/configurable-products/variation
@@ -116,7 +116,7 @@ our sub configurable-products-variation(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/configurable-products/variation",
+        uri     => "configurable-products/variation",
         content => to-json $data;
 }
 

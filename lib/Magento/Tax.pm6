@@ -15,7 +15,7 @@ our multi tax-classes(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/taxClasses",
+        uri     => "taxClasses",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -28,7 +28,7 @@ our multi tax-classes(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/taxClasses/$tax_class_id";
+        uri     => "taxClasses/$tax_class_id";
 }
 
 # PUT    /V1/taxClasses/:classId
@@ -40,7 +40,7 @@ our multi tax-classes(
     my $results = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/taxClasses/$class_id",
+        uri     => "taxClasses/$class_id",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -53,7 +53,7 @@ our sub tax-classes-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/taxClasses/$tax_class_id";
+        uri     => "taxClasses/$tax_class_id";
 }
 
 # GET    /V1/taxClasses/search
@@ -65,7 +65,7 @@ our sub tax-classes-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/taxClasses/search?$query_string";
+        uri     => "taxClasses/search?$query_string";
 }
 
 proto sub tax-rates(|) is export {*}
@@ -77,7 +77,7 @@ our multi tax-rates(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/taxRates",
+        uri     => "taxRates",
         content => to-json $data;
 }
 
@@ -89,7 +89,7 @@ our multi tax-rates(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/taxRates/$rate_id";
+        uri     => "taxRates/$rate_id";
 }
 
 # PUT    /V1/taxRates
@@ -100,7 +100,7 @@ our multi tax-rates(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/taxRates",
+        uri     => "taxRates",
         content => to-json $data;
 }
 
@@ -112,7 +112,7 @@ our sub tax-rates-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/taxRates/$rate_id";
+        uri     => "taxRates/$rate_id";
 }
 
 # GET    /V1/taxRates/search
@@ -124,7 +124,7 @@ our sub tax-rates-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/taxRates/search?$query_string";
+        uri     => "taxRates/search?$query_string";
 }
 
 proto sub tax-rules(|) is export {*}
@@ -136,7 +136,7 @@ our multi tax-rules(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/taxRules",
+        uri     => "taxRules",
         content => to-json $data;
 }
 
@@ -148,7 +148,7 @@ our multi tax-rules(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/taxRules",
+        uri     => "taxRules",
         content => to-json $data;
 }
 
@@ -160,7 +160,7 @@ our sub tax-rules-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/taxRules/$rule_id";
+        uri     => "taxRules/$rule_id";
 }
 
 # GET    /V1/taxRules/:ruleId
@@ -171,7 +171,7 @@ our multi tax-rules(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/taxRules/$rule_id";
+        uri     => "taxRules/$rule_id";
 }
 
 # GET    /V1/taxRules/search
@@ -183,6 +183,6 @@ our sub tax-rules-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/taxRules/search?$query_string";
+        uri     => "taxRules/search?$query_string";
 }
 

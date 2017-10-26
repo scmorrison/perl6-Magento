@@ -15,7 +15,7 @@ our multi eav-attribute-sets(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/eav/attribute-sets/$attribute_set_id";
+        uri     => "eav/attribute-sets/$attribute_set_id";
 }
 
 # DELETE /V1/eav/attribute-sets/:attributeSetId
@@ -26,7 +26,7 @@ our sub eav-attribute-sets-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/eav/attribute-sets/$attribute_set_id";
+        uri     => "eav/attribute-sets/$attribute_set_id";
 }
 
 # POST   /V1/eav/attribute-sets
@@ -37,7 +37,7 @@ our multi eav-attribute-sets(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/eav/attribute-sets",
+        uri     => "eav/attribute-sets",
         content => to-json $data;
 }
 
@@ -50,7 +50,7 @@ our multi eav-attribute-sets(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/eav/attribute-sets/$attribute_set_id",
+        uri     => "eav/attribute-sets/$attribute_set_id",
         content => to-json $data;
 }
 
@@ -63,6 +63,6 @@ our sub eav-attribute-sets-list(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/eav/attribute-sets/list?$query_string";
+        uri     => "eav/attribute-sets/list?$query_string";
 }
 

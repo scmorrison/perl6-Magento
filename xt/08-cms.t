@@ -17,20 +17,6 @@ my $block_content;
 
 subtest {
 
-    # GET    /V1/cmsBlock/search
-    my %t1_search_criteria = %{
-        searchCriteria => %{ 
-            pageSize => 50
-        }
-    }
-    my $t1_results = cms-block-search %config, search_criteria => %t1_search_criteria;
-    $block_content = $t1_results<items>.grep({ $_<identifier> ~~ 'new-block' }).head<content>;
-    is True, True, 'cms block-search all';
-
-}, 'Cms block-search';
-
-subtest {
-
     # POST   /V1/cmsBlock
     my $identifier = 'delete-me-' ~ now.Int;
 
@@ -65,12 +51,23 @@ subtest {
             data => %t1_data;
     is $t3_results<title>, 'Delete Me Block', 'cms block update';
 
+    # GET    /V1/cmsBlock/search
+    my %t4_search_criteria = %{
+        searchCriteria => %{ 
+            pageSize => 50
+        }
+    }
+
+    my $t4_results = cms-block-search %config, search_criteria => %t4_search_criteria;
+    $block_content = $t1_results<items>.grep({ $_<identifier> ~~ 'new-block' }).head<content>;
+    is so $t4_results<items>.head<content> ~~ / 'Delete Me Block' /, True, 'cms block-search all';
+
     # DELETE /V1/cmsBlock/:blockId
-    my $t4_results =
+    my $t5_results =
         cms-block-delete 
             %config,
             block_id => $block_id;
-    is $t4_results, True, 'cms block delete';
+    is $t5_results, True, 'cms block delete';
 
 }, 'Cms block';
 

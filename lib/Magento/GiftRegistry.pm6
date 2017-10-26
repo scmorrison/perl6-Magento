@@ -14,7 +14,7 @@ our sub giftregistry-mine-estimate-shipping-methods(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/giftregistry/mine/estimate-shipping-methods",
+        uri     => "giftregistry/mine/estimate-shipping-methods",
         content => to-json $data;
 }
 
@@ -27,7 +27,7 @@ our sub guest-giftregistry-estimate-shipping-methods(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/guest-giftregistry/$cart_id/estimate-shipping-methods",
+        uri     => "guest-giftregistry/$cart_id/estimate-shipping-methods",
         content => to-json $data;
 }
 

@@ -19,6 +19,6 @@ our sub integration-token(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/integration/$user_type/token",
+        uri     => "integration/$user_type/token",
         content => to-json $data;
 }

@@ -15,7 +15,7 @@ our multi cms-block(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/cmsBlock/$block_id";
+        uri     => "cmsBlock/$block_id";
 }
 
 # POST   /V1/cmsBlock
@@ -26,7 +26,7 @@ our multi cms-block(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/cmsBlock",
+        uri     => "cmsBlock",
         content => to-json $data;
 }
 
@@ -39,7 +39,7 @@ our multi cms-block(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/cmsBlock/$block_id",
+        uri     => "cmsBlock/$block_id",
         content => to-json $data;
 }
 
@@ -51,7 +51,7 @@ our sub cms-block-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/cmsBlock/$block_id";
+        uri     => "cmsBlock/$block_id";
 }
 
 # GET    /V1/cmsBlock/search
@@ -63,7 +63,7 @@ our sub cms-block-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/cmsBlock/search?$query_string";
+        uri     => "cmsBlock/search?$query_string";
 }
 
 proto sub cms-page(|) is export {*}
@@ -75,7 +75,7 @@ our multi cms-page(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/cmsPage/$page_id";
+        uri     => "cmsPage/$page_id";
 }
 
 # POST   /V1/cmsPage
@@ -86,7 +86,7 @@ our multi cms-page(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/cmsPage",
+        uri     => "cmsPage",
         content => to-json $data;
 }
 
@@ -99,7 +99,7 @@ our multi cms-page(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/cmsPage/$page_id",
+        uri     => "cmsPage/$page_id",
         content => to-json $data;
 }
 
@@ -111,7 +111,7 @@ our sub cms-page-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/cmsPage/$page_id";
+        uri     => "cmsPage/$page_id";
 }
 
 # GET    /V1/cmsPage/search
@@ -123,6 +123,6 @@ our sub cms-page-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/cmsPage/search?$query_string";
+        uri     => "cmsPage/search?$query_string";
 }
 

@@ -16,7 +16,7 @@ our sub products-stock-items(
     my $results = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/$product_sku/stockItems/$item_id",
+        uri     => "products/$product_sku/stockItems/$item_id",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -29,7 +29,7 @@ our sub stock-items(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/stockItems/$product_sku";
+        uri     => "stockItems/$product_sku";
 }
 
 # GET    /V1/stockItems/lowStock/
@@ -43,7 +43,7 @@ our sub stock-items-low-stock(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/stockItems/lowStock/?scopeId=$scope_id&qty=$qty&pageSize=$page_size&currentPage=$current_page";
+        uri     => "stockItems/lowStock/?scopeId=$scope_id&qty=$qty&pageSize=$page_size&currentPage=$current_page";
 }
 
 # GET    /V1/stockStatuses/:productSku
@@ -54,6 +54,6 @@ our sub stock-statuses(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/stockStatuses/$product_sku";
+        uri     => "stockStatuses/$product_sku";
 }
 

@@ -13,7 +13,7 @@ our sub modules(
     my $results = Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/modules";
+        uri     => "modules";
     return $results.List||$results;
 }
 

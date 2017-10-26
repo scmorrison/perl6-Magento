@@ -15,7 +15,7 @@ our multi carts(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id";
+        uri     => "carts/$cart_id";
 }
 
 # POST   /V1/carts/
@@ -25,7 +25,7 @@ our multi carts(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/",
+        uri     => "carts/",
         content => '';
     return $results.Int||$results;
 }
@@ -39,7 +39,7 @@ our multi carts(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id",
+        uri     => "carts/$cart_id",
         content => to-json $data;
 }
 
@@ -52,7 +52,7 @@ our multi carts-billing-address(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/billing-address";
+        uri     => "carts/$cart_id/billing-address";
 }
 
 # POST   /V1/carts/:cartId/billing-address
@@ -64,7 +64,7 @@ our multi carts-billing-address(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/billing-address",
+        uri     => "carts/$cart_id/billing-address",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -78,7 +78,7 @@ our multi carts-coupons(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/coupons";
+        uri     => "carts/$cart_id/coupons";
 }
 
 # PUT    /V1/carts/:cartId/coupons/:couponCode
@@ -90,7 +90,7 @@ our multi carts-coupons(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/coupons/$coupon_code",
+        uri     => "carts/$cart_id/coupons/$coupon_code",
         content => '';
 }
 
@@ -102,7 +102,7 @@ our sub carts-coupons-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/coupons";
+        uri     => "carts/$cart_id/coupons";
 }
 
 # POST   /V1/carts/:cartId/estimate-shipping-methods
@@ -114,7 +114,7 @@ our sub carts-estimate-shipping-methods(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/estimate-shipping-methods",
+        uri     => "carts/$cart_id/estimate-shipping-methods",
         content => to-json $data;
 }
 
@@ -127,7 +127,7 @@ our sub carts-estimate-shipping-methods-by-address-id(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/estimate-shipping-methods-by-address-id",
+        uri     => "carts/$cart_id/estimate-shipping-methods-by-address-id",
         content => to-json $data;
 }
 
@@ -140,7 +140,7 @@ our multi carts-items(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/items";
+        uri     => "carts/$cart_id/items";
 }
 
 # POST   /V1/carts/:quoteId/items
@@ -152,7 +152,7 @@ our multi carts-items(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/items",
+        uri     => "carts/$cart_id/items",
         content => to-json $data;
 }
 
@@ -166,7 +166,7 @@ our multi carts-items(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/items/$item_id",
+        uri     => "carts/$cart_id/items/$item_id",
         content => to-json $data;
 }
 
@@ -179,7 +179,7 @@ our sub carts-items-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/items/$item_id";
+        uri     => "carts/$cart_id/items/$item_id";
 }
 
 #proto sub carts-mine(|) is export {*}
@@ -190,7 +190,7 @@ our sub carts-mine-new(
     my $response = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine",
+        uri     => "carts/mine",
         content => '';
     return $response.Int||$response;
 }
@@ -202,7 +202,7 @@ our sub carts-mine(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine";
+        uri     => "carts/mine";
 }
 
 # PUT    /V1/carts/mine
@@ -213,7 +213,7 @@ our sub carts-mine-update(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/mine",
+        uri     => "carts/mine",
         content => to-json $data;
 }
 
@@ -225,7 +225,7 @@ our multi carts-mine-billing-address(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/billing-address";
+        uri     => "carts/mine/billing-address";
 }
 
 # POST   /V1/carts/mine/billing-address
@@ -236,7 +236,7 @@ our multi carts-mine-billing-address(
     my $response = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/billing-address",
+        uri     => "carts/mine/billing-address",
         content => to-json $data;
     return $response.Int||$response;
 }
@@ -249,7 +249,7 @@ our sub carts-mine-collect-totals(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/mine/collect-totals",
+        uri     => "carts/mine/collect-totals",
         content => to-json $data;
 }
 
@@ -261,7 +261,7 @@ our multi carts-mine-coupons(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/coupons";
+        uri     => "carts/mine/coupons";
 }
 
 # PUT    /V1/carts/mine/coupons/:couponCode
@@ -273,7 +273,7 @@ our multi carts-mine-coupons(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/mine/coupons/$coupon_code",
+        uri     => "carts/mine/coupons/$coupon_code",
         content => to-json $data;
 }
 
@@ -284,7 +284,7 @@ our sub carts-mine-coupons-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/carts/mine/coupons";
+        uri     => "carts/mine/coupons";
 }
 
 # POST   /V1/carts/mine/estimate-shipping-methods
@@ -295,7 +295,7 @@ our sub carts-mine-estimate-shipping-methods(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/estimate-shipping-methods",
+        uri     => "carts/mine/estimate-shipping-methods",
         content => to-json $data;
 }
 
@@ -307,7 +307,7 @@ our sub carts-mine-estimate-shipping-methods-by-address-id(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/estimate-shipping-methods-by-address-id",
+        uri     => "carts/mine/estimate-shipping-methods-by-address-id",
         content => to-json $data;
 }
 
@@ -319,7 +319,7 @@ our multi carts-mine-items(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/items";
+        uri     => "carts/mine/items";
 }
 
 # POST   /V1/carts/mine/items
@@ -330,7 +330,7 @@ our multi carts-mine-items(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/items",
+        uri     => "carts/mine/items",
         content => to-json $data;
 }
 
@@ -343,7 +343,7 @@ our multi carts-mine-items(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/mine/items/$item_id",
+        uri     => "carts/mine/items/$item_id",
         content => to-json $data;
 }
 
@@ -355,7 +355,7 @@ our sub carts-mine-items-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/carts/mine/items/$item_id";
+        uri     => "carts/mine/items/$item_id";
 }
 
 # PUT    /V1/carts/mine/order
@@ -366,7 +366,7 @@ our sub carts-mine-order(
     my $response = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/mine/order",
+        uri     => "carts/mine/order",
         content => to-json $data;
     return $response.Int||$response;
 }
@@ -378,7 +378,7 @@ our sub carts-mine-payment-methods(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/payment-methods";
+        uri     => "carts/mine/payment-methods";
 }
 
 proto sub carts-mine-selected-payment-method(|) is export {*}
@@ -389,7 +389,7 @@ our multi carts-mine-selected-payment-method(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/selected-payment-method";
+        uri     => "carts/mine/selected-payment-method";
 }
 
 # PUT    /V1/carts/mine/selected-payment-method
@@ -400,7 +400,7 @@ our multi carts-mine-selected-payment-method(
     my $response = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/mine/selected-payment-method",
+        uri     => "carts/mine/selected-payment-method",
         content => to-json $data;
     return $response.Int||$response;
 }
@@ -412,7 +412,7 @@ our sub carts-mine-shipping-methods(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/shipping-methods";
+        uri     => "carts/mine/shipping-methods";
 }
 
 # GET    /V1/carts/mine/totals
@@ -422,7 +422,7 @@ our sub carts-mine-totals(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/totals";
+        uri     => "carts/mine/totals";
 }
 
 # PUT    /V1/carts/:cartId/order
@@ -434,7 +434,7 @@ our sub carts-order(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/order",
+        uri     => "carts/$cart_id/order",
         content => to-json $data;
 }
 
@@ -446,7 +446,7 @@ our sub carts-payment-methods(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/payment-methods";
+        uri     => "carts/$cart_id/payment-methods";
 }
 
 # GET    /V1/carts/search
@@ -458,7 +458,7 @@ our sub carts-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/search?$query_string";
+        uri     => "carts/search?$query_string";
 }
 
 proto sub carts-selected-payment-method(|) is export {*}
@@ -470,7 +470,7 @@ our multi carts-selected-payment-method(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/selected-payment-method";
+        uri     => "carts/$cart_id/selected-payment-method";
 }
 
 # PUT    /V1/carts/:cartId/selected-payment-method
@@ -482,7 +482,7 @@ our multi carts-selected-payment-method(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/selected-payment-method",
+        uri     => "carts/$cart_id/selected-payment-method",
         content => to-json $data;
 }
 
@@ -494,7 +494,7 @@ our sub carts-shipping-methods(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/shipping-methods";
+        uri     => "carts/$cart_id/shipping-methods";
 }
 
 # POST    /V1/carts/:cartId/shipping-address
@@ -518,7 +518,7 @@ our sub carts-totals(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/totals";
+        uri     => "carts/$cart_id/totals";
 }
 
 # POST   /V1/customers/:customerId/carts
@@ -529,7 +529,7 @@ our sub customers-carts(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/customers/$customer_id/carts",
+        uri     => "customers/$customer_id/carts",
         content => '';
     return $results.Int||$results;
 }
@@ -543,7 +543,7 @@ our multi guest-carts(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id";
+        uri     => "guest-carts/$cart_id";
 }
 
 # POST   /V1/guest-carts
@@ -553,7 +553,7 @@ our multi guest-carts(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/guest-carts",
+        uri     => "guest-carts",
         content => '';
 }
 
@@ -566,7 +566,7 @@ our multi guest-carts(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id",
+        uri     => "guest-carts/$cart_id",
         content => to-json $data;
 }
 
@@ -579,7 +579,7 @@ our multi guest-carts-billing-address(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/billing-address";
+        uri     => "guest-carts/$cart_id/billing-address";
 }
 
 # POST   /V1/guest-carts/:cartId/billing-address
@@ -591,7 +591,7 @@ our multi guest-carts-billing-address(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/billing-address",
+        uri     => "guest-carts/$cart_id/billing-address",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -605,7 +605,7 @@ our sub guest-carts-collect-totals(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/collect-totals",
+        uri     => "guest-carts/$cart_id/collect-totals",
         content => to-json $data;
 }
 
@@ -618,7 +618,7 @@ our multi guest-carts-coupons(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/coupons";
+        uri     => "guest-carts/$cart_id/coupons";
 }
 
 # PUT    /V1/guest-carts/:cartId/coupons/:couponCode
@@ -630,7 +630,7 @@ our multi guest-carts-coupons(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/coupons/$coupon_code",
+        uri     => "guest-carts/$cart_id/coupons/$coupon_code",
         content => '';
 }
 
@@ -642,7 +642,7 @@ our sub guest-carts-coupons-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/coupons";
+        uri     => "guest-carts/$cart_id/coupons";
 }
 
 # POST   /V1/guest-carts/:cartId/estimate-shipping-methods
@@ -654,7 +654,7 @@ our sub guest-carts-estimate-shipping-methods(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/estimate-shipping-methods",
+        uri     => "guest-carts/$cart_id/estimate-shipping-methods",
         content => to-json $data;
 }
 
@@ -667,7 +667,7 @@ our multi guest-carts-items(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/items";
+        uri     => "guest-carts/$cart_id/items";
 }
 
 # POST   /V1/guest-carts/:cartId/items
@@ -679,7 +679,7 @@ our multi guest-carts-items(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/items",
+        uri     => "guest-carts/$cart_id/items",
         content => to-json $data;
 }
 
@@ -693,7 +693,7 @@ our multi guest-carts-items(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/items/$item_id",
+        uri     => "guest-carts/$cart_id/items/$item_id",
         content => to-json $data;
 }
 
@@ -706,7 +706,7 @@ our sub guest-carts-items-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/items/$item_id";
+        uri     => "guest-carts/$cart_id/items/$item_id";
 }
 
 # PUT    /V1/guest-carts/:cartId/order
@@ -718,7 +718,7 @@ our sub guest-carts-order(
     my $response = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/order",
+        uri     => "guest-carts/$cart_id/order",
         content => to-json $data;
     return $response.Int||$response;
 }
@@ -731,7 +731,7 @@ our sub guest-carts-payment-methods(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/payment-methods";
+        uri     => "guest-carts/$cart_id/payment-methods";
 }
 
 proto sub guest-carts-selected-payment-method(|) is export {*}
@@ -743,7 +743,7 @@ our multi guest-carts-selected-payment-method(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/selected-payment-method";
+        uri     => "guest-carts/$cart_id/selected-payment-method";
 }
 
 # PUT    /V1/guest-carts/:cartId/selected-payment-method
@@ -755,7 +755,7 @@ our multi guest-carts-selected-payment-method(
     my $response = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/selected-payment-method",
+        uri     => "guest-carts/$cart_id/selected-payment-method",
         content => to-json $data;
     return $response.Int||$response;
 }
@@ -768,7 +768,7 @@ our sub guest-carts-shipping-methods(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/shipping-methods";
+        uri     => "guest-carts/$cart_id/shipping-methods";
 }
 
 # GET    /V1/guest-carts/:cartId/totals
@@ -779,6 +779,6 @@ our sub guest-carts-totals(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/totals";
+        uri     => "guest-carts/$cart_id/totals";
 }
 

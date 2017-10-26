@@ -13,6 +13,6 @@ our sub carts-licence(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/licence";
+        uri     => "carts/licence";
 }
 

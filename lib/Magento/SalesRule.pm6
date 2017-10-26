@@ -15,7 +15,7 @@ our multi coupons(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/coupons/$coupon_id";
+        uri     => "coupons/$coupon_id";
 }
 
 # POST   /V1/coupons
@@ -26,7 +26,7 @@ our multi coupons(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/coupons",
+        uri     => "coupons",
         content => to-json $data;
 }
 
@@ -39,7 +39,7 @@ our multi coupons(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/coupons/$coupon_id",
+        uri     => "coupons/$coupon_id",
         content => to-json $data;
 }
 
@@ -51,7 +51,7 @@ our sub coupons-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/coupons/$coupon_id";
+        uri     => "coupons/$coupon_id";
 }
 
 # POST   /V1/coupons/deleteByCodes
@@ -62,7 +62,7 @@ our sub coupons-delete-by-codes(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/coupons/deleteByCodes",
+        uri     => "coupons/deleteByCodes",
         content => to-json $data;
 }
 
@@ -74,7 +74,7 @@ our sub coupons-delete-by-ids(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/coupons/deleteByIds",
+        uri     => "coupons/deleteByIds",
         content => to-json $data;
 }
 
@@ -86,7 +86,7 @@ our sub coupons-generate(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/coupons/generate",
+        uri     => "coupons/generate",
         content => to-json $data;
 }
 
@@ -99,7 +99,7 @@ our sub coupons-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/coupons/search?$query_string";
+        uri     => "coupons/search?$query_string";
 }
 
 proto sub sales-rules(|) is export {*}
@@ -111,7 +111,7 @@ our multi sales-rules(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/salesRules/$rule_id";
+        uri     => "salesRules/$rule_id";
 }
 
 # POST   /V1/salesRules
@@ -122,7 +122,7 @@ our multi sales-rules(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/salesRules",
+        uri     => "salesRules",
         content => to-json $data;
 }
 
@@ -135,7 +135,7 @@ our multi sales-rules(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/salesRules/$rule_id",
+        uri     => "salesRules/$rule_id",
         content => to-json $data;
 }
 
@@ -147,7 +147,7 @@ our sub sales-rules-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/salesRules/$rule_id";
+        uri     => "salesRules/$rule_id";
 }
 
 # GET    /V1/salesRules/search
@@ -159,6 +159,6 @@ our sub sales-rules-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/salesRules/search?$query_string";
+        uri     => "salesRules/search?$query_string";
 }
 

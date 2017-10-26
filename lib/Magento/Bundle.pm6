@@ -14,7 +14,7 @@ our sub bundle-products-children(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/bundle-products/$product_sku/children";
+        uri     => "bundle-products/$product_sku/children";
 }
 
 proto sub bundle-products-links(|) is export {*}
@@ -28,7 +28,7 @@ our multi bundle-products-links(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/bundle-products/$sku/links/$option_id",
+        uri     => "bundle-products/$sku/links/$option_id",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -43,7 +43,7 @@ our multi bundle-products-links(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/bundle-products/$sku/links/$id",
+        uri     => "bundle-products/$sku/links/$id",
         content => to-json $data;
 }
 
@@ -57,7 +57,7 @@ our multi bundle-products-options(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/bundle-products/$sku/options/$option_id";
+        uri     => "bundle-products/$sku/options/$option_id";
 }
 
 # PUT    /V1/bundle-products/options/:optionId
@@ -69,7 +69,7 @@ our multi bundle-products-options(
     my $results = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/bundle-products/options/$option_id",
+        uri     => "bundle-products/options/$option_id",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -83,7 +83,7 @@ our sub bundle-products-options-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/bundle-products/$sku/options/$option_id";
+        uri     => "bundle-products/$sku/options/$option_id";
 }
 
 # POST   /V1/bundle-products/options/add
@@ -94,7 +94,7 @@ our sub bundle-products-options-add(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/bundle-products/options/add",
+        uri     => "bundle-products/options/add",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -107,7 +107,7 @@ our sub bundle-products-options-all(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/bundle-products/$sku/options/all";
+        uri     => "bundle-products/$sku/options/all";
 }
 
 # DELETE /V1/bundle-products/:sku/options/:optionId/children/:childSku
@@ -120,7 +120,7 @@ our sub bundle-products-options-children-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/bundle-products/$sku/options/$option_id/children/$child_sku";
+        uri     => "bundle-products/$sku/options/$option_id/children/$child_sku";
 }
 
 # GET    /V1/bundle-products/options/types
@@ -130,6 +130,6 @@ our sub bundle-products-options-types(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/bundle-products/options/types";
+        uri     => "bundle-products/options/types";
 }
 

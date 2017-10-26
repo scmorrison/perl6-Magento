@@ -86,10 +86,9 @@ multi sub search-criteria-to-query-string(
     'searchCriteria';
 }
 
-sub tokenize($str) is export {
-    (m/ [\S* \s* '/V1/'] <(\S*)> / given $str)
-    ==> split('/')
-    ==> grep({$_ !~~ /^':'/ })
-    ==> join('')
+sub tokenize(
+    Str $str
+) is export {
+    join '', grep {$_ !~~ /^':'/}, split '/', $str ~~ m/ [\S* \s* '/V1/'] <(\S*)> /;
 }
 

@@ -15,7 +15,7 @@ our multi carts-gift-message(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/gift-message";
+        uri     => "carts/$cart_id/gift-message";
 }
 
 # GET    /V1/carts/:cartId/gift-message/:itemId
@@ -27,7 +27,7 @@ our multi carts-gift-message(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/gift-message/$item_id";
+        uri     => "carts/$cart_id/gift-message/$item_id";
 }
 
 # POST   /V1/carts/:cartId/gift-message
@@ -39,7 +39,7 @@ our multi carts-gift-message(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/gift-message",
+        uri     => "carts/$cart_id/gift-message",
         content => to-json $data;
 }
 
@@ -53,7 +53,7 @@ our multi carts-gift-message(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/gift-message/$item_id",
+        uri     => "carts/$cart_id/gift-message/$item_id",
         content => to-json $data;
 }
 
@@ -65,7 +65,7 @@ our multi carts-mine-gift-message(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/gift-message";
+        uri     => "carts/mine/gift-message";
 }
 
 # GET    /V1/carts/mine/gift-message/:itemId
@@ -76,7 +76,7 @@ our multi carts-mine-gift-message(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/gift-message/$item_id";
+        uri     => "carts/mine/gift-message/$item_id";
 }
 
 # POST   /V1/carts/mine/gift-message
@@ -87,7 +87,7 @@ our multi carts-mine-gift-message(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/gift-message",
+        uri     => "carts/mine/gift-message",
         content => to-json $data;
 }
 
@@ -100,7 +100,7 @@ our multi carts-mine-gift-message(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/gift-message/$item_id",
+        uri     => "carts/mine/gift-message/$item_id",
         content => to-json $data;
 }
 
@@ -113,7 +113,7 @@ our multi guest-carts-gift-message(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/gift-message";
+        uri     => "guest-carts/$cart_id/gift-message";
 }
 
 # GET    /V1/guest-carts/:cartId/gift-message/:itemId
@@ -125,7 +125,7 @@ our multi guest-carts-gift-message(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/gift-message/$item_id";
+        uri     => "guest-carts/$cart_id/gift-message/$item_id";
 }
 
 # POST   /V1/guest-carts/:cartId/gift-message
@@ -137,7 +137,7 @@ our multi guest-carts-gift-message(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/gift-message",
+        uri     => "guest-carts/$cart_id/gift-message",
         content => to-json $data;
 }
 
@@ -151,7 +151,7 @@ our multi guest-carts-gift-message(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/guest-carts/$cart_id/gift-message/$item_id",
+        uri     => "guest-carts/$cart_id/gift-message/$item_id",
         content => to-json $data;
 }
 

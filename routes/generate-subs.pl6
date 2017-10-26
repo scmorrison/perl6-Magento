@@ -86,7 +86,7 @@ sub MAIN($mod_name) {
         print "    my \$query_string = search-criteria-to-query-string \$search_criteria;\n" when $route ~~ /'search'/;
 
         # Reformat the query string to use the correct p6 variable format
-        my $route_formatted = $route;
+        my $route_formatted = S/'/V1/'// given $route;
         for @params -> $p {
             my $param = "\${ decamelize (S/':'// given $p), '_' }";
             $route_formatted = S/$p/$param/ given $route_formatted;
@@ -97,7 +97,7 @@ sub MAIN($mod_name) {
             Magento::HTTP::request
                 method  => '$http_method',
                 config  => \$config,
-                uri     => "rest{$route_formatted}{"?\$query_string" when $route ~~ /'search'/}"{",\n        content => to-json \$data" when $http_method ~~ 'POST'|'PUT'};
+                uri     => "{$route_formatted}{"?\$query_string" when $route ~~ /'search'/}"{",\n        content => to-json \$data" when $http_method ~~ 'POST'|'PUT'};
         END
 
         # Close the routine

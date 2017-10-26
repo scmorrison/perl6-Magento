@@ -15,7 +15,7 @@ our multi returns(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returns/$id";
+        uri     => "returns/$id";
 }
 
 # DELETE /V1/returns/:id
@@ -26,7 +26,7 @@ our sub returns-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/returns/$id";
+        uri     => "returns/$id";
 }
 
 # POST   /V1/returns
@@ -37,7 +37,7 @@ our multi returns(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/returns",
+        uri     => "returns",
         content => to-json $data;
 }
 
@@ -50,7 +50,7 @@ our multi returns(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/returns/$id",
+        uri     => "returns/$id",
         content => to-json $data;
 }
 
@@ -61,7 +61,7 @@ our multi returns(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returns";
+        uri     => "returns";
 }
 
 proto sub returns-attribute-metadata(|) is export {*}
@@ -73,7 +73,7 @@ our multi returns-attribute-metadata(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returnsAttributeMetadata/$attribute_code";
+        uri     => "returnsAttributeMetadata/$attribute_code";
 }
 
 # GET    /V1/returnsAttributeMetadata
@@ -83,7 +83,7 @@ our multi returns-attribute-metadata(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returnsAttributeMetadata";
+        uri     => "returnsAttributeMetadata";
 }
 
 # GET    /V1/returnsAttributeMetadata/custom
@@ -93,7 +93,7 @@ our sub returns-attribute-metadata-custom(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returnsAttributeMetadata/custom";
+        uri     => "returnsAttributeMetadata/custom";
 }
 
 # GET    /V1/returnsAttributeMetadata/form/:formCode
@@ -104,7 +104,7 @@ our sub returns-attribute-metadata-form(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returnsAttributeMetadata/form/$form_code";
+        uri     => "returnsAttributeMetadata/form/$form_code";
 }
 
 proto sub returns-comments(|) is export {*}
@@ -117,7 +117,7 @@ our multi returns-comments(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/returns/$id/comments",
+        uri     => "returns/$id/comments",
         content => to-json $data;
 }
 
@@ -129,7 +129,7 @@ our multi returns-comments(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returns/$id/comments";
+        uri     => "returns/$id/comments";
 }
 
 # GET    /V1/returns/:id/labels
@@ -140,7 +140,7 @@ our sub returns-labels(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returns/$id/labels";
+        uri     => "returns/$id/labels";
 }
 
 proto sub returns-tracking-numbers(|) is export {*}
@@ -153,7 +153,7 @@ our multi returns-tracking-numbers(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/returns/$id/tracking-numbers",
+        uri     => "returns/$id/tracking-numbers",
         content => to-json $data;
 }
 
@@ -166,7 +166,7 @@ our sub returns-tracking-numbers-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/returns/$id/tracking-numbers/$track_id";
+        uri     => "returns/$id/tracking-numbers/$track_id";
 }
 
 # GET    /V1/returns/:id/tracking-numbers
@@ -177,6 +177,6 @@ our multi returns-tracking-numbers(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/returns/$id/tracking-numbers";
+        uri     => "returns/$id/tracking-numbers";
 }
 

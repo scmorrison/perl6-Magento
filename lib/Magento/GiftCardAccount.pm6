@@ -15,7 +15,7 @@ our multi carts-giftCards(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/$quote_id/giftCards";
+        uri     => "carts/$quote_id/giftCards";
 }
 
 # PUT    /V1/carts/:cartId/giftCards
@@ -27,7 +27,7 @@ our multi carts-giftCards(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/carts/$cart_id/giftCards",
+        uri     => "carts/$cart_id/giftCards",
         content => to-json $data;
 }
 
@@ -40,7 +40,7 @@ our sub carts-giftCards-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/carts/$quote_id/giftCards/$gift_card_code";
+        uri     => "carts/$quote_id/giftCards/$gift_card_code";
 }
 
 # POST   /V1/carts/mine/giftCards
@@ -51,7 +51,7 @@ our sub carts-mine-giftCards(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/giftCards",
+        uri     => "carts/mine/giftCards",
         content => to-json $data;
 }
 
@@ -64,7 +64,7 @@ our sub carts-guest-carts-giftCards(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/guest-carts/$cart_id/giftCards",
+        uri     => "carts/guest-carts/$cart_id/giftCards",
         content => to-json $data;
 }
 
@@ -77,7 +77,7 @@ our sub carts-guest-carts-checkGiftCard(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/guest-carts/$cart_id/checkGiftCard/$gift_card_code";
+        uri     => "carts/guest-carts/$cart_id/checkGiftCard/$gift_card_code";
 }
 
 # GET    /V1/carts/mine/checkGiftCard/:giftCardCode
@@ -88,6 +88,6 @@ our sub carts-mine-checkGiftCard(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/carts/mine/checkGiftCard/$gift_card_code";
+        uri     => "carts/mine/checkGiftCard/$gift_card_code";
 }
 

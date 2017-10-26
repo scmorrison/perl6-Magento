@@ -113,7 +113,6 @@ subtest {
 }, 'Bundle products-options-types';
 
 subtest {
-    is True, True;
 
     # DELETE /V1/bundle-products/:sku/options/:optionId/children/:childSku
     my $t1_results =

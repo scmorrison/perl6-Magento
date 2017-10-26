@@ -15,7 +15,7 @@ our multi products-downloadable-links(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/downloadable-links";
+        uri     => "products/$sku/downloadable-links";
 }
 
 # POST   /V1/products/:sku/downloadable-links
@@ -27,7 +27,7 @@ our multi products-downloadable-links(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/$sku/downloadable-links",
+        uri     => "products/$sku/downloadable-links",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -42,7 +42,7 @@ our multi products-downloadable-links(
     my $results = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/$sku/downloadable-links/$id",
+        uri     => "products/$sku/downloadable-links/$id",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -55,7 +55,7 @@ our sub products-downloadable-links-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/downloadable-links/$id";
+        uri     => "products/downloadable-links/$id";
 }
 
 proto sub products-downloadable-links-samples(|) is export {*}
@@ -67,7 +67,7 @@ our multi products-downloadable-links-samples(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/downloadable-links/samples";
+        uri     => "products/$sku/downloadable-links/samples";
 }
 
 # POST   /V1/products/:sku/downloadable-links/samples
@@ -79,7 +79,7 @@ our multi products-downloadable-links-samples(
     my $results = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/$sku/downloadable-links/samples",
+        uri     => "products/$sku/downloadable-links/samples",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -94,7 +94,7 @@ our multi products-downloadable-links-samples(
     my $results = Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/$sku/downloadable-links/samples/$id",
+        uri     => "products/$sku/downloadable-links/samples/$id",
         content => to-json $data;
     return $results.Int||$results;
 }
@@ -107,7 +107,7 @@ our sub products-downloadable-links-samples-delete(
     my $results = Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/downloadable-links/samples/$id";
+        uri     => "products/downloadable-links/samples/$id";
     return $results.Int||$results;
 }
 

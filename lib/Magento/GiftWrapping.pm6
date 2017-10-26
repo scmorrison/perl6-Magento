@@ -15,7 +15,7 @@ our multi gift-wrappings(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/gift-wrappings/$id";
+        uri     => "gift-wrappings/$id";
 }
 
 # POST   /V1/gift-wrappings
@@ -26,7 +26,7 @@ our multi gift-wrappings(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/gift-wrappings",
+        uri     => "gift-wrappings",
         content => to-json $data;
 }
 
@@ -39,7 +39,7 @@ our multi gift-wrappings(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/gift-wrappings/$wrapping_id",
+        uri     => "gift-wrappings/$wrapping_id",
         content => to-json $data;
 }
 
@@ -50,7 +50,7 @@ our multi gift-wrappings(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/gift-wrappings";
+        uri     => "gift-wrappings";
 }
 
 # DELETE /V1/gift-wrappings/:id
@@ -61,6 +61,6 @@ our sub gift-wrappings-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/gift-wrappings/$id";
+        uri     => "gift-wrappings/$id";
 }
 

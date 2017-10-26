@@ -14,7 +14,7 @@ our multi directory-countries(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/directory/countries";
+        uri     => "directory/countries";
 }
 
 # GET    /V1/directory/countries/:countryId
@@ -25,7 +25,7 @@ our multi directory-countries(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/directory/countries/$country_id";
+        uri     => "directory/countries/$country_id";
 }
 
 # GET    /V1/directory/currency
@@ -35,6 +35,6 @@ our sub directory-currency(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/directory/currency";
+        uri     => "directory/currency";
 }
 

@@ -177,23 +177,19 @@ subtest {
             rule_id => $t1_results<id>.Int;
     is $t3_results<code>, 'RuleDeleteMe', 'tax rules by id';
 
-    # DELETE /V1/taxRules/:ruleId
+    # GET    /V1/taxRules/search
     my $t4_results =
+        tax-rules-search 
+            %config;
+    is $t4_results<items>.head<code> ~~ 'RuleDeleteMe', True, 'tax rules-search all';
+
+    # DELETE /V1/taxRules/:ruleId
+    my $t5_results =
         tax-rules-delete 
             %config,
             rule_id => $t1_results<id>.Int;
-    is $t4_results, True, 'tax rules delete';
+    is $t5_results, True, 'tax rules delete';
 
 }, 'Tax rules';
-
-subtest {
-
-    # GET    /V1/taxRules/search
-    my $t1_results =
-        tax-rules-search 
-            %config;
-    is True, True, 'tax rules-search all';
-
-}, 'Tax rules-search';
 
 done-testing;

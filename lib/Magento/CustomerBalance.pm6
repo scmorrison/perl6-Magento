@@ -14,7 +14,7 @@ our sub carts-mine-balance-apply(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/carts/mine/balance/apply",
+        uri     => "carts/mine/balance/apply",
         content => to-json $data;
 }
 

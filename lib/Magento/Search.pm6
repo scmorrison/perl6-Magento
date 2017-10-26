@@ -15,6 +15,6 @@ our sub search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/search?$query_string";
+        uri     => "search?$query_string";
 }
 

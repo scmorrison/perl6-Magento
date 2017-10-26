@@ -15,7 +15,7 @@ our multi customer-groups(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customerGroups/$id"
+        uri     => "customerGroups/$id"
 }
 
 #POST    /V1/customerGroups
@@ -26,7 +26,7 @@ our multi customer-groups(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/customerGroups",
+        uri     => "customerGroups",
         content => to-json $data;
 }
 
@@ -39,7 +39,7 @@ our multi customer-groups(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/customerGroups/$id",
+        uri     => "customerGroups/$id",
         content => to-json $data;
 }
 
@@ -53,7 +53,7 @@ our multi customer-groups-default(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customerGroups/default/$store_id"
+        uri     => "customerGroups/default/$store_id"
 }
 
 #GET    /V1/customerGroups/default
@@ -63,7 +63,7 @@ our multi customer-groups-default(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customerGroups/default"
+        uri     => "customerGroups/default"
 }
 
 #GET    /V1/customerGroups/:id/permissions
@@ -74,7 +74,7 @@ our sub customer-groups-permissions(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customerGroups/$id/permissions"
+        uri     => "customerGroups/$id/permissions"
 }
 
 #GET    /V1/customerGroups/search
@@ -86,7 +86,7 @@ our sub customer-groups-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customerGroups/search?$query_string"
+        uri     => "customerGroups/search?$query_string"
 }
 
 #DELETE /V1/customerGroups/:id
@@ -97,7 +97,7 @@ our sub customer-groups-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/customerGroups/$id"
+        uri     => "customerGroups/$id"
 }
 
 #GET    /V1/attributeMetadata/customer/attribute/:attributeCode
@@ -108,7 +108,7 @@ our sub customer-metadata-attribute(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/attributeMetadata/customer/attribute/$attribute_code"
+        uri     => "attributeMetadata/customer/attribute/$attribute_code"
 }
 
 #GET    /V1/attributeMetadata/customer/form/:formCode
@@ -119,7 +119,7 @@ our sub customer-metadata-form(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/attributeMetadata/customer/form/$form_code"
+        uri     => "attributeMetadata/customer/form/$form_code"
 }
 
 #GET    /V1/attributeMetadata/customer
@@ -129,7 +129,7 @@ our sub customer-metadata(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/attributeMetadata/customer"
+        uri     => "attributeMetadata/customer"
 }
 
 #GET    /V1/attributeMetadata/customer/custom
@@ -139,7 +139,7 @@ our sub customer-metadata-custom(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/attributeMetadata/customer/custom"
+        uri     => "attributeMetadata/customer/custom"
 }
 
 #GET    /V1/attributeMetadata/customerAddress/attribute/:attributeCode
@@ -150,7 +150,7 @@ our sub customer-address-attribute(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/attributeMetadata/customerAddress/attribute/$attribute_code"
+        uri     => "attributeMetadata/customerAddress/attribute/$attribute_code"
 }
 
 #GET    /V1/attributeMetadata/customerAddress/form/:formCode
@@ -161,7 +161,7 @@ our sub customer-address-form(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/attributeMetadata/customerAddress/form/$form_code"
+        uri     => "attributeMetadata/customerAddress/form/$form_code"
 }
 
 #GET    /V1/attributeMetadata/customerAddress
@@ -171,7 +171,7 @@ our sub customer-address(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/attributeMetadata/customerAddress"
+        uri     => "attributeMetadata/customerAddress"
 }
 
 #GET    /V1/attributeMetadata/customerAddress/custom
@@ -181,7 +181,7 @@ our sub customer-address-custom(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/attributeMetadata/customerAddress/custom"
+        uri     => "attributeMetadata/customerAddress/custom"
 }
 
 #DELETE /V1/customers/:customerId
@@ -192,7 +192,7 @@ our sub customers-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/customers/$id"
+        uri     => "customers/$id"
 }
 
 #POST   /V1/customers
@@ -204,7 +204,7 @@ our multi customers(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/customers",
+        uri     => "customers",
         content => to-json $data;
 }
 #PUT    /V1/customers/:id
@@ -216,7 +216,7 @@ our multi customers(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/customers/$id",
+        uri     => "customers/$id",
         content => to-json $data;
 }
 #GET    /V1/customers
@@ -226,7 +226,7 @@ our multi customers(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers"
+        uri     => "customers"
 }
 #GET    /V1/customers/:customerId
 our multi customers(
@@ -236,7 +236,7 @@ our multi customers(
     Magento::HTTP::request
         method  => 'GET',
         host    => $config<host>,
-        uri=> "rest/V1/customers/$id"
+        uri=> "customers/$id"
 }
 
 #PUT    /V1/customers/me/activate
@@ -247,7 +247,7 @@ our sub customers-me-activate(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/customers/me/activate",
+        uri     => "customers/me/activate",
         content => to-json $data;
 }
 
@@ -259,7 +259,7 @@ our multi customers-me(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/me";
+        uri     => "customers/me";
 }
 #PUT    /V1/customers/me
 our multi customers-me(
@@ -269,7 +269,7 @@ our multi customers-me(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/customers/me",
+        uri     => "customers/me",
         content => to-json $data;
 }
 
@@ -281,7 +281,7 @@ our sub customers-me-password(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/customers/me/password",
+        uri     => "customers/me/password",
         content => to-json $data;
 }
 
@@ -292,7 +292,7 @@ our sub customers-me-billing-address(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/me/billingAddress";
+        uri     => "customers/me/billingAddress";
 }
 
 #GET    /V1/customers/me/shippingAddress
@@ -302,7 +302,7 @@ our sub customers-me-shipping-address(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/me/shippingAddress";
+        uri     => "customers/me/shippingAddress";
 }
 
 #GET    /V1/customers/search
@@ -314,7 +314,7 @@ our sub customers-search(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/search?$query_string"
+        uri     => "customers/search?$query_string"
 }
 
 #PUT    /V1/customers/:email/activate
@@ -326,7 +326,7 @@ our sub customers-email-activate(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/customers/$email/activate",
+        uri     => "customers/$email/activate",
         content => to-json $data;
 }
 
@@ -339,7 +339,7 @@ our sub customers-reset-link-token(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/$id/password/resetLinkToken/$link_token"
+        uri     => "customers/$id/password/resetLinkToken/$link_token"
 }
 
 #PUT    /V1/customers/password
@@ -350,7 +350,7 @@ our sub customers-password(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/customers/password",
+        uri     => "customers/password",
         content => to-json $data;
 }
 
@@ -363,7 +363,7 @@ our multi customers-confirm(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/$id/confirm"
+        uri     => "customers/$id/confirm"
 }
 #POST   /V1/customers/confirm
 our multi customers-confirm(
@@ -373,7 +373,7 @@ our multi customers-confirm(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/customers/confirm",
+        uri     => "customers/confirm",
         content => to-json $data;
 }
 
@@ -385,7 +385,7 @@ our sub customers-validate(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/customers/validate",
+        uri     => "customers/validate",
         content => to-json $data;
 }
 
@@ -397,7 +397,7 @@ our sub customers-permissions(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/$id/permissions/readonly"
+        uri     => "customers/$id/permissions/readonly"
 }
 
 #POST   /V1/customers/isEmailAvailable
@@ -408,7 +408,7 @@ our sub customers-email-available(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/customers/isEmailAvailable",
+        uri     => "customers/isEmailAvailable",
         content => to-json $data;
 }
 
@@ -420,7 +420,7 @@ our sub customers-addresses(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/addresses/$address_id"
+        uri     => "customers/addresses/$address_id"
 }
 
 #GET    /V1/customers/:customerId/billingAddress
@@ -431,7 +431,7 @@ our sub customers-addresses-billing(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/$id/billingAddress"
+        uri     => "customers/$id/billingAddress"
 }
 
 #GET    /V1/customers/:customerId/shippingAddress
@@ -442,7 +442,7 @@ our sub customers-addresses-shipping(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/customers/$id/shippingAddress"
+        uri     => "customers/$id/shippingAddress"
 }
 
 #DELETE /V1/addresses/:addressId
@@ -453,5 +453,5 @@ our sub customers-addresses-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/addresses/$address_id"
+        uri     => "addresses/$address_id"
 }

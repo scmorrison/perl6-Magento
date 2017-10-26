@@ -18,7 +18,7 @@ our multi products(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products?$query_string"
+        uri     => "products?$query_string"
 }
 #POST   /V1/products
 our multi products(
@@ -28,7 +28,7 @@ our multi products(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products",
+        uri     => "products",
         content => to-json $data;
 }
 #PUT    /V1/products/:sku
@@ -40,7 +40,7 @@ our multi products(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/$sku",
+        uri     => "products/$sku",
         content => to-json $data;
 }
 #GET    /V1/products/:sku
@@ -51,7 +51,7 @@ our multi products(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku"
+        uri     => "products/$sku"
 }
 
 #DELETE /V1/products/:sku
@@ -62,7 +62,7 @@ our sub products-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku";
+        uri     => "products/$sku";
 }
 
 #GET    /V1/products/attributes/types
@@ -72,7 +72,7 @@ our sub products-attributes-types(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attributes/types";
+        uri     => "products/attributes/types";
 }
 
 proto sub products-attributes(|) is export {*}
@@ -84,7 +84,7 @@ our multi products-attributes(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attribute_code";
+        uri     => "products/attributes/$attribute_code";
 }
 #GET    /V1/products/attributes
 our multi products-attributes(
@@ -95,7 +95,7 @@ our multi products-attributes(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attributes?$query_string";
+        uri     => "products/attributes?$query_string";
 }
 #POST   /V1/products/attributes
 our multi products-attributes(
@@ -105,7 +105,7 @@ our multi products-attributes(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/attributes",
+        uri     => "products/attributes",
         content => to-json $data;
 }
 #PUT    /V1/products/attributes/:attribute_code
@@ -117,7 +117,7 @@ our multi products-attributes(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attribute_code",
+        uri     => "products/attributes/$attribute_code",
         content => to-json $data;
 }
 
@@ -129,7 +129,7 @@ our sub products-attributes-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attribute_code";
+        uri     => "products/attributes/$attribute_code";
 }
 
 proto sub categories-attributes(|) is export {*}
@@ -142,7 +142,7 @@ our multi categories-attributes(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/attributes?$query_string";
+        uri     => "categories/attributes?$query_string";
 }
 #GET    /V1/categories/attributes/:attribute_code
 our multi categories-attributes(
@@ -152,7 +152,7 @@ our multi categories-attributes(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/attributes/$attribute_code";
+        uri     => "categories/attributes/$attribute_code";
 }
 
 #GET    /V1/categories/attributes/:attribute_code/options
@@ -163,7 +163,7 @@ our sub categories-attributes-options(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/attributes/$attribute_code/options";
+        uri     => "categories/attributes/$attribute_code/options";
 }
 
 #GET    /V1/products/types
@@ -173,7 +173,7 @@ our sub products-types(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/types";
+        uri     => "products/types";
 }
 
 proto sub products-attribute-sets(|) is export {*}
@@ -186,7 +186,7 @@ our multi products-attribute-sets(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/sets/list?$query_string";
+        uri     => "products/attribute-sets/sets/list?$query_string";
 }
 #GET    /V1/products/attribute-sets/:attribute_set_id
 our multi products-attribute-sets(
@@ -196,7 +196,7 @@ our multi products-attribute-sets(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attribute_set_id";
+        uri     => "products/attribute-sets/$attribute_set_id";
 }
 #POST   /V1/products/attribute-sets
 our multi products-attribute-sets(
@@ -206,7 +206,7 @@ our multi products-attribute-sets(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets",
+        uri     => "products/attribute-sets",
         content => to-json $data;
 }
 #PUT    /V1/products/attribute-sets/:attribute_set_id
@@ -218,7 +218,7 @@ our multi products-attribute-sets(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attribute_set_id",
+        uri     => "products/attribute-sets/$attribute_set_id",
         content => to-json $data;
 }
 
@@ -230,7 +230,7 @@ our sub products-attribute-sets-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attribute_set_id";
+        uri     => "products/attribute-sets/$attribute_set_id";
 }
 
 proto sub products-attribute-sets-attributes(|) is export {*}
@@ -242,7 +242,7 @@ our multi products-attribute-sets-attributes(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attribute_set_id/attributes";
+        uri     => "products/attribute-sets/$attribute_set_id/attributes";
 }
 #POST   /V1/products/attribute-sets/attributes
 our multi products-attribute-sets-attributes(
@@ -252,7 +252,7 @@ our multi products-attribute-sets-attributes(
     my $response = Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/attributes",
+        uri     => "products/attribute-sets/attributes",
         content => to-json $data;
     return $response.Int||$response;
 }
@@ -266,7 +266,7 @@ our sub products-attribute-sets-attributes-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attribute_set_id/attributes/$attribute_code";
+        uri     => "products/attribute-sets/$attribute_set_id/attributes/$attribute_code";
 }
 
 #GET    /V1/products/attribute-sets/groups/list
@@ -279,7 +279,7 @@ our multi products-attribute-groups(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/groups/list?$query_string";
+        uri     => "products/attribute-sets/groups/list?$query_string";
 }
 #POST   /V1/products/attribute-sets/groups
 our multi products-attribute-groups(
@@ -289,7 +289,7 @@ our multi products-attribute-groups(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/groups",
+        uri     => "products/attribute-sets/groups",
         content => to-json $data;
 }
 #PUT    /V1/products/attribute-sets/:attribute_set_id/groups
@@ -301,7 +301,7 @@ our multi products-attribute-groups(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/$attribute_set_id/groups",
+        uri     => "products/attribute-sets/$attribute_set_id/groups",
         content => to-json $data;
 }
 
@@ -313,7 +313,7 @@ our sub products-attribute-groups-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attribute-sets/groups/$group_id";
+        uri     => "products/attribute-sets/groups/$group_id";
 }
 
 #GET    /V1/products/attributes/:attribute_code/options
@@ -325,7 +325,7 @@ our multi products-attributes-options(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attribute_code/options";
+        uri     => "products/attributes/$attribute_code/options";
 }
 #POST   /V1/products/attributes/:attribute_code/options
 our multi products-attributes-options(
@@ -336,7 +336,7 @@ our multi products-attributes-options(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attribute_code/options",
+        uri     => "products/attributes/$attribute_code/options",
         content => to-json $data;
 }
 
@@ -349,7 +349,7 @@ our sub products-attributes-options-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/attributes/$attribute_code/options/$option_id";
+        uri     => "products/attributes/$attribute_code/options/$option_id";
 }
 
 #GET    /V1/products/media/types/:attribute_set_name
@@ -360,7 +360,7 @@ our sub products-media-types(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/media/types/$attribute_set_name";
+        uri     => "products/media/types/$attribute_set_name";
 }
 
 proto sub products-media(|) is export {*}
@@ -372,7 +372,7 @@ our multi products-media(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media";
+        uri     => "products/$sku/media";
 }
 #GET    /V1/products/:sku/media/:entry_id
 our multi products-media(
@@ -383,7 +383,7 @@ our multi products-media(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media/$entry_id";
+        uri     => "products/$sku/media/$entry_id";
 }
 #POST   /V1/products/:sku/media
 our multi products-media(
@@ -394,7 +394,7 @@ our multi products-media(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media",
+        uri     => "products/$sku/media",
         content => to-json $data;
 }
 #PUT    /V1/products/:sku/media/:entry_id
@@ -407,7 +407,7 @@ our multi products-media(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media/$entry_id",
+        uri     => "products/$sku/media/$entry_id",
         content => to-json $data;
 }
 
@@ -420,7 +420,7 @@ our sub products-media-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/media/$entry_id";
+        uri     => "products/$sku/media/$entry_id";
 }
 
 proto sub products-tier-prices(|) is export {*}
@@ -433,7 +433,7 @@ our multi products-tier-prices(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/group-prices/$customer_group_id/tiers";
+        uri     => "products/$sku/group-prices/$customer_group_id/tiers";
 }
 #POST   /V1/products/:sku/group-prices/:customer_group_id/tiers/:qty/price/:price
 our multi products-tier-prices(
@@ -446,7 +446,7 @@ our multi products-tier-prices(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/$sku/group-prices/$customer_group_id/tiers/$qty/price/$price",
+        uri     => "products/$sku/group-prices/$customer_group_id/tiers/$qty/price/$price",
         content => '{}';
 }
 
@@ -460,7 +460,7 @@ our sub products-tier-prices-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/group-prices/$customer_group_id/tiers/$qty";
+        uri     => "products/$sku/group-prices/$customer_group_id/tiers/$qty";
 }
 
 proto sub categories(|) is export {*}
@@ -473,7 +473,7 @@ our multi categories(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories?rootCategoryId=$root_category_id&depth=$depth";
+        uri     => "categories?rootCategoryId=$root_category_id&depth=$depth";
 }
 #GET    /V1/categories/:category_id
 our multi categories(
@@ -483,7 +483,7 @@ our multi categories(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/$category_id";
+        uri     => "categories/$category_id";
 }
 #POST   /V1/categories
 our multi categories(
@@ -493,7 +493,7 @@ our multi categories(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/categories",
+        uri     => "categories",
         content => to-json $data;
 }
 #PUT    /V1/categories/:id
@@ -505,7 +505,7 @@ our multi categories(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/categories/$category_id",
+        uri     => "categories/$category_id",
         content => to-json $data;
 }
 
@@ -517,7 +517,7 @@ our sub categories-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/categories/$category_id";
+        uri     => "categories/$category_id";
 }
 
 #PUT    /V1/categories/:category_id/move
@@ -529,7 +529,7 @@ our sub categories-move(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/categories/$category_id/move",
+        uri     => "categories/$category_id/move",
         content => to-json $data;
 }
 
@@ -540,7 +540,7 @@ our sub products-options-types(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/options/types";
+        uri     => "products/options/types";
 }
 
 proto sub products-custom-options(|) is export {*}
@@ -552,7 +552,7 @@ our multi products-custom-options(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/options";
+        uri     => "products/$sku/options";
 }
 #GET    /V1/products/:sku/options/:option_id
 our multi products-custom-options(
@@ -563,7 +563,7 @@ our multi products-custom-options(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/options/$option_id";
+        uri     => "products/$sku/options/$option_id";
 }
 #POST   /V1/products/options
 our multi products-custom-options(
@@ -573,7 +573,7 @@ our multi products-custom-options(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/options",
+        uri     => "products/options",
         content => to-json $data;
 }
 #PUT    /V1/products/options/:option_id
@@ -585,7 +585,7 @@ our multi products-custom-options(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/options/$option_id",
+        uri     => "products/options/$option_id",
         content => to-json $data;
 }
 
@@ -598,7 +598,7 @@ our sub products-custom-options-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/options/$option_id";
+        uri     => "products/$sku/options/$option_id";
 }
 
 #GET    /V1/products/links/types
@@ -608,7 +608,7 @@ our sub products-links-types(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/links/types";
+        uri     => "products/links/types";
 }
 
 #GET    /V1/products/links/:type/attributes
@@ -619,7 +619,7 @@ our sub products-links-attributes(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/links/$type/attributes";
+        uri     => "products/links/$type/attributes";
 }
 
 proto sub products-links(|) is export {*}
@@ -632,7 +632,7 @@ our multi products-links(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/products/$sku/links/$type";
+        uri     => "products/$sku/links/$type";
 }
 #POST   /V1/products/:sku/links
 our multi products-links(
@@ -643,7 +643,7 @@ our multi products-links(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/$sku/links",
+        uri     => "products/$sku/links",
         content => to-json $data;
 }
 
@@ -656,7 +656,7 @@ our sub products-links-update(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/$sku/links",
+        uri     => "products/$sku/links",
         content => to-json $data;
 }
 
@@ -670,7 +670,7 @@ our sub products-links-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/links/$type/$linked_product_sku";
+        uri     => "products/$sku/links/$type/$linked_product_sku";
 }
 
 proto sub categories-products(|) is export {*}
@@ -682,7 +682,7 @@ our multi categories-products(
     Magento::HTTP::request
         method  => 'GET',
         config  => $config,
-        uri     => "rest/V1/categories/$category_id/products";
+        uri     => "categories/$category_id/products";
 }
 #POST   /V1/categories/:category_id/products
 our multi categories-products(
@@ -693,7 +693,7 @@ our multi categories-products(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/categories/$category_id/products",
+        uri     => "categories/$category_id/products",
         content => to-json $data;
 }
 #PUT    /V1/categories/:category_id/products
@@ -705,7 +705,7 @@ our sub categories-products-update(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/categories/$category_id/products",
+        uri     => "categories/$category_id/products",
         content => to-json $data;
 }
 
@@ -718,7 +718,7 @@ our sub categories-products-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/categories/$category_id/products/$sku";
+        uri     => "categories/$category_id/products/$sku";
 }
 
 #* POST   /V1/products/:sku/websites
@@ -730,7 +730,7 @@ our sub products-websites(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/products/$sku/websites",
+        uri     => "products/$sku/websites",
         content => to-json $data;
 }
 
@@ -743,7 +743,7 @@ our sub products-websites-update(
     Magento::HTTP::request
         method  => 'PUT',
         config  => $config,
-        uri     => "rest/V1/products/$sku/websites",
+        uri     => "products/$sku/websites",
         content => to-json $data;
 }
 
@@ -756,5 +756,5 @@ our sub products-websites-delete(
     Magento::HTTP::request
         method  => 'DELETE',
         config  => $config,
-        uri     => "rest/V1/products/$sku/websites/$website_id";
+        uri     => "products/$sku/websites/$website_id";
 }

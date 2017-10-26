@@ -14,7 +14,7 @@ our sub reward-mine-use-reward(
     Magento::HTTP::request
         method  => 'POST',
         config  => $config,
-        uri     => "rest/V1/reward/mine/use-reward",
+        uri     => "reward/mine/use-reward",
         content => to-json $data;
 }
 
