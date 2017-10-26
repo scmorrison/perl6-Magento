@@ -191,13 +191,13 @@ use JSON::Fast;
 Magento::HTTP::request
     method  => 'GET',
     config  => %config,
-    uri     => "rest/V1/myCustom/endpoint/123";
+    uri     => "myCustom/endpoint/123";
 
 # POST/PUT/DELETE
 Magento::HTTP::request
     method  => 'POST', # or PUT / DELETE
     config  => %config,
-    uri     => "rest/V1/myCustom/endpoint",
+    uri     => "myCustom/endpoint",
     content => to-json %content-hash;
 ```
 
