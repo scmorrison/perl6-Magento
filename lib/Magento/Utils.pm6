@@ -86,6 +86,59 @@ multi sub search-criteria-to-query-string(
     'searchCriteria';
 }
 
+
+sub build-filter(
+    @parts
+    --> Hash
+) {
+    %{
+        field          => @parts[0],
+        value          => @parts[1],
+        condition_type => @parts[2]
+    }
+}
+
+sub search-criteria-hash(
+    @filters,
+    :$conditions
+) {
+    searchCriteria => %{
+        filterGroups => [
+            {
+                filters => [ @filters ]
+            },
+        ],
+        |$conditions
+    }
+}
+
+sub nested-filters(
+    @set
+    --> Seq
+) {
+    do gather @set.map: -> $set {
+        take build-filter($set) when $set.all ~~ Str; 
+        take nested-filters($set) when $set.all !~~ Str;
+    }
+}
+
+our sub search-critera(
+    Array $filters,
+    :$conditions = %{}
+    --> Hash
+) is export {
+
+    # Single set of filters
+    return %( 
+        search-criteria-hash [ build-filter($filters), ], :$conditions
+    ) when $filters.all ~~ Str;
+
+    # Multiple AND / OR filters
+    return %(
+        search-criteria-hash nested-filters($filters), :$conditions
+    );
+}
+
 sub tokenize(
     Str $str
 ) is export {

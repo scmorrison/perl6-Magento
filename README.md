@@ -178,6 +178,53 @@ my %customer_search_criteria = %{
 # Do a customer search using the search criteria hash
 say customers-search %config, search_criteria => %customer_search_criteria;
 ```
+#### search-criteria Helper routine
+
+In addition to the `Hash` approach above, you can also use the `search-critera` helper routine from `Magento::Utils`. This creates a search criteria `Hash` using more condensed notation.
+
+Only the initial `Array` is required. The `conditions` named argument is optional.
+
+```perl
+use Magento::Utils;
+
+# Single filter
+my %critera = search-critera
+    # field   value                      condition_type
+    ['email', 'p6magento@fakeemail.com', 'eq'],
+    conditions => %{
+        current_page => 1,
+        page_size    => 10
+    }
+
+# Logical AND filter
+my %criteria = search-critera
+    [
+        ['email', 'p6magento@fakeemail.com', 'eq'],
+        ['email', 'p6magento23@fakeemail.com', 'eq'],
+    ],
+    conditions => %{
+        current_page => 1,
+        page_size    => 10
+    }
+
+# Logical OR
+my %criteria = search-critera
+    [
+        [
+            ['email', 'p6magento@fakeemail.com', 'eq'],
+            ['email', 'p6magento23@fakeemail.com', 'eq'],
+        ],
+        [
+            ['email', 'fakeuser1@p6magento.com', 'eq'],
+            ['email', 'fakeuser2@p6magehto.com', 'eq'],
+        ],
+    ],
+    conditions => %{
+        current_page => 1,
+        page_size    => 10
+    }
+
+```
 
 ### Custom API endpoints
 
