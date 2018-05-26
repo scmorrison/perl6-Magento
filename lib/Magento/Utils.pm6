@@ -75,7 +75,7 @@ multi sub search-criteria-to-query-string(
     Int  $filters_i     = 0
     --> Str
 ) {
-    (map -> $k, $v {
+    return (map -> $k, $v {
         search-criteria-to-query-string($v, $k, :$filtergroup_i, :$filters_i);
     }, kv $data).head;
 }

@@ -2,7 +2,7 @@
 
 use v6;
 
-unit module Magento:ver<0.0.1>:auth<github:scmorrison>;
+unit module Magento:ver<0.0.2>:auth<github:scmorrison>;
 
 # License
 # 
