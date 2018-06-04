@@ -1,4 +1,4 @@
-MYSQL_VERSION=latest
+MYSQL_VERSION=5.7
 MYSQL_HOST=mysql
 MYSQL_ROOT_PASSWORD=myrootpassword
 MYSQL_USER=magento
