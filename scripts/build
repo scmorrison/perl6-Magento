@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# delete the old running containers
-docker kill perl6-magento_web_1 perl6-magento_db_1 perl6-magento_rakudo_1
-docker rm perl6-magento_web_1 perl6-magento_db_1 perl6-magento_rakudo_1
-
 # rebuild / bring up all the instances (we have a third one now running rakudo)
 docker-compose up --build -d;
 
