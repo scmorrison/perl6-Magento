@@ -181,7 +181,7 @@ subtest {
     my $t4_results =
         tax-rules-search 
             %config;
-    is $t4_results<items>.head<code> ~~ 'RuleDeleteMe', True, 'tax rules-search all';
+    is so $t4_results<items>.any.grep( -> %d { %d<code>:exists && %d<code> ~~ 'RuleDeleteMe' }), True, 'tax rules-search all';
 
     # DELETE /V1/taxRules/:ruleId
     my $t5_results =

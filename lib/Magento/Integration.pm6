@@ -16,7 +16,7 @@ our sub integration-token(
     Str  :$user_type!,
     Hash :$data!
 ) is export {
-    Magento::HTTP::request
+    return Magento::HTTP::request
         method  => 'POST',
         config  => $config,
         uri     => "integration/$user_type/token",

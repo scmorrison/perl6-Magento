@@ -30,6 +30,7 @@ sub format-url(
 our sub request(
     Hash :$config,
     Str  :$host,
+    Int  :$timeout = 180,
     Str  :$method = 'GET',
     Str  :$uri,
     Str  :$content = '',
@@ -53,21 +54,23 @@ our sub request(
         $headers ?? |$headers !! %()
     }
 
+    my $http = HTTP::Tinyish.new(:$timeout);
+
     my %res = do given $method {
         when 'DELETE' {
-            HTTP::Tinyish.new.delete:
+            $http.delete:
                 $url, headers => %request_headers;
         }
         when 'GET' {
-            HTTP::Tinyish.new.get:
+            $http.get:
                 $url, headers => %request_headers;
         }
         when 'POST' {
-            HTTP::Tinyish.new.post:
+            $http.post:
                 $url, headers => %request_headers, :$content;
         }
         when 'PUT' {
-            HTTP::Tinyish.new.put:
+            $http.put:
                 $url, headers => %request_headers, :$content;
         }
     }

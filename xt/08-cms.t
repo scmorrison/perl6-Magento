@@ -60,7 +60,7 @@ subtest {
 
     my $t4_results = cms-block-search %config, search_criteria => %t4_search_criteria;
     $block_content = $t1_results<items>.grep({ $_<identifier> ~~ 'new-block' }).head<content>;
-    is so $t4_results<items>.head<content> ~~ / 'Delete Me Block' /, True, 'cms block-search all';
+    is so $t4_results<items>.any.grep( -> %d { %d<content>:exists && %d<content> ~~ /'Delete Me Block'/ }), True, 'cms block-search all';
 
     # DELETE /V1/cmsBlock/:blockId
     my $t5_results =

@@ -1,13 +1,15 @@
-version: '2'
+version: '2.2'
 services:
   db:
     image: mysql:latest
+    cpu_percent: 25
     env_file:
       - xt/env
     ports:
       - "33061:3306"
   web:
-    image: cnstechnicalgroup/docker-magento2
+    image: alexcheng/magento2
+    cpu_percent: 25
     env_file:
       - xt/env
     ports:
@@ -16,6 +18,7 @@ services:
       - db:mysql
   rakudo:
     image: rakudo-star
+    cpu_percent: 25
     links:
       - web
     stdin_open: true

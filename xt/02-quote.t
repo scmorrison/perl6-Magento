@@ -158,12 +158,13 @@ subtest {
 
     my %customer_data = %{
         customer => %{
+            id         => $customer_id,
             email      => $customer_email,
             firstname  => 'Camelia',
             lastname   => 'Butterfly',
             middlename => 'Perl 6',
             websiteId  => 1,
-            addresses => [
+            addresses  => [
                 %{
                     customerId       => $customer_id,
                     firstname        => 'Camelia',

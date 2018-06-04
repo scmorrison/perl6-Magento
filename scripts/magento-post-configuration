@@ -2,15 +2,16 @@
 
 source xt/env;
 
-# Wait until composer initialized
-while [[ "$variable" != *"/var/www/html/var/composer_home: directory"* ]];do
-    variable=$(docker exec -i -t perl6magento_web_1 /bin/bash -c "file /var/www/html/var/composer_home")
-    sleep 0.1 
-done 
+# Wait until mysql available
+docker exec -it -e SCRIPT="$(cat scripts/mysql-running-test)" perl6magento_db_1 /bin/bash -c " 
+    echo \"\$SCRIPT\" > mysql-running-test; 
+    chmod +x mysql-running-test; 
+    ./mysql-running-test;";
 
-# Wait until MySQL service is up
-while [[ "$variable" != *"succeeded"* ]];do
-    variable=$(docker exec -i -t perl6magento_web_1 /bin/bash -c "nc -zv db 3306")
+# Wait until composer initialized
+while [[ "$variable" -ne "0" ]];do
+    echo "Cannot connect to db";
+    variable=$(docker exec -i -t perl6magento_web_1 /bin/bash -c 'file /var/www/html/var/composer_home; echo $?')
     sleep 0.1 
 done 
 

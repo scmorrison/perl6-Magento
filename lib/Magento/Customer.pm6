@@ -210,8 +210,8 @@ our multi customers(
 #PUT    /V1/customers/:id
 our multi customers(
     Hash $config,
-    Int  :$id,
-    Hash :$data
+    Int  :$id!,
+    Hash :$data!
 ) {
     Magento::HTTP::request
         method  => 'PUT',
