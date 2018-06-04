@@ -1,6 +1,6 @@
 #!/bin/sh
 # Wait until MySQL is really available
-MAXCOUNTER=60;
+MAXCOUNTER=240;
 COUNTER=1;
 while ! mysql -h db -u"magento" -p"magento" -e "show databases;" > /dev/null 2>&1; do
     sleep 1
