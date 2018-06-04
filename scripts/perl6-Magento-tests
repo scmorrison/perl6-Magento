@@ -1,9 +1,6 @@
 #!/bin/bash
 
-#docker exec -i -t perl6magento_rakudo_1 /bin/bash -c " \
-#    cd /app/; \
-#    P6MAGHOST=http://web prove -ve 'perl6 -Ilib' xt/";
-docker exec -i -t perl6magento_rakudo_1 /bin/bash -c " \
+docker exec -i -t perl6-magento_rakudo_1 /bin/bash -c " \
     cd /app/; \
     zef install --force --deps-only --\test .; \
     P6MAGHOST=http://web/ prove -ve 'perl6 -Ilib' xt/";
