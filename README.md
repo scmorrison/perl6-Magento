@@ -1,3 +1,7 @@
+<h1>Moved to GitLab</h1>
+
+This project has moved to GitLab: https://gitlab.com/samcns/perl6-Magento
+
 Magento [![build status](https://travis-ci.org/scmorrison/perl6-Magento.svg?branch=master)](https://travis-ci.org/scmorrison/perl6-Magento)
 ===
 
